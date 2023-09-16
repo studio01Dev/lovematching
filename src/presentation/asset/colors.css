@@ -1,0 +1,22 @@
+:root {
+    --brand-500: #5F63C7;
+    --brand-400: #7E82D2;
+    --brand-300: #9FA1DD;
+    --brand-200: #BFC0E8;
+    --brand-100: #DFDFF3;
+    --brand-50: #EFEFF9;
+  
+    --grey-black: #000000;
+    --grey-900: #191F28;
+    --grey-800: #333D4B;
+    --grey-700: #4E5968;
+    --grey-600: #6B7684;
+    --grey-500: #8B95A1;
+    --grey-400: #B0B8C1;
+    --grey-300: #D1D6DB;
+    --grey-200: #E5E8EB;
+    --grey-100: #F2F4F6;
+    --grey-50: #EFEFF9;
+    --grey-white: #FFFFFF;
+    --grey-opaque: #1A001B37;
+  }

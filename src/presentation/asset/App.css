@@ -1,0 +1,199 @@
+/* import colors */
+@import url("./colors.css");
+
+/* basic screen setting */
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* import font */
+@font-face {
+  font-family: Pretendard-ExtraBold;
+  src: url("../asset/fonts/Pretendard-ExtraBold.ttf");
+}
+
+@font-face {
+  font-family: Pretendard-Bold;
+  src: url("../asset/fonts/Pretendard-Bold.ttf");
+}
+
+@font-face {
+  font-family: Pretendard-SemiBold;
+  src: url("../asset/fonts/Pretendard-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: Pretendard-Medium;
+  src: url("../asset/fonts/Pretendard-Medium.ttf");
+}
+
+@font-face {
+  font-family: Pretendard-Regular;
+  src: url("../asset/fonts/Pretendard-Regular.ttf");
+}
+
+/* define font sizes */
+.h1 {
+  font-size: 32px;
+  line-height: 44px;
+}
+
+.h2 {
+  font-size: 26px;
+  line-height: 36px;
+}
+
+.h3 {
+  font-size: 23px;
+  line-height: 32px;
+}
+
+.h4 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.h5 {
+  font-size: 17px;
+  line-height: 24px;
+}
+
+.h6 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.h7 {
+  font-size: 11px;
+  line-height: 16px;
+}
+
+/* define font weights */
+:root {
+    --extrabold: Pretendard-ExtraBold;
+    --bold: Pretendard-Bold;
+    --semibold: Pretendard-SemiBold;
+    --medium: Pretendard-Medium;
+    --regular: Pretendard-Regular;
+}
+
+.eb {
+  font-family: Pretendard-ExtraBold;
+}
+
+.b {
+  font-family: Pretendard-Bold;
+}
+
+.sb {
+  font-family: Pretendard-SemiBold;
+}
+
+.m {
+  font-family: Pretendard-Medium;
+}
+
+.r {
+  font-family: Pretendard-Regular;
+}
+
+/* alignment */
+.valign {
+  display: flex;
+  flex-direction: column;
+}
+
+.halign {
+  display: flex;
+  flex-direction: row;
+}
+
+.calign {
+  align-items: center;
+}
+
+.sbalign {
+  justify-content: space-between;
+}
+
+.gap4 {
+  gap: 4px;
+}
+
+/* color */
+.brand500 {
+  color: var(--brand-500);
+}
+
+.brand400 {
+  color: var(--brand-400);
+}
+
+.brand300 {
+  color: var(--brand-300);
+}
+
+.brand200 {
+  color: var(--brand-200);
+}
+
+.brand100 {
+  color: var(--brand-100);
+}
+
+.brand50 {
+  color: var(--brand-50);
+}
+
+.greyblack {
+  color: var(--grey-black);
+}
+
+.grey900 {
+  color: var(--grey-900);
+}
+
+.grey800 {
+  color: var(--grey-800);
+}
+
+.grey700 {
+  color: var(--grey-700);
+}
+
+.grey600 {
+  color: var(--grey-600);
+}
+
+.grey500 {
+  color: var(--grey-500);
+}
+
+.grey400 {
+  color: var(--grey-400);
+}
+
+.grey300 {
+  color: var(--grey-300);
+}
+
+.grey200 {
+  color: var(--grey-200);
+}
+
+.grey100 {
+  color: var(--grey-100);
+}
+
+.grey50 {
+  color: var(--grey-50);
+}
+
+.greywhite {
+  color: var(--grey-white);
+}
+
+.greyopaque {
+  color: var(--grey-opaque);
+}
