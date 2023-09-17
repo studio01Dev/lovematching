@@ -8,6 +8,7 @@ header {
   border-bottom: 1px solid var(--grey-200);
   display: flex;
   justify-content: center;
+  z-index: 1;
 }
 
 .header {

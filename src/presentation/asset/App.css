@@ -133,6 +133,10 @@ body {
   gap: 8px;
 }
 
+.gap10 {
+  gap: 10px;
+}
+
 .gap12 {
   gap: 12px;
 }

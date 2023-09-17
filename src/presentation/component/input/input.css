@@ -237,6 +237,9 @@ input::-webkit-file-upload-button {
 .slider {
   display: flex;
   overflow-x: auto;
+  width: 350px;
+  box-sizing: border-box;
+  height: 310px;
 }
 
 .slider img {
@@ -244,13 +247,29 @@ input::-webkit-file-upload-button {
   scroll-snap-align: start;
   object-fit: cover;
   border-radius: 4px;
-  width: 310px;
+  max-width: 310px;
   height: 310px;
 }
 
+/* profile */
+.profile {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 20px;
+}
 
-
-
-
+/* notification */
+.notification {
+  width: 310px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  color: var(--grey-white);
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 /* transition: 'top 0.5s ease-in-out', */

@@ -32,10 +32,10 @@ export default function ViewRequest({ suggestList }) {
 
 
             <div class="valign gap20 padding">
-                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' /></Link>
-                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' /></Link>
-                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' /></Link>
-                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' /></Link>
+                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' mbti='INTJ'/></Link>
+                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' mbti='INTJ'/></Link>
+                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' mbti='INTJ'/></Link>
+                <Link style={{ textDecoration: 'none' }} to='../make-request'><ListItem name='변범수' age='23' residence='서울 성북구' job='자영업' mbti='INTJ'/></Link>
 
             </div>
 

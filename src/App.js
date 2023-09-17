@@ -21,6 +21,7 @@ import Queue from './presentation/screen/match/queue';
 import ReviewRequest from './presentation/screen/match/reviewRequest'
 import MakeRequest from './presentation/screen/match/makeRequest';
 import Profile from './presentation/screen/match/profile'
+import ApproveRequest from './presentation/screen/match/approveRequest';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path='/view-request' element={<ViewRequest />} />
             <Route path='/review-request' element={<ReviewRequest />} />
             <Route path='/make-request' element={<MakeRequest />} />
+            <Route path='/approve-request' element={<ApproveRequest />} />
             <Route path='/profile' element={<Profile />} />
           </Routes>
         </BrowserRouter>
