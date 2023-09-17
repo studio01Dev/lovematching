@@ -1,27 +1,23 @@
-import React, { useState } from 'react';
-import '../input/input.css';
+import '../input/input.css'
+import React from 'react';
+import { useState } from 'react';
 
-export default function InputCheckbox({ labelText }) {
+export default function InputRadioNotMatter({name, value1, value2, labelText}) {
     return (
         <div className='input-comp'>
             <div className='h6 m grey500'>{labelText}</div>
             <InputCheckboxNotMatter />
             <div className='input'>
-                <div className='checkbox-container'>
-                    <Checkbox name='test' value='test1' />
-                    <Checkbox name='test' value='test2' />
-                    <Checkbox name='test' value='test3' />
-                    <Checkbox name='test' value='test4' />
-                </div>
+                <Radio name='test' value={value1} />
+                <Radio name='test' value={value2} />
             </div>
         </div>
     );
 }
-
-export function Checkbox({ name, value }) {
+export function Radio({ name, value }) {
     return (
         <div className='input-container halign gap4 calign'>
-            <input type='checkbox' name={name} value={value} id={value} />
+            <input type='radio' name={name} value={value} id={value} />
             <label for={value} className='h5 r'>{value}</label>
         </div>
     );

@@ -71,11 +71,11 @@ body {
 
 /* define font weights */
 :root {
-    --extrabold: Pretendard-ExtraBold;
-    --bold: Pretendard-Bold;
-    --semibold: Pretendard-SemiBold;
-    --medium: Pretendard-Medium;
-    --regular: Pretendard-Regular;
+  --extrabold: Pretendard-ExtraBold;
+  --bold: Pretendard-Bold;
+  --semibold: Pretendard-SemiBold;
+  --medium: Pretendard-Medium;
+  --regular: Pretendard-Regular;
 }
 
 .eb {
@@ -117,8 +117,24 @@ body {
   justify-content: space-between;
 }
 
+.text-calign {
+  text-align: center;
+}
+
 .gap4 {
   gap: 4px;
+}
+
+.gap8 {
+  gap: 8px;
+}
+
+.gap12 {
+  gap: 12px;
+}
+
+.gap32 {
+  gap: 32px;
 }
 
 /* color */
@@ -196,4 +212,41 @@ body {
 
 .greyopaque {
   color: var(--grey-opaque);
+}
+
+/* padding */
+.side-padding {
+  padding: 0 20px;
+}
+
+.vertical-padding {
+  padding: 20px 0;
+}
+
+.padding {
+  padding: 20px;
+}
+
+.margin {
+  margin-bottom: 136px;
+}
+
+.margin40 {
+  margin-bottom: 40px;
+}
+
+/* message */
+.message {
+  width: 350px;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: var(--brand-50);
+  border-radius: 4px;
+}
+
+li {
+  font-size: 17px;
+  line-height: 24px;
+  font-family: Pretendard-Medium;
+  color: var(--grey-700);
 }

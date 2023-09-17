@@ -5,8 +5,8 @@ export default function InputRadio({name, value1, value2, labelText}) {
         <div className='input-comp'>
             <div className='h6 m grey500'>{labelText}</div>
             <div className='input'>
-                <Radio name='test' value='남성' />
-                <Radio name='test' value='여성' />
+                <Radio name='test' value={value1} />
+                <Radio name='test' value={value2} />
             </div>
         </div>
     );

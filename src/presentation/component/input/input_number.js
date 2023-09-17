@@ -1,13 +1,10 @@
 import React from 'react';
-import '../input/input.css'
+import '../input/input.css';
 
 export default function InputNumber({ labelText, placeholder }) {
   const handleInputChange = (e) => {
-    // Use a regular expression to remove non-numeric characters
-    const numericValue = e.target.value.replace(/[^0-9]/g, '');
-
-    // Update the input field value with the numeric value
-    e.target.value = numericValue;
+    // Remove non-numeric characters and dashes
+    let numericValue = e.target.value.replace(/[^0-9]/g, '');
   };
 
   return (
