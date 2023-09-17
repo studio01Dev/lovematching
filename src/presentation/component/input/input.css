@@ -179,6 +179,76 @@ input::-webkit-file-upload-button {
   display: none;
 }
 
+/* list item */
+.item-container {
+  display: flex;
+  width: 350px;
+  flex-direction: row;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 1px solid var(--grey-200);
+}
+
+.detail-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 12px 12px 20px;
+}
+
+.detail-image {
+  width: 100px;
+  height: 100px;
+}
+
+.detail-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* back-buttons */
+.text-back {
+  padding: 8px 16px;
+  background-color: var(--grey-100);
+  width: fit-content;
+  border-radius: 8px;
+  border: none;
+}
+
+.arrow-back {
+  padding: 40px 20px 0px 20px;
+  box-sizing: border-box;
+}
+
+/* request & viewRequest boxes */
+.request-box {
+  background-color: var(--grey-100);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.slider-wrapper {
+  position: relative;
+  margin: 0 auto;
+  scroll-snap-type: x mandatory;
+}
+
+.slider {
+  display: flex;
+  overflow-x: auto;
+}
+
+.slider img {
+  flex: 1 0 100%;
+  scroll-snap-align: start;
+  object-fit: cover;
+  border-radius: 4px;
+  width: 310px;
+  height: 310px;
+}
+
+
 
 
 

@@ -121,6 +121,10 @@ body {
   text-align: center;
 }
 
+.gap2 {
+  gap: 2px;
+}
+
 .gap4 {
   gap: 4px;
 }
@@ -131,6 +135,10 @@ body {
 
 .gap12 {
   gap: 12px;
+}
+
+.gap20 {
+  gap: 20px;
 }
 
 .gap32 {
@@ -225,6 +233,10 @@ body {
 
 .padding {
   padding: 20px;
+}
+
+.pt40 {
+  padding-top: 40px;
 }
 
 .margin {

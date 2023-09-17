@@ -14,7 +14,13 @@ import Form5 from "../src/presentation/screen/forms/form-5";
 import FormDone from './presentation/screen/forms/formDone';
 // import components
 import Header from './presentation/component/header/header'
-import { Form } from 'react-router-dom';
+import ViewRequest from './presentation/screen/match/viewRequest'
+import Test from './presentation/screen/match/test';
+import InputCode from './presentation/screen/match/inputCode';
+import Queue from './presentation/screen/match/queue';
+import ReviewRequest from './presentation/screen/match/reviewRequest'
+import MakeRequest from './presentation/screen/match/makeRequest';
+import Profile from './presentation/screen/match/profile'
 
 function App() {
   return (
@@ -23,12 +29,18 @@ function App() {
       <div style={{ width: '390px', margin: '0 auto' }}>
         <BrowserRouter>
           <Routes>
-            <Route index element={<Form1 />} />
+            <Route index element={<Test />} />
             <Route path='/2' element={<Form2 />} />
             <Route path='/3' element={<Form3 />} />
             <Route path='/4' element={<Form4 />} />
             <Route path='/5' element={<Form5 />} />
-            <Route path='done' element={<FormDone />} />
+            <Route path='/done' element={<FormDone />} />
+            <Route path='/input-code' element={<InputCode />} />
+            <Route path='/queue' element={<Queue />} />
+            <Route path='/view-request' element={<ViewRequest />} />
+            <Route path='/review-request' element={<ReviewRequest />} />
+            <Route path='/make-request' element={<MakeRequest />} />
+            <Route path='/profile' element={<Profile />} />
           </Routes>
         </BrowserRouter>
       </div>
