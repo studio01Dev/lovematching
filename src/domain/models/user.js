@@ -1,5 +1,6 @@
 export default class User {
     constructor(
+        //form-1: basic, job, work
         name,
         phoneNum,
         sex,
@@ -10,6 +11,7 @@ export default class User {
         company,
         jobDetail,
         howWork,
+        //form-2: appearance, region, asset, life style
         height,
         bodyType,
         style,
@@ -21,6 +23,7 @@ export default class User {
         smoking,
         tattoo,
         religion,
+        //form-3: personality, photo
         mbti,
         strength,
         interest,
@@ -28,9 +31,8 @@ export default class User {
         faceImageUrl,
         bodyImageUrl,
         employImageUrl,
-        counterpartMaxAge,
-        counterpartMinAge,
-        counterpartCheckSameAge,
+        //form-4: counterpart
+        counterpartAge,
         counterpartAcademic,
         counterpartJob,
         counterpartIncome,
@@ -44,8 +46,16 @@ export default class User {
         counterpartSmoking,
         counterpartTattoo,
         counterpartReligion,
-        consultingType
+        consultingType,
+        // service
+        paymentStatus,
+        newConsumerStatus,
+        firstSignUpStatus,
+        blackConsumerStatus,
+        nowConsultingStatus,
+        consultingEndTime,
     ) {
+        //
         this.name = name;
         this.phoneNum = phoneNum;
         this.sex = sex;
@@ -56,6 +66,7 @@ export default class User {
         this.company = company;
         this.jobDetail = jobDetail;
         this.howWork = howWork;
+        //
         this.height = height;
         this.bodyType = bodyType;
         this.style = style;
@@ -67,6 +78,7 @@ export default class User {
         this.smoking = smoking;
         this.tattoo = tattoo;
         this.religion = religion;
+        //
         this.mbti = mbti;
         this.strength = strength;
         this.interest = interest;
@@ -74,9 +86,8 @@ export default class User {
         this.faceImageUrl = faceImageUrl;
         this.bodyImageUrl = bodyImageUrl;
         this.employImageUrl = employImageUrl;
-        this.counterpartMaxAge = counterpartMaxAge;
-        this.counterpartMinAge = counterpartMinAge;
-        this.counterpartCheckSameAge = counterpartCheckSameAge;
+        //
+        this.counterpartAge = counterpartAge;
         this.counterpartAcademic = counterpartAcademic;
         this.counterpartJob = counterpartJob;
         this.counterpartIncome = counterpartIncome;
@@ -91,6 +102,13 @@ export default class User {
         this.counterpartTattoo = counterpartTattoo;
         this.counterpartReligion = counterpartReligion;
         this.consultingType = consultingType;
+        //
+        this.paymentStatus = paymentStatus;
+        this.newConsumerStatus = newConsumerStatus;
+        this.firstSignUpStatus = firstSignUpStatus;
+        this.blackConsumerStatus = blackConsumerStatus;
+        this.nowConsultingStatus = nowConsultingStatus;
+        this.consultingEndTime = consultingEndTime;
     }
     toObject() {
         return {
@@ -104,6 +122,7 @@ export default class User {
             company: this.company,
             jobDetail: this.jobDetail,
             howWork: this.howWork,
+            //
             height: this.height,
             bodyType: this.bodyType,
             style: this.style,
@@ -115,6 +134,7 @@ export default class User {
             smoking: this.smoking,
             tattoo: this.tattoo,
             religion: this.religion,
+            //
             mbti: this.mbti,
             strength: this.strength,
             interest: this.interest,
@@ -122,9 +142,8 @@ export default class User {
             faceImageUrl: this.faceImageUrl,
             bodyImageUrl: this.bodyImageUrl,
             employImageUrl: this.employImageUrl,
-            counterpartMaxAge: this.counterpartMaxAge,
-            counterpartMinAge: this.counterpartMinAge,
-            counterpartCheckSameAge: this.counterpartCheckSameAge,
+            //
+            counterpartAge: this.counterpartAge,
             counterpartAcademic: this.counterpartAcademic,
             counterpartJob: this.counterpartJob,
             counterpartIncome: this.counterpartIncome,
@@ -138,7 +157,14 @@ export default class User {
             counterpartSmoking: this.counterpartSmoking,
             counterpartTattoo: this.counterpartTattoo,
             counterpartReligion: this.counterpartReligion,
-            consultingType: this.consultingType
+            consultingType: this.consultingType,
+            //
+            paymentStatus: this.paymentStatus,
+            newConsumerStatus: this.newConsumerStatus,
+            firstSignUpStatus: this.firstSignUpStatus,
+            blackConsumerStatus: this.blackConsumerStatus,
+            nowConsultingStatus: this.nowConsultingStatus,
+            consultingEndTime: this.consultingEndTime,
         };
     }
 }

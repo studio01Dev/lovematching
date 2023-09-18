@@ -7,9 +7,11 @@ import { ref } from 'firebase/storage';
 import storage from '../../../firebase/index'
 import { uploadBytes } from 'firebase/storage';
 import { getDownloadURL } from 'firebase/storage';
+import { MyResponse } from "../models/MyResponse"
 
 
-export default async function enrollUser(name,
+export default async function enrollUser(
+    name,
     phoneNum,
     sex,
     yearOfBirth,
@@ -19,6 +21,7 @@ export default async function enrollUser(name,
     company,
     jobDetail,
     howWork,
+    //
     height,
     bodyType,
     style,
@@ -30,6 +33,7 @@ export default async function enrollUser(name,
     smoking,
     tattoo,
     religion,
+    //
     mbti,
     strength,
     interest,
@@ -37,12 +41,8 @@ export default async function enrollUser(name,
     faceImageData,
     bodyImageData,
     employImageData,
-    faceImageUrl,
-    bodyImageUrl,
-    employImageUrl,
-    counterpartMaxAge,
-    counterpartMinAge,
-    counterpartCheckSameAge,
+    //
+    counterpartAge,
     counterpartAcademic,
     counterpartJob,
     counterpartIncome,
@@ -56,7 +56,14 @@ export default async function enrollUser(name,
     counterpartSmoking,
     counterpartTattoo,
     counterpartReligion,
-    consultingType
+    consultingType,
+    //
+    paymentStatus,
+    newConsumerStatus,
+    firstSignUpStatus,
+    blackConsumerStatus,
+    nowConsultingStatus,
+    consultingEndTime,
     ) {
 
     // 사진 업로드
@@ -71,9 +78,9 @@ export default async function enrollUser(name,
     const faceImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "face")
     const bodyImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "body")
     const employImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "employ")
-    this.faceImageUrl = await getDownloadURL(faceImageRef);
-    this.bodyImageUrl = await getDownloadURL(bodyImageRef);
-    this.employImageUrl = await getDownloadURL(employImageRef);
+    const faceImageUrl = await getDownloadURL(faceImageRef);
+    const bodyImageUrl = await getDownloadURL(bodyImageRef);
+    const employImageUrl = await getDownloadURL(employImageRef);
 
     // 인스턴스 만들기
     const newUser = new User( // 인스턴스 만들기
@@ -87,6 +94,7 @@ export default async function enrollUser(name,
         company,
         jobDetail,
         howWork,
+        //
         height,
         bodyType,
         style,
@@ -98,6 +106,7 @@ export default async function enrollUser(name,
         smoking,
         tattoo,
         religion,
+        //
         mbti,
         strength,
         interest,
@@ -105,9 +114,8 @@ export default async function enrollUser(name,
         faceImageUrl,
         bodyImageUrl,
         employImageUrl,
-        counterpartMaxAge,
-        counterpartMinAge,
-        counterpartCheckSameAge,
+        //
+        counterpartAge,
         counterpartAcademic,
         counterpartJob,
         counterpartIncome,
@@ -121,7 +129,14 @@ export default async function enrollUser(name,
         counterpartSmoking,
         counterpartTattoo,
         counterpartReligion,
-        consultingType
+        consultingType,
+        //
+        paymentStatus,
+        newConsumerStatus,
+        firstSignUpStatus,
+        blackConsumerStatus,
+        nowConsultingStatus,
+        consultingEndTime,
         ).toObject();
 
         console.log(newUser)
@@ -130,9 +145,11 @@ export default async function enrollUser(name,
 
     try {
         await addDoc(docRef, newUser);
-        alert('Data added successfully.');
+        var response = new MyResponse(true, newUser, "요청이 성공적으로 처리되었습니다.");
+        alert(response.message);
     } catch (error) {
         console.error('Error:', error);
-        alert('오류가 발생했습니다. 다시 시도해 주세요.');
+        var response = new MyResponse(false, false, "잘못된 요청입니다.");
+        alert(response.message);
     }
 }
