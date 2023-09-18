@@ -59,6 +59,22 @@ export default async function enrollUser(name,
     consultingType
     ) {
 
+    // 사진 업로드
+    const faceStorageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "face");
+    const bodyStorageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "body");
+    const employStorageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "employ");
+    await uploadBytes(faceStorageRef, faceImageData)
+    await uploadBytes(bodyStorageRef, bodyImageData)
+    await uploadBytes(employStorageRef, employImageData)
+
+    // 사진 경로 받아오기
+    const faceImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "face")
+    const bodyImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "body")
+    const employImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "employ")
+    this.faceImageUrl = await getDownloadURL(faceImageRef);
+    this.bodyImageUrl = await getDownloadURL(bodyImageRef);
+    this.employImageUrl = await getDownloadURL(employImageRef);
+
     // 인스턴스 만들기
     const newUser = new User( // 인스턴스 만들기
         name,
@@ -119,33 +135,4 @@ export default async function enrollUser(name,
         console.error('Error:', error);
         alert('오류가 발생했습니다. 다시 시도해 주세요.');
     }
-
-    async function submit() {
-        try {
-            // 사진 업로드
-            const faceStorageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "face");
-            const bodyStorageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "body");
-            const employStorageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "employ");
-            await uploadBytes(faceStorageRef, faceImageData)
-            await uploadBytes(bodyStorageRef, bodyImageData)
-            await uploadBytes(employStorageRef, employImageData)
-    
-            // 사진 경로 받아오기
-            const faceImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "face")
-            const bodyImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "body")
-            const employImageRef = ref(storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + "employ")
-            this.faceImageUrl = await getDownloadURL(faceImageRef);
-            this.bodyImageUrl = await getDownloadURL(bodyImageRef);
-            this.employImageUrl = await getDownloadURL(employImageRef);
-    
-            // DB에 저장
-            const docRef = collection(db, 'users')
-    
-            await addDoc(docRef, newUser)
-        } catch (error) {
-            alert('오류가 발생했습니다. 다시 시도해 주세요.')
-        }
-    }
-
-    submit();
 }
