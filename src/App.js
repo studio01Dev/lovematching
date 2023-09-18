@@ -31,6 +31,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index element={<Test />} />
+            <Route path='/1' element={<Form1 />} />
             <Route path='/2' element={<Form2 />} />
             <Route path='/3' element={<Form3 />} />
             <Route path='/4' element={<Form4 />} />
