@@ -1,6 +1,6 @@
 import { MyResponse } from "../models/MyResponse"
 
-export default class SuggestMatchUseCase(uid) {
+export default class SuggestMatchUseCase(myUid, counterUid) {
     // 1. deleteCounterInMySuggestList
     // 2. deleteMeInCounterSuggestList
     // 3. createCounterInMySuggestMatchList
