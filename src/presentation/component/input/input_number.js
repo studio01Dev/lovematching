@@ -1,7 +1,7 @@
 import React from 'react';
 import '../input/input.css';
 
-export default function InputNumber({ labelText, placeholder }) {
+export default function InputNumber({ labelText, placeholder, value, dataToForm }) {
   const handleInputChange = (e) => {
     // Remove non-numeric characters and dashes
     let numericValue = e.target.value.replace(/[^0-9]/g, '');
@@ -16,6 +16,8 @@ export default function InputNumber({ labelText, placeholder }) {
             type="text"
             placeholder={placeholder}
             onInput={handleInputChange} // Attach the input event handler
+            value={value}
+            onChange={e => dataToForm(e.target.value)}
           />
         </div>
       </div>

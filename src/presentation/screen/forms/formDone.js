@@ -29,6 +29,7 @@ export default function FormDone({name}) {
                     </div>
                 </div>
             </div>
+            <div style={{ height: '80px' }} />
             <Button buttonText='홈으로 돌아가기' />
         </div>
     );

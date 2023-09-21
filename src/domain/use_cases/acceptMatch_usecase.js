@@ -1,6 +1,6 @@
 import { MyResponse } from "../models/MyResponse"
 
-export default class acceptMatchUseCase(myUid, counterUid) {
+export default class AcceptMatchUseCase(myUid, counterUid) {
     async function acceptMatch() {
         // 1. deleteCounterInMySelectedFromSuggestList
         await deleteDoc(doc(db, "users", myUid, "", counterUid));

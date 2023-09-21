@@ -22,6 +22,7 @@ import ReviewRequest from './presentation/screen/match/reviewRequest'
 import MakeRequest from './presentation/screen/match/makeRequest';
 import Profile from './presentation/screen/match/profile'
 import ApproveRequest from './presentation/screen/match/approveRequest';
+import Form from './presentation/screen/forms/form'
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
       <div style={{ width: '390px', margin: '0 auto' }}>
         <BrowserRouter>
           <Routes>
-            <Route index element={<Test />} />
+            <Route index element={<Form />} />
             <Route path='/1' element={<Form1 />} />
             <Route path='/2' element={<Form2 />} />
             <Route path='/3' element={<Form3 />} />

@@ -88,7 +88,6 @@ select {
 .checkbox-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 50% 50%;
   width: 100%;
 }
 
@@ -140,6 +139,9 @@ textarea {
   grid-template-columns: repeat(5, 1fr);
   box-sizing: border-box;
   padding: 20px;
+  position: fixed;
+  top: 60px;
+  background-color: var(--grey-white);
 }
 
 .progress-item-before {
@@ -156,10 +158,16 @@ textarea {
   color: var(--brand-500);
 }
 
-.progress-bar {
+.no-progress-bar {
   width: 100%;
   height: 4px;
   background-color: var(--grey-300);
+}
+
+.yes-progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--brand-500);
 }
 
 /* button */
