@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import upload from '../../asset/images/upload.png';
 
-export default function Upload({ labelText, dataToForm }) {
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  // Function to handle image selection
+export default function Upload({ labelText, dataToForm, defaultValue }) {
+  const [image, setImage] = useState(defaultValue);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    // if (file) {
-    //   const imageUrl = URL.createObjectURL(file);
-    //   setSelectedImage(imageUrl);
-    // }
-    dataToForm(file)
+    setImage(file);
+    dataToForm(file);
   };
+
+  const [text, setText] = useState('아직 업로드되지 않음');
+
+  useEffect(() => {
+    if(image !== undefined) {
+      setText('이미지 업로드됨')
+    } else {
+      setText('이미지 업로드되지 않음')
+    }
+  })
 
   return (
     <div className="input-comp">
@@ -26,7 +31,7 @@ export default function Upload({ labelText, dataToForm }) {
               style={{ display: 'none' }}
               onChange={handleImageChange}
             />
-            <div htmlFor="img">아직 업로드되지 않음</div>
+            <div htmlFor="img">{text}</div>
             <img style={{ width: '20px' }} src={upload} alt="Upload" />
           </div>
         </div>

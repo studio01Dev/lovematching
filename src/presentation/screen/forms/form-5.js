@@ -3,13 +3,10 @@ import InputCheckbox from "../../component/input/input_checkbox";
 import InputRadio from "../../component/input/input_radio";
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
 import testEnrollUserUseCase from "../../../domain/use_cases/_test_enrollUser_usecase";
+import React from 'react';
 
-export default function Form5({ userData, onClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStyle, counterpartTattoo }) {
-    const click = () => {
-        EnrollUserUseCase(userData); // userdata가 아니라 name, phoneNum 이렇게 올려야함
-        onClick();
-    }
 
+export default function Form5({ userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStyle, counterpartTattoo }) {
     return (
         <div>
             <div className="h3 b padding">원하는 상대방을 알려주세요</div>
@@ -29,16 +26,16 @@ export default function Form5({ userData, onClick, counterpartAcademic, counterp
             <div class="valign gap12">
                 <div className="h4 b grey700 side-padding">라이프스타일</div>
                 <div class="valign gap32 margin">
-                    <InputRadio name='counterpartHaveCar' id1='counterpartCarYes' id2='counterpartCarNo' labelText='자차 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveCar(data)} />
-                    <InputRadio name='counterpartHaveHouse' id1='counterpartHouseYes' id2='counterpartHouseNo' labelText='자가 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveHouse(data)} />
+                    <InputRadio name='counterpartHaveCar' id1='counterpartCarYes' id2='counterpartCarNo' labelText='자차 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveCar(data)} defaultValue={userData.counterpartHaveCar}/>
+                    <InputRadio name='counterpartHaveHouse' id1='counterpartHouseYes' id2='counterpartHouseNo' labelText='자가 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveHouse(data)} defaultValue={userData.counterpartHaveHouse}/>
                     <InputCheckbox labelText='음주 횟수' values={['주 4회 이상', '주 2~3회', '월 2~4회', '월 1회 이하', '마시지 않음']} dataToForm={data => counterpartDrinkingFrequency(data)} />
-                    <InputRadio name='counterpartSmoking' id1='counterpartSmokingYes' id2='counterpartSmokingNo' labelText='흡연 여부' value1='있음' value2='없음' dataToForm={data => counterpartSmoking(data)} />
-                    <InputRadio name='counterpartTattoo' id1='counterpartTattooYes' id2='counterpartTattooNo' labelText='문신 여부' value1='있음' value2='없음' dataToForm={data => counterpartTattoo(data)} />
-                    <InputCheckbox labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타(직접입력)']} dataToForm={data => counterpartReligion(data)} />
+                    <InputRadio name='counterpartSmoking' id1='counterpartSmokingYes' id2='counterpartSmokingNo' labelText='흡연 여부' value1='흡연' value2='비흡연' dataToForm={data => counterpartSmoking(data)} defaultValue={userData.counterpartSmoking}/>
+                    <InputRadio name='counterpartTattoo' id1='counterpartTattooYes' id2='counterpartTattooNo' labelText='문신 여부' value1='있음' value2='없음' dataToForm={data => counterpartTattoo(data)} defaultValue={userData.counterpartTattoo}/>
+                    <InputCheckbox labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타']} dataToForm={data => counterpartReligion(data)} />
                 </div>
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='신청 완료하기' onClick={click} />
+            <Button buttonText='신청 완료하기' onClick={() => {  EnrollUserUseCase(userData); onClick(); }} backClick={backClick}/>
         </div>
     );
 }

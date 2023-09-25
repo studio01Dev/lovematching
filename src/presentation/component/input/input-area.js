@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../input/input.css';
 import { district, subdistrict } from '../../../domain/models/area';
 
-export default function InputArea({ labelText1, labelText2, dataToForm }) {
+export default function InputArea({ labelText1, labelText2, dataToForm, defaultValue }) {
+
     const districts = district;
     const subdistricts = subdistrict;
 
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [selectedSubdistrict, setSelectedSubdistrict] = useState('');
+
+    useEffect(() => {
+        if (defaultValue !== undefined) {
+            const defaultDistrict = defaultValue.districtSelect;
+            setSelectedDistrict(defaultDistrict);
+        }
+    }, [defaultValue]);
+    
+    useEffect(() => {
+        if (defaultValue !== undefined) {
+            const defaultSubdistrict = defaultValue.subdistrictSelect; // Use the correct property name
+            setSelectedSubdistrict(defaultSubdistrict);
+        }
+    }, [defaultValue]);    
 
     const handleDistrictChange = (event) => {
         const districtValue = event.target.value;
@@ -19,10 +34,13 @@ export default function InputArea({ labelText1, labelText2, dataToForm }) {
         const subdistrictValue = event.target.value;
         setSelectedSubdistrict(subdistrictValue); // Update selectedSubdistrict first
 
+        const districtSelect = selectedDistrict;
+        const subdistrictSelect = selectedSubdistrict;
+
         // Create an object with the updated values and pass it to the parent
         const selectedArea = {
-            selectedDistrict,
-            selectedSubdistrict: subdistrictValue, // Use the updated value
+            districtSelect,
+            subdistrictSelect: subdistrictValue, // Use the updated value
         };
 
         dataToForm(selectedArea);

@@ -171,15 +171,31 @@ textarea {
 }
 
 /* button */
-.main-button {
+.button-container {
   width: 350px;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--grey-white);
+  padding-bottom: 40px;
+  padding-top: 12px;
+}
+
+.main-button {
+  width: 169px;
   padding: 16px 10px;
   color: var(--grey-white);
   background-color: var(--brand-500);
   border-radius: 8px;
   border: none;
-  position: fixed;
-  bottom: 40px;
+}
+
+.sub-button {
+  width: 169px;
+  padding: 16px 10px;
+  color: var(--grey-700);
+  background-color: var(--grey-200);
+  border-radius: 8px;
+  border: none;
 }
 
 /* upload */

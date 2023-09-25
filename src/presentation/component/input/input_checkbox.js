@@ -1,37 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import '../input/input.css';
 
-export default function InputCheckbox({ name, labelText, values, dataToForm }) {
-    const [selectedValues, setSelectedValues] = useState([]);
-    const [isNotMatterChecked, setIsNotMatterChecked] = useState(false);
+export default function InputCheckbox({ name, labelText, values, dataToForm, defaultValue }) {
+    const [selectedValues, setSelectedValues] = useState(defaultValue || []);
+    const [isNotMatterChecked, setIsNotMatterChecked] = useState(
+        defaultValue !== undefined && defaultValue.includes('상관 없음')
+    );
 
     const handleCheckboxChange = (event) => {
         const value = event.target.value;
         const isChecked = event.target.checked;
 
         if (value === 'notMatter') {
-            // Update the state of the "Not Matter" checkbox
             setIsNotMatterChecked(isChecked);
-
-            // Clear the selected values when "Not Matter" is checked
-            if (isChecked) {
-                setSelectedValues(['상관 없음']);
-            } else {
-                setSelectedValues([]); // Clear other selected values
-            }
+            setSelectedValues(isChecked ? ['상관 없음'] : []);
         } else {
-            // Update the selected values based on the checkbox state
             if (isChecked) {
                 setSelectedValues([...selectedValues, value]);
             } else {
                 setSelectedValues(selectedValues.filter((selectedValue) => selectedValue !== value));
             }
+            setIsNotMatterChecked(false); // Uncheck "상관 없음" if any other checkbox is selected
         }
-    }
+    };
 
     useEffect(() => {
-        dataToForm(isNotMatterChecked ? '상관 없음' : selectedValues);
-    }, [selectedValues]);
+        dataToForm(isNotMatterChecked ? ['상관 없음'] : selectedValues);
+    }, [selectedValues, isNotMatterChecked]);
 
     return (
         <div className='input-comp'>
@@ -39,7 +34,7 @@ export default function InputCheckbox({ name, labelText, values, dataToForm }) {
             <InputCheckboxNotMatter
                 isNotMatterChecked={isNotMatterChecked}
                 setIsNotMatterChecked={setIsNotMatterChecked}
-                setSelectedValues={setSelectedValues} // Pass down setSelectedValues
+                setSelectedValues={setSelectedValues}
                 labelText={labelText}
             />
             {isNotMatterChecked ? null : (
@@ -62,6 +57,7 @@ export default function InputCheckbox({ name, labelText, values, dataToForm }) {
     );
 }
 
+
 export function Checkbox({ name, value, checked, onChange, id }) {
     return (
         <div className='input-container halign gap4 calign'>
@@ -74,8 +70,6 @@ export function Checkbox({ name, value, checked, onChange, id }) {
 export function InputCheckboxNotMatter({ isNotMatterChecked, setIsNotMatterChecked, setSelectedValues, labelText }) {
     const handleCheckboxChange = (event) => {
         setIsNotMatterChecked(event.target.checked);
-
-        // Clear the selected values when "Not Matter" is checked
         if (event.target.checked) {
             setSelectedValues([]);
         }

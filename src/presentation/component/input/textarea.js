@@ -1,6 +1,6 @@
 import '../input/input.css'
 
-export default function InputText({ labelText, placeholder, dataToForm }) {
+export default function InputTextArea({ labelText, placeholder, dataToForm }) {
     return (
         <div class="input-comp">
             <div className='h6 m grey500'>{labelText}</div>

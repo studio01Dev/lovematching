@@ -2,19 +2,12 @@ import '../input/input.css'
 import '../../asset/App.css'
 import { useState, useEffect } from 'react';
 
-export default function ProgressBar({ }) {
+export default function ProgressBar({ progressStatus }) {
     const [progressStatus1, setProgressStatus1] = useState('yes');
     const [progressStatus2, setProgressStatus2] = useState('no');
     const [progressStatus3, setProgressStatus3] = useState('no');
     const [progressStatus4, setProgressStatus4] = useState('no');
     const [progressStatus5, setProgressStatus5] = useState('no');
-
-    const progressStatus = 1;
-    // console.log('1:', progressStatus1);
-    // console.log('2:', progressStatus2);
-    // console.log('3:', progressStatus3);
-    // console.log('4:', progressStatus4);
-    // console.log('5:', progressStatus5);
 
     useEffect(() => {
         // console.log(progressStatus)

@@ -1,8 +1,8 @@
 import '../input/input.css';
 import { useState } from 'react';
 
-export default function Select({ name, labelText, values, dataToForm }) {
-    const [selectedValue, setSelectedValue] = useState(""); // Initialize with an empty default value
+export default function Select({ name, labelText, values, dataToForm, defaultValue }) {
+    const [selectedValue, setSelectedValue] = useState(defaultValue); // Initialize with an empty default value
 
     const handleSelectChange = (event) => {
         const newValue = event.target.value;
@@ -13,7 +13,7 @@ export default function Select({ name, labelText, values, dataToForm }) {
     };
 
     const options = [
-        <option disabled key="empty" value="">
+        <option key="empty" value="">
             선택해주세요
         </option>,
         ...values.map((value, index) => (
@@ -36,3 +36,4 @@ export default function Select({ name, labelText, values, dataToForm }) {
         </div>
     );
 }
+

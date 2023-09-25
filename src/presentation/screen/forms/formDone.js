@@ -30,7 +30,9 @@ export default function FormDone({name}) {
                 </div>
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='홈으로 돌아가기' />
+            <button className='main-button' style={{ width: '350px' }} onClick={''}>
+                <div className="h5 sb">홈으로 돌아가기</div>
+            </button>
         </div>
     );
 }

@@ -2,8 +2,8 @@ import '../input/input.css';
 import React, { useState } from 'react';
 import { NotMatter } from './not-matter';
 
-export default function InputRadio({ name, value1, value2, labelText, dataToForm, id1, id2, displayNotMatter }) {
-    const [selectedValue, setSelectedValue] = useState(value1); // Initialize with a default value
+export default function InputRadio({ name, value1, value2, labelText, dataToForm, id1, id2, displayNotMatter, defaultValue }) {
+    const [selectedValue, setSelectedValue] = useState(defaultValue); // Initialize with a default value
     const [isNotMatterChecked, setIsNotMatterChecked] = useState(false);
 
     const handleRadioChange = (event) => {

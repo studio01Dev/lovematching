@@ -32,12 +32,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route index element={<Form />} />
-            <Route path='/1' element={<Form1 />} />
-            <Route path='/2' element={<Form2 />} />
-            <Route path='/3' element={<Form3 />} />
-            <Route path='/4' element={<Form4 />} />
-            <Route path='/5' element={<Form5 />} />
-            <Route path='/done' element={<FormDone />} />
             <Route path='/input-code' element={<InputCode />} />
             <Route path='/queue' element={<Queue />} />
             <Route path='/view-request' element={<ViewRequest />} />
