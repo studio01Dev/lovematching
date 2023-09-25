@@ -21,81 +21,81 @@ export default function Form() {
     //     console.log(userData);
     // }, [userData]);
 
-    // const fieldTranslations = {
-    //     name: '성함',
-    //     phoneNum: '연락처',
-    //     sex: '성별',
-    //     yearOfBirth: '출생연도',
-    //     academicCareer: '최종 학력',
-    //     job: '직업',
-    //     income: '소득',
-    //     company: '회사',
-    //     jobDetail: '직무',
-    //     howWork: '근무 형태',
-    //     height: '키',
-    //     bodyType: '체형',
-    //     style: '스타일',
-    //     residence: '거주지',
-    //     workPlace: '근무지',
-    //     haveCar: '자차 보유 여부',
-    //     haveHouse: '자가 보유 여부',
-    //     drinkingFrequency: '음주 횟수',
-    //     smoking: '흡연 여부',
-    //     tattoo: '문신 여부',
-    //     religion: '종교',
-    //     mbti: 'MBTI',
-    //     strength: '장점',
-    //     interest: '취미/관심사',
-    //     dateType: '선호하는 데이트',
-    //     faceImageData: '얼굴 정면 사진',
-    //     bodyImageData: '전신 사진',
-    //     employImageData: '재직 증명 사진',
-    //     counterpartAge: '상대방 나이',
-    //     counterpartAcademic: '상대방 최종학력',
-    //     counterpartJob: '상대방 직업',
-    //     counterpartIncome: '상대방 소득',
-    //     counterpartHowWork: '상대방 근무 형태',
-    //     counterpartHeight: '상대방 키',
-    //     counterpartBodyType: '상대방 체형',
-    //     counterpartStyle: '상대방 스타일',
-    //     counterpartHaveCar: '상대방 자차 보유 여부',
-    //     counterpartHaveHouse: '상대방 자가 보유 여부',
-    //     counterpartDrinkingFrequency: '상대방 음주 횟수',
-    //     counterpartSmoking: '상대방 흡연 여부',
-    //     counterpartTattoo: '상대방 문신 여부',
-    //     counterpartReligion: '상대방 종교',
-    //     consultingType: '선호하는 상담 방법',
-    // };
+    const fieldTranslations = {
+        name: '성함',
+        phoneNum: '연락처',
+        sex: '성별',
+        yearOfBirth: '출생연도',
+        academicCareer: '최종 학력',
+        job: '직업',
+        income: '소득',
+        company: '회사',
+        jobDetail: '직무',
+        howWork: '근무 형태',
+        height: '키',
+        bodyType: '체형',
+        style: '스타일',
+        residence: '거주지',
+        workPlace: '근무지',
+        haveCar: '자차 보유 여부',
+        haveHouse: '자가 보유 여부',
+        drinkingFrequency: '음주 횟수',
+        smoking: '흡연 여부',
+        tattoo: '문신 여부',
+        religion: '종교',
+        mbti: 'MBTI',
+        strength: '장점',
+        interest: '취미/관심사',
+        dateType: '선호하는 데이트',
+        faceImageData: '얼굴 정면 사진',
+        bodyImageData: '전신 사진',
+        employImageData: '재직 증명 사진',
+        counterpartAge: '상대방 나이',
+        counterpartAcademic: '상대방 최종학력',
+        counterpartJob: '상대방 직업',
+        counterpartIncome: '상대방 소득',
+        counterpartHowWork: '상대방 근무 형태',
+        counterpartHeight: '상대방 키',
+        counterpartBodyType: '상대방 체형',
+        counterpartStyle: '상대방 스타일',
+        counterpartHaveCar: '상대방 자차 보유 여부',
+        counterpartHaveHouse: '상대방 자가 보유 여부',
+        counterpartDrinkingFrequency: '상대방 음주 횟수',
+        counterpartSmoking: '상대방 흡연 여부',
+        counterpartTattoo: '상대방 문신 여부',
+        counterpartReligion: '상대방 종교',
+        consultingType: '선호하는 상담 방법',
+    };
 
-    // const requiredFields = {
-    //     1: ['name', 'phoneNum', 'yearOfBirth', 'income', 'academicCareer', 'company', 'job', 'jobDetail', 'howWork', 'height', 'bodyType', 'style'],
-    //     2: ['residence', 'workPlace', 'haveCar', 'haveHouse', 'drinkingFrequency', 'tattoo', 'smoking', 'religion', 'consultingType'],
-    //     3: ['mbti', 'strength', 'interest', 'dateType'],
-    //     4: ['faceImageData', 'bodyImageData', 'employImageData'],
-    //     5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion']
-    // };
+    const requiredFields = {
+        1: ['name', 'phoneNum', 'yearOfBirth', 'income', 'academicCareer', 'company', 'job', 'jobDetail', 'howWork', 'height', 'bodyType', 'style'],
+        2: ['residence', 'workPlace', 'haveCar', 'haveHouse', 'drinkingFrequency', 'tattoo', 'smoking', 'religion', 'consultingType'],
+        3: ['mbti', 'strength', 'interest', 'dateType'],
+        4: ['faceImageData', 'bodyImageData', 'employImageData'],
+        5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion']
+    };
 
     const [form, setForm] = useState(1);
-    // const nextForm = () => {
-    //     // Get the required fields for the current form
-    //     const currentRequiredFields = requiredFields[form];
-
-    //     // Check if any required field is empty
-    //     const missingFields = currentRequiredFields
-    //         .filter(field => !userData[field])
-    //         .map(field => fieldTranslations[field]);
-
-    //     if (missingFields.length > 0) {
-    //         alert(`${missingFields.join(', ')} 항목을 입력해주세요!`);
-    //     } else {
-    //         setForm(form + 1);
-    //         window.scrollTo(0, 0);
-
-    //     }
-    // };
     const nextForm = () => {
-        setForm(form + 1);
-    }
+        // Get the required fields for the current form
+        const currentRequiredFields = requiredFields[form];
+
+        // Check if any required field is empty
+        const missingFields = currentRequiredFields
+            .filter(field => !userData[field])
+            .map(field => fieldTranslations[field]);
+
+        if (missingFields.length > 0) {
+            alert(`${missingFields.join(', ')} 항목을 입력해주세요!`);
+        } else {
+            setForm(form + 1);
+            window.scrollTo(0, 0);
+
+        }
+    };
+    // const nextForm = () => {
+    //     setForm(form + 1);
+    // }
     const prevForm = () => {
         setForm(form - 1);
     }
