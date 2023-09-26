@@ -269,6 +269,7 @@ export default async function EnrollUserUseCase(user) {
 
     // Create a new user object with download URLs
     const newUser = new User(
+      '',
       user.name,
       user.phoneNum,
       user.sex,
@@ -314,9 +315,7 @@ export default async function EnrollUserUseCase(user) {
       user.consultingType,
       new Date(),
       '미결제',
-      '신규',
       '첫가입',
-      false,
       false,
       null
     ).toObject();

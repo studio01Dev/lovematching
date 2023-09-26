@@ -1,5 +1,7 @@
 export default class User {
     constructor(
+        //firebase document id
+        id,
         // form-1: basic, job, work
         name,
         phoneNum,
@@ -50,12 +52,11 @@ export default class User {
         // service
         createdAt,
         paymentStatus,
-        newConsumerStatus,
         firstSignUpStatus,
         blackConsumerStatus,
-        nowConsultingStatus,
         consultingEndTime,
     ) {
+        this.id = id;
         this.name = name;
         this.phoneNum = phoneNum;
         this.sex = sex;
@@ -104,14 +105,13 @@ export default class User {
         //
         this.createdAt = createdAt;
         this.paymentStatus = paymentStatus;
-        this.newConsumerStatus = newConsumerStatus;
         this.firstSignUpStatus = firstSignUpStatus;
         this.blackConsumerStatus = blackConsumerStatus;
-        this.nowConsultingStatus = nowConsultingStatus;
         this.consultingEndTime = consultingEndTime;
     }
     toObject() {
         return {
+            id: this.id,
             name: this.name,
             phoneNum: this.phoneNum,
             sex: this.sex,
@@ -161,10 +161,8 @@ export default class User {
             //
             createdAt: this.createdAt,
             paymentStatus: this.paymentStatus,
-            newConsumerStatus: this.newConsumerStatus,
             firstSignUpStatus: this.firstSignUpStatus,
             blackConsumerStatus: this.blackConsumerStatus,
-            nowConsultingStatus: this.nowConsultingStatus,
             consultingEndTime: this.consultingEndTime,
         };
     }

@@ -31,7 +31,8 @@ function App() {
       <div style={{ width: '390px', margin: '0 auto' }}>
         <BrowserRouter>
           <Routes>
-            <Route index element={<Form />} />
+            {/* <Route index element={<Form />} /> */}
+            <Route index element={<InputCode />} />
             <Route path='/input-code' element={<InputCode />} />
             <Route path='/queue' element={<Queue />} />
             <Route path='/view-request' element={<ViewRequest />} />
