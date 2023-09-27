@@ -20,22 +20,22 @@ export default function InputCode() {
         try {
             const inputCodeUseCase = new InputCodeUseCase();
             var response = await inputCodeUseCase.validateUser(code);
-            console.log(response.message)
-            // if (response.success === true) {
-            //     if(response.data === 'absence') {
-            //         alert(response.message)
-            //     } else {
-            //         if(response.data === 'not-consulting-time') {
-            //             alert(response.message)
-            //         } else {
-            //             navigate('../queue'); // 특정 조건을 만족할 때 페이지 이동   
-            //         }
+            if (response.success === true) {
+                if(response.data === 'absence') {
+                    alert(response.message)
+                } else {
+                    if(response.data === 'not-consulting-time') {
+                        alert(response.message)
+                    } else {
+                        const uid = response.data
+                        navigate(`../queue/${uid}`); // 특정 조건을 만족할 때 페이지 이동   
+                    }
                     
-            //     }
-            // } else {
-            //     // 조건을 만족하지 않을 때 처리
-            //     alert(response.message);
-            // }
+                }
+            } else {
+                // 조건을 만족하지 않을 때 처리
+                alert(response.message);
+            }
         } catch(error) {
             console.error(error);
         }

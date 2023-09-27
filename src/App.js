@@ -34,7 +34,7 @@ function App() {
             {/* <Route index element={<Form />} /> */}
             <Route index element={<InputCode />} />
             <Route path='/input-code' element={<InputCode />} />
-            <Route path='/queue' element={<Queue />} />
+            <Route path='/queue/:uid' element={<Queue />} />
             <Route path='/view-request' element={<ViewRequest />} />
             <Route path='/review-request' element={<ReviewRequest />} />
             <Route path='/make-request' element={<MakeRequest />} />
