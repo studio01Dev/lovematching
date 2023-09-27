@@ -2,12 +2,12 @@ import MyResponse from "../models/MyResponse"
 import { getDocs, collection } from 'firebase/firestore';
 import db from '../../firebase/index';
 
-export default class AcceptMatchUseCase {
+export default class AdminSuggestListUseCase {
 
-    async readInCounterChosenFromAdminSuggestList(uid) {
+    async readAdminSuggestList(uid) {
         try {
             const userList = []
-            const querySnapshot = await getDocs(collection(db.db, "WareHouseOne", uid, "InCounterChosenFromAdminSuggestList"))
+            const querySnapshot = await getDocs(collection(db.db, "WareHouseOne", uid, "AdminSuggestList"))
             querySnapshot.forEach(
                 (doc) => {
                     userList.push(
@@ -25,12 +25,11 @@ export default class AcceptMatchUseCase {
             return response
         }
     }
-    async acceptMatch(myUid, counterUid) {
-        // // 1. deleteCounterInMySelectedFromSuggestList
-        // await deleteDoc(doc(db, "users", myUid, "", counterUid));
-        // // 2. deleteMeInCounterChoseFromSuggestList
-        // await deleteDoc(doc(db, "users", this.currentUserId, "shoppingList", uid));
-        // // 3. createUsersInFirstMatchingList
-        // await deleteDoc(doc(db, "users", this.currentUserId, "shoppingList", uid));
+
+    async suggestMatch(myUid, counterUid) {
+        // 1. deleteCounterInMySuggestList
+        // 2. deleteMeInCounterSuggestList
+        // 3. createCounterInMySuggestMatchList
+        // 4. createMeInCounterReciveMatchList
     }
 }
