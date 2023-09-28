@@ -1,9 +1,10 @@
 import people from '../../asset/images/people.svg'
 import arrow from '../../asset/images/back.png'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ListItem from '../../component/input/list-item';
 
 export default function ViewRequest({ suggestList }) {
+    const { uid } = useParams();
     return (
         <div>
 
@@ -16,7 +17,7 @@ export default function ViewRequest({ suggestList }) {
             <div class="valign padding gap8">
 
                 <div className='halign sbalign'>
-                    <div className='h3 b grey900'>내가 매칭 신청하기</div>
+                    <div className='h3 b grey900'>내가 매칭 신청하기{uid}</div>
                     <div class="halign calign gap2">
                         <img src={people} style={{ width: '20px' }} />
                         <div className='h6 sb brand500'>{suggestList}6</div>

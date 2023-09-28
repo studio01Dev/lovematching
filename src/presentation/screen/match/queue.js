@@ -73,7 +73,7 @@ export default function Queue() {
 
 
                 <div class="padding valign gap20">
-                    <Link to='../view-request' style={{ textDecoration: 'none' }}>
+                    <Link to={`../view-request/${uid}`} style={{ textDecoration: 'none' }}>
                         <div className='request-box valign gap8'>
                             <div className="halign sbalign calign">
                                 <img src={plane} style={{ width: '40px' }} />
@@ -87,7 +87,7 @@ export default function Queue() {
                         </div>
                     </Link>
 
-                    <Link to='../review-request' style={{ textDecoration: 'none' }}>
+                    <Link to={`../review-request/${uid}`} style={{ textDecoration: 'none' }}>
                         <div className='request-box valign gap8'>
                             <div className="halign sbalign calign">
                                 <img src={memo} style={{ width: '40px' }} />

@@ -35,8 +35,8 @@ function App() {
             <Route index element={<InputCode />} />
             <Route path='/input-code' element={<InputCode />} />
             <Route path='/queue/:uid' element={<Queue />} />
-            <Route path='/view-request' element={<ViewRequest />} />
-            <Route path='/review-request' element={<ReviewRequest />} />
+            <Route path='/view-request/:uid' element={<ViewRequest />} />
+            <Route path='/review-request/:uid' element={<ReviewRequest />} />
             <Route path='/make-request' element={<MakeRequest />} />
             <Route path='/approve-request' element={<ApproveRequest />} />
             <Route path='/profile' element={<Profile />} />
