@@ -25,7 +25,7 @@ export default function ViewRequest({ suggestList }) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
-        async function fetchAdminSuggestListLength() {
+        async function fetchAdminSuggestList() {
             try {
                 const adminSuggestList = new AdminSuggestListUseCase();
                 var response =  await adminSuggestList.readAdminSuggestList(uid)
@@ -40,7 +40,7 @@ export default function ViewRequest({ suggestList }) {
             }
         }
         fetchOneUser();
-        fetchAdminSuggestListLength();
+        fetchAdminSuggestList();
     }, [])
     return (
         <div>
@@ -54,10 +54,10 @@ export default function ViewRequest({ suggestList }) {
             <div class="valign padding gap8">
 
                 <div className='halign sbalign'>
-                    <div className='h3 b grey900'>내가 매칭 신청하기{uid}</div>
+                    <div className='h3 b grey900'>내가 매칭 신청하기</div>
                     <div class="halign calign gap2">
                         <img src={people} style={{ width: '20px' }} />
-                        <div className='h6 sb brand500'>{suggestList}6</div>
+                        <div className='h6 sb brand500'>{adminSuggestList.length}</div>
                     </div>
                 </div>
 
