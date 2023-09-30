@@ -10,7 +10,7 @@ export default class InputCodeUseCase {
             // 1. check user exist
             // 2. if true, check consulting end time
             // 3. if consulting doesn't finish, read user
-            const q = query(collection(db.db, 'WareHouseOne'), where("phoneNum", "==", phoneNum))
+            const q = query(collection(db.db, 'users'), where("phoneNum", "==", phoneNum))
             const querySnapshot = await getDocs(q)
             let users = []
             querySnapshot.forEach((doc) => {

@@ -7,7 +7,7 @@ export default class ReadUserUseCase {
 
     async readUser(uid) {
         try {
-            const docRef = doc(db.db, "WareHouseOne", uid)
+            const docRef = doc(db.db, "users", uid)
             const docSnap = await getDoc(docRef);
             if(docSnap.exists()) {
                 var response = new MyResponse(true, docSnap.data(), "유저 읽기 성공")
