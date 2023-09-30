@@ -37,7 +37,7 @@ function App() {
             <Route path='/queue/:uid' element={<Queue />} />
             <Route path='/view-request/:uid' element={<ViewRequest />} />
             <Route path='/review-request/:uid' element={<ReviewRequest />} />
-            <Route path='/make-request' element={<MakeRequest />} />
+            <Route path='/make-request/:uid/:counterId' element={<MakeRequest />} />
             <Route path='/approve-request' element={<ApproveRequest />} />
             <Route path='/profile' element={<Profile />} />
           </Routes>
