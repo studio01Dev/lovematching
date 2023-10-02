@@ -1,5 +1,5 @@
 import MyResponse from "../models/MyResponse"
-import { getDocs, collection, getDoc, setDoc } from 'firebase/firestore';
+import { getDocs, collection, getDoc, setDoc, deleteDoc, doc } from 'firebase/firestore';
 import db from '../../firebase/index';
 
 export default class AcceptMatchUseCase {

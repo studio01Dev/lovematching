@@ -9,6 +9,8 @@ import NotificationSuccess from '../../component/input/notification_success';
 import { useState, useEffect } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AcceptMatchUseCase from '../../../domain/use_cases/acceptMatch_usecase';
+import LoadingDialog from '../../component/loading_dialog/loading_dialog';
+
 
 
 export default function ApproveRequest({ name }) {
