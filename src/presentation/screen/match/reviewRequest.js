@@ -30,9 +30,9 @@ export default function ReviewRequest({ suggestList }) {
     return (
         <div>
 
-            <div className="arrow-back">
+            {/* <div className="arrow-back">
                 <Link style={{ textDecoration: 'none' }} to='../queue'><img src={arrow} style={{ width: '8px', height: '16px' }} /></Link>
-            </div>
+            </div> */}
 
 
             {/* 내가 매칭 신청하기 부분 */}

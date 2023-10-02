@@ -65,9 +65,9 @@ export default function Queue() {
     }, [])
     return (
         <div>
-            <div className="arrow-back">
+            {/* <div className="arrow-back">
                 <Link to='../'><img src={arrow} style={{ width: '8px', height: '16px' }} /></Link>
-            </div>
+            </div> */}
             <div className='valign'>
                 <div className='padding h3 b grey900'> {user.name}님의 러브매칭</div>
 

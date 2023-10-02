@@ -74,9 +74,9 @@ export default function ApproveRequest({ name }) {
 
             {!isLoading && (
                 <div>
-                    <div className="arrow-back">
+                    {/* <div className="arrow-back">
                         <Link style={{ textDecoration: 'none' }} to='../review-request'><img src={arrow} style={{ width: '8px', height: '16px' }} /></Link>
-                    </div>
+                    </div> */}
                     {/* 님의 프로필 부분 */}
                     <div class="valign gap8">
                         <div className='padding h3 b grey900'>{counterUser.name}님의 프로필</div>
