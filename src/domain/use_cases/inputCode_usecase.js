@@ -34,6 +34,7 @@ export default class InputCodeUseCase {
                 }
             }
         } catch(error) {
+            console.log(error.message)
             var response = new MyResponse(false, false, "네트워크 오류입니다. 다시 시도하거나, 관리자에게 문의해주세요.")
             return response
         }

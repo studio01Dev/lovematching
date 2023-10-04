@@ -1,5 +1,5 @@
 import MyResponse from "../models/MyResponse"
-import { getDocs, collection, getDoc, setDoc, deleteDoc, doc } from 'firebase/firestore';
+import { getDocs, collection, getDoc, setDoc, deleteDoc, doc, addDoc } from 'firebase/firestore';
 import db from '../../firebase/index';
 
 export default class AcceptMatchUseCase {
@@ -7,7 +7,7 @@ export default class AcceptMatchUseCase {
     async readInCounterChosenFromAdminSuggestList(uid) {
         try {
             const userList = []
-            const querySnapshot = await getDocs(collection(db.db, "WareHouseOne", uid, "InCounterChosenFromAdminSuggestList"))
+            const querySnapshot = await getDocs(collection(db.db, "users", uid, "InCounterChosenFromAdminSuggestList"))
             querySnapshot.forEach(
                 (doc) => {
                     userList.push(
@@ -25,6 +25,8 @@ export default class AcceptMatchUseCase {
             return response
         }
     }
+
+
     async acceptMatch(myUid, counterUid) {
         try {
             // 1. delete counter in my InCounterChosenFromAdminSuggestList
@@ -37,12 +39,11 @@ export default class AcceptMatchUseCase {
 
             // create basic doc
             var firstMatchingDocId
-            const docRef1 = doc(collection(db.db, "FirstMatching"))
-            await setDoc(
-                docRef1, {createdAt: new Date()}
-            ).then((doc)=>{
-                firstMatchingDocId = doc.id
-            })
+            const docRef1 = await addDoc(collection(db.db, "FirstMatching"), 
+                {createdAt: new Date()}
+            );
+            firstMatchingDocId = docRef1.id
+            console.log("Document written with ID: ", firstMatchingDocId);
 
             // create me in FirstMatching
             const docRef2 = doc(db.db, "users", myUid)
@@ -84,6 +85,7 @@ export default class AcceptMatchUseCase {
             var response = new MyResponse(true, true, "요청이 성공적으로 처리되었습니다.");
             return response;
         } catch (error) {
+            console.log(error.message)
             var response = new MyResponse(false, false, "매칭 생성 실패.")
             return response
         }

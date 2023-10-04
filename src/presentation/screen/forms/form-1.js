@@ -14,7 +14,7 @@ export default function Form1({ userData, view, onClick, backClick, name, phoneN
             <div class="valign gap32 margin">
                 <InputText labelText='성함' placeholder='성함을 입력해주세요' dataToForm={data => name(data)} defaultValue={userData.name}  />
                 <InputTel labelText='연락처' placeholder='연락처를 입력해주세요' dataToForm={data => phoneNum(data)} defaultValue={userData.phoneNum}/>
-                <InputRadio displayNotMatter='none' labelText='성별' name='sex' id1='male' id2='female' value1='남자' value2='여자' dataToForm={data => sex(data)} defaultValue={userData.sex} />
+                <InputRadio displayNotMatter='none' labelText='성별' name='sex' id1='male' id2='female' value1='남성' value2='여성' dataToForm={data => sex(data)} defaultValue={userData.sex} />
                 <InputNumber maxDigit={4} labelText='출생연도 (예. 1990 / 숫자 외 입력 불가)' placeholder='출생연도를 입력해주세요.' dataToForm={data => yearOfBirth(data)} defaultValue={userData.yearOfBirth} />
                 <InputNumber maxDigit={8} labelText='연소득 (단위: 만 원, 세전 연봉 / 숫자 외 입력 불가)' placeholder='연소득을 입력해주세요.' dataToForm={data => income(data)} defaultValue={userData.income} />
                 <Select labelText='최종 학력' values={['고졸 이하', '전문대', '4년제대학', '해외대학', '석사', '박사']} dataToForm={data => academicCareer(data)} defaultValue={userData.academicCareer}/>
