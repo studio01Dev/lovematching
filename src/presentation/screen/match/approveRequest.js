@@ -53,14 +53,14 @@ export default function ApproveRequest({ name }) {
             const acceptMatchUseCase = new AcceptMatchUseCase();
             var response =  await acceptMatchUseCase.acceptMatch(uid, counterId)
             console.log(response)
-            // if(response.success === true) {
-            //     setIsLoading(false)
-            //     showNotification()
-            //     navigate(`/review-request/${uid}`, { replace: true })
-            // } else {
-            //     setIsLoading(false)
-            //     alert(response.message)
-            // }
+            if(response.success === true) {
+                setIsLoading(false)
+                showNotification()
+                navigate(`/review-request/${uid}`, { replace: true })
+            } else {
+                setIsLoading(false)
+                alert('다시 시도해주세요')
+            }
         } catch(error) {
             setIsLoading(false)
             alert('일시적으로 오류가 생겼습니다. 다시 시도해주세요.')

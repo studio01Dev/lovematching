@@ -30,10 +30,10 @@ export default class AcceptMatchUseCase {
     async acceptMatch(myUid, counterUid) {
         try {
             // 1. delete counter in my InCounterChosenFromAdminSuggestList
-            await deleteDoc(doc(db, "users", myUid, "InCounterChosenFromAdminSuggestList", counterUid));
+            await deleteDoc(doc(db.db, "users", myUid, "InCounterChosenFromAdminSuggestList", counterUid));
 
             // 2. delete me in counter ChosenFromAdminSuggestList
-            await deleteDoc(doc(db, "users", counterUid, "ChosenFromAdminSuggestList", myUid));
+            await deleteDoc(doc(db.db, "users", counterUid, "ChosenFromAdminSuggestList", myUid));
 
             // 3. create Pair in FirstMatching
 
@@ -50,12 +50,12 @@ export default class AcceptMatchUseCase {
             const docSnap1 = await getDoc(docRef2);
             if(docSnap1.exists()) {
                 if(docSnap1.data().sex == '남성') {
-                    const docRef3 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"))
+                    const docRef3 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"), docSnap1.id)
                     await setDoc(
                         docRef3, docSnap1.data()
                     )
                 } else {
-                    const docRef3 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "FemaleUser"))
+                    const docRef3 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "FemaleUser"), docSnap1.id)
                     await setDoc(
                         docRef3, docSnap1.data()
                     )
@@ -69,12 +69,12 @@ export default class AcceptMatchUseCase {
             const docSnap2 = await getDoc(docRef4);
             if(docSnap2.exists()) {
                 if(docSnap2.data().sex == '남성') {
-                    const docRef5 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"))
+                    const docRef5 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"), docSnap2.id)
                     await setDoc(
                         docRef5, docSnap2.data()
                     )
                 } else {
-                    const docRef5 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "FemaleUser"))
+                    const docRef5 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "FemaleUser"), docSnap2.id)
                     await setDoc(
                         docRef5, docSnap2.data()
                     )
