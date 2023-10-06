@@ -4,7 +4,7 @@ import InputRadio from "../../component/input/input_radio";
 import InputNumber from "../../component/input/input_number"
 import Select from "../../component/input/select";
 import Button from "../../component/input/button";
-import { useState } from "react";
+import InputIncome from "../../component/input/input_income";
 
 
 export default function Form1({ userData, view, onClick, backClick, name, phoneNum, sex, yearOfBirth, income, academicCareer, company, job, jobDetail, howWork, height, bodyType, style }) {
@@ -16,7 +16,7 @@ export default function Form1({ userData, view, onClick, backClick, name, phoneN
                 <InputTel labelText='연락처' placeholder='연락처를 입력해주세요' dataToForm={data => phoneNum(data)} defaultValue={userData.phoneNum}/>
                 <InputRadio displayNotMatter='none' labelText='성별' name='sex' id1='male' id2='female' value1='남성' value2='여성' dataToForm={data => sex(data)} defaultValue={userData.sex} />
                 <InputNumber maxDigit={4} labelText='출생연도 (예. 1990 / 숫자 외 입력 불가)' placeholder='출생연도를 입력해주세요.' dataToForm={data => yearOfBirth(data)} defaultValue={userData.yearOfBirth} />
-                <InputNumber labelText='연소득 (단위: 만 원, 세전 연봉 / 숫자 외 입력 불가)' placeholder='연소득을 입력해주세요.' dataToForm={data => income(data)} defaultValue={userData.income} />
+                <InputIncome labelText='연소득 (단위: 만 원, 세전 연봉 / 숫자 외 입력 불가)' placeholder='연소득을 입력해주세요.' dataToForm={data => income(data)} defaultValue={userData.income} />
                 <Select labelText='최종 학력' values={['고졸 이하', '전문대', '4년제대학', '해외대학', '석사', '박사']} dataToForm={data => academicCareer(data)} defaultValue={userData.academicCareer}/>
                 <Select labelText='직장 유형' values={['전문직', '대기업', '중견기업', '중소기업', '공무원', '자영업', '공기업', '연구소', '스타트업', '프리랜서', '외국계']} dataToForm={data => job(data)} defaultValue={userData.job} />
                 <InputText labelText='직장명' placeholder='직장명을 입력해주세요' dataToForm={data => company(data)} defaultValue={userData.company} />
