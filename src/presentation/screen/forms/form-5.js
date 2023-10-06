@@ -9,7 +9,7 @@ import React from 'react';
 export default function Form5({ userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStyle, counterpartTattoo }) {
     return (
         <div>
-            <div className="h3 b padding">원하는 상대방을 알려주세요</div>
+            <div className="h3 b padding">원하는 이성을 알려주세요</div>
             <div class="valign gap12 margin40">
                 <div className="h4 b grey700 side-padding">기본 정보</div>
                 <div class="valign gap32">

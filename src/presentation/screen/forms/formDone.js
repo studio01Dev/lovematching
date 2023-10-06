@@ -12,8 +12,8 @@ export default function FormDone({name}) {
                     transform: 'translateX(-10px)'
                 }}/>
                 <div className="valign gap8 text-calign padding">
-                    <div className="h5 m grey600">신청 완료!</div>
-                    <div className="h3 b grey900">{name}님,<br />금방 봬요!</div>
+                    <div className="h5 m main500">신청 완료!</div>
+                    <div className="h3 b grey900">{name}님,<br />좋은 분을 찾아드릴게요!</div>
                 </div>
                 <div className="padding">
                     <div className="message gap8">

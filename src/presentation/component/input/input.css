@@ -98,6 +98,35 @@ input[type="checkbox"] {
   margin: 0;
 }
 
+input[type="number"] {
+  border: none;
+  outline: none;
+  font-family: var(--regular);
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--grey-700);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="tel"] {
+  border: none;
+  outline: none;
+  font-family: var(--regular);
+  font-size: 17px;
+  line-height: 24px;
+  color: var(--grey-700);
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* checkbox notMatter */
 .bg-grey {
   background-color: var(--grey-100);

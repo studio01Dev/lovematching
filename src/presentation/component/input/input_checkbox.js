@@ -4,7 +4,7 @@ import '../input/input.css';
 export default function InputCheckbox({ name, labelText, values, dataToForm, defaultValue }) {
     const [selectedValues, setSelectedValues] = useState(defaultValue || []);
     const [isNotMatterChecked, setIsNotMatterChecked] = useState(
-        defaultValue !== undefined && defaultValue.includes('상관 없음')
+        defaultValue !== undefined && defaultValue.includes('상관없음')
     );
 
     const handleCheckboxChange = (event) => {
@@ -13,19 +13,19 @@ export default function InputCheckbox({ name, labelText, values, dataToForm, def
 
         if (value === 'notMatter') {
             setIsNotMatterChecked(isChecked);
-            setSelectedValues(isChecked ? ['상관 없음'] : []);
+            setSelectedValues(isChecked ? ['상관없음'] : []);
         } else {
             if (isChecked) {
                 setSelectedValues([...selectedValues, value]);
             } else {
                 setSelectedValues(selectedValues.filter((selectedValue) => selectedValue !== value));
             }
-            setIsNotMatterChecked(false); // Uncheck "상관 없음" if any other checkbox is selected
+            setIsNotMatterChecked(false); // Uncheck "상관없음" if any other checkbox is selected
         }
     };
 
     useEffect(() => {
-        dataToForm(isNotMatterChecked ? ['상관 없음'] : selectedValues);
+        dataToForm(isNotMatterChecked ? ['상관없음'] : selectedValues);
     }, [selectedValues, isNotMatterChecked]);
 
     return (
@@ -83,12 +83,12 @@ export function InputCheckboxNotMatter({ isNotMatterChecked, setIsNotMatterCheck
                         <div className='input-container halign gap4 calign'>
                             <input
                                 type='checkbox'
-                                value='상관 없음'
+                                value='상관없음'
                                 id={labelText}
                                 onChange={handleCheckboxChange}
                                 checked={isNotMatterChecked}
                             />
-                            <label htmlFor={labelText} className={`h5 r ${isNotMatterChecked ? 'label-dark' : ''}`}>상관 없음</label>
+                            <label htmlFor={labelText} className={`h5 r ${isNotMatterChecked ? 'label-dark' : ''}`}>상관없음</label>
                         </div>
                     </div>
                 </div>

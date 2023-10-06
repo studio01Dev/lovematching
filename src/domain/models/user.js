@@ -50,6 +50,7 @@ export default class User {
         counterpartReligion,
         consultingType,
         // service
+        isMatched,
         createdAt,
         paymentStatus,
         firstSignUpStatus,
@@ -103,6 +104,7 @@ export default class User {
         this.counterpartReligion = counterpartReligion;
         this.consultingType = consultingType;
         //
+        this.isMatched = isMatched;
         this.createdAt = createdAt;
         this.paymentStatus = paymentStatus;
         this.firstSignUpStatus = firstSignUpStatus;
@@ -159,6 +161,7 @@ export default class User {
             counterpartReligion: this.counterpartReligion,
             consultingType: this.consultingType,
             //
+            isMatched: this.isMatched,
             createdAt: this.createdAt,
             paymentStatus: this.paymentStatus,
             firstSignUpStatus: this.firstSignUpStatus,

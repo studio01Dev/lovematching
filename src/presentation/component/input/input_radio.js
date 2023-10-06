@@ -11,7 +11,7 @@ export default function InputRadio({ name, value1, value2, labelText, dataToForm
         setSelectedValue(newValue);
 
         // Call the callback function to pass the selected value to the parent
-        dataToForm(isNotMatterChecked ? '상관 없음' : newValue);
+        dataToForm(isNotMatterChecked ? '상관없음' : newValue);
     };
 
     return (

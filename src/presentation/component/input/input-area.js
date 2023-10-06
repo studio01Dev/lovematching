@@ -3,48 +3,22 @@ import '../input/input.css';
 import { district, subdistrict } from '../../../domain/models/area';
 
 export default function InputArea({ labelText1, labelText2, dataToForm, defaultValue }) {
+    const [districtSelect, setDistrictSelect] = useState([])
+    const [subdistrictSelect, setSubdistrictSelect] = useState([])
 
-    const districts = district;
-    const subdistricts = subdistrict;
+    // 도, 시군구 모두 보여주고
+    // 도를 입력하면 그에 해당하는 시군구 입력하고
+    // 도 / 시군구 정보는 useState에 담아두고
+    // useEffect 써서 시군구 선택하면 업로드
 
-    const [selectedDistrict, setSelectedDistrict] = useState('');
-    const [selectedSubdistrict, setSelectedSubdistrict] = useState('');
+    const districtChange = (e) => {
+        setDistrictSelect(e.target.value)
+    }
 
-    useEffect(() => {
-        if (defaultValue !== undefined) {
-            const defaultDistrict = defaultValue.districtSelect;
-            setSelectedDistrict(defaultDistrict);
-        }
-    }, [defaultValue]);
-    
-    useEffect(() => {
-        if (defaultValue !== undefined) {
-            const defaultSubdistrict = defaultValue.subdistrictSelect; // Use the correct property name
-            setSelectedSubdistrict(defaultSubdistrict);
-        }
-    }, [defaultValue]);    
-
-    const handleDistrictChange = (event) => {
-        const districtValue = event.target.value;
-        setSelectedDistrict(districtValue);
-        setSelectedSubdistrict(''); // Reset the selected subdistrict when the district changes
-    };
-
-    const handleSubdistrictChange = (event) => {
-        const subdistrictValue = event.target.value;
-        setSelectedSubdistrict(subdistrictValue); // Update selectedSubdistrict first
-
-        const districtSelect = selectedDistrict;
-        const subdistrictSelect = selectedSubdistrict;
-
-        // Create an object with the updated values and pass it to the parent
-        const selectedArea = {
-            districtSelect,
-            subdistrictSelect: subdistrictValue, // Use the updated value
-        };
-
-        dataToForm(selectedArea);
-    };
+    const subDistrictChange = (e) => {
+        setSubdistrictSelect(e.target.value)
+        dataToForm([districtSelect, subdistrictSelect])
+    }
 
     const emptyOption = (
         <option disabled key="empty" value="">
@@ -59,9 +33,9 @@ export default function InputArea({ labelText1, labelText2, dataToForm, defaultV
                     {labelText1}
                     <div className='area-input'>
                         <div className='input-container halign gap4 calign'>
-                            <select value={selectedDistrict} onChange={handleDistrictChange}>
+                            <select value={districtSelect} onChange={e => districtChange(e)}>
                                 {emptyOption}
-                                {districts.map((district) => (
+                                {district.map((district) => (
                                     <option key={district} value={district}>
                                         {district}
                                     </option>
@@ -70,23 +44,21 @@ export default function InputArea({ labelText1, labelText2, dataToForm, defaultV
                         </div>
                     </div>
                 </div>
-                {selectedDistrict && (
-                    <div className='h6 m grey500 valign gap4'>
-                        {labelText2}
-                        <div className='area-input'>
-                            <div className='input-container halign gap4 calign'>
-                                <select value={selectedSubdistrict} onChange={handleSubdistrictChange}>
-                                    {emptyOption}
-                                    {subdistricts[selectedDistrict].map((subdistrict) => (
-                                        <option key={subdistrict} value={subdistrict}>
-                                            {subdistrict}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                <div className='h6 m grey500 valign gap4'>
+                    {labelText2}
+                    <div className='area-input'>
+                        <div className='input-container halign gap4 calign'>
+                            <select value={subdistrictSelect} onChange={e => subDistrictChange(e)}>
+                                {emptyOption}
+                                {Array.isArray(subdistrict[districtSelect]) ? subdistrict[districtSelect].map((subdistrict) => (
+                                    <option key={subdistrict} value={subdistrict}>
+                                        {subdistrict}
+                                    </option>
+                                )) : '' }
+                            </select>
                         </div>
                     </div>
-                )}
+                </div>
             </div>
         </div>
     );

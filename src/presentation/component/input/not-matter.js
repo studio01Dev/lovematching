@@ -3,8 +3,8 @@ export function NotMatter({ isNotMatterChecked, setIsNotMatterChecked, dataToFor
         const isChecked = event.target.checked;
         setIsNotMatterChecked(isChecked);
 
-        // If "상관 없음" is checked, set the selected value to it, otherwise, keep the previously selected value
-        const newValue = isChecked ? '상관 없음' : null;
+        // If "상관없음" is checked, set the selected value to it, otherwise, keep the previously selected value
+        const newValue = isChecked ? '상관없음' : null;
 
         // Call the callback function to pass the selected value to the parent
         dataToForm(newValue);
@@ -23,7 +23,7 @@ export function NotMatter({ isNotMatterChecked, setIsNotMatterChecked, dataToFor
                                 onChange={handleCheckboxChange}
                                 checked={isNotMatterChecked}
                             />
-                            <label htmlFor={labelText} className={`h5 r ${isNotMatterChecked ? 'label-dark' : ''}`}>상관 없음</label>
+                            <label htmlFor={labelText} className={`h5 r ${isNotMatterChecked ? 'label-dark' : ''}`}>상관없음</label>
                         </div>
                     </div>
                 </div>

@@ -313,6 +313,7 @@ export default async function EnrollUserUseCase(user) {
       user.counterpartTattoo,
       user.counterpartReligion,
       user.consultingType,
+      false,
       new Date(),
       '미결제',
       '첫가입',

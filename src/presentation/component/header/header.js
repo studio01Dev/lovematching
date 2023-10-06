@@ -11,7 +11,6 @@ export default function header() {
                         <img src={logo} style={{ width: '24px', height: '24px' }} />
                         <div className='h5 sb'>LoveMatching</div>
                     </div>
-                    <img src={hamburger} style={{ width: '24px', height: '24px' }} />
                 </div>
             </header>
             <div style={{ height: 60 }}></div>

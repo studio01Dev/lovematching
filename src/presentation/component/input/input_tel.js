@@ -24,10 +24,11 @@ export default function InputTel({ labelText, placeholder, dataToForm, defaultVa
       <div className="input">
         <div className="input-container halign gap4 calign">
           <input
-            type="text"
+            type="tel"
+            pattern="[0-9]*"
             placeholder={placeholder}
             onInput={handleInputChange} // Attach the input event handler
-            onChange={e => dataToForm(e.target.value)}
+            onChange={e => dataToForm(String(e.target.value))}
             defaultValue={defaultValue}
           />
         </div>

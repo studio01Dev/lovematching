@@ -76,26 +76,26 @@ export default function Form() {
     };
 
     const [form, setForm] = useState(1);
-    const nextForm = () => {
-        // Get the required fields for the current form
-        const currentRequiredFields = requiredFields[form];
-
-        // Check if any required field is empty
-        const missingFields = currentRequiredFields
-            .filter(field => !userData[field])
-            .map(field => fieldTranslations[field]);
-
-        if (missingFields.length > 0) {
-            alert(`${missingFields.join(', ')} 항목을 입력해주세요!`);
-        } else {
-            setForm(form + 1);
-            window.scrollTo(0, 0);
-
-        }
-    };
     // const nextForm = () => {
-    //     setForm(form + 1);
-    // }
+    //     // Get the required fields for the current form
+    //     const currentRequiredFields = requiredFields[form];
+
+    //     // Check if any required field is empty
+    //     const missingFields = currentRequiredFields
+    //         .filter(field => !userData[field])
+    //         .map(field => fieldTranslations[field]);
+
+    //     if (missingFields.length > 0) {
+    //         alert(`${missingFields.join(', ')} 항목을 입력해주세요!`);
+    //     } else {
+    //         setForm(form + 1);
+    //         window.scrollTo(0, 0);
+
+    //     }
+    // };
+    const nextForm = () => {
+        setForm(form + 1);
+    }
     const prevForm = () => {
         setForm(form - 1);
     }

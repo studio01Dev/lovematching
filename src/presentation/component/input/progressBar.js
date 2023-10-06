@@ -68,7 +68,7 @@ export default function ProgressBar({ progressStatus }) {
                 <div className={`${progressStatus4}-progress-bar`}></div>
             </div>
             <div className="progress-item-before valign gap4 calign">
-                <div className={`h7 sb ${progressStatus5}-progress`}>원하는 상대방</div>
+                <div className={`h7 sb ${progressStatus5}-progress`}>원하는 이성</div>
                 <div className={`${progressStatus5}-progress-bar`}></div>
             </div>
         </div>
