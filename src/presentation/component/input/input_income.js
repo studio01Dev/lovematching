@@ -22,10 +22,6 @@ export default function InputIncome({ labelText, placeholder, dataToForm, defaul
         }
     }, [rawNumber]);
 
-    useEffect(() => {
-        console.log(typeof parseInt(rawNumber), parseInt(rawNumber))
-    })
-
     return (
         <div className="input-comp">
             <div className="h6 m grey500">{labelText}</div>

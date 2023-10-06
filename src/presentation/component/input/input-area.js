@@ -17,8 +17,13 @@ export default function InputArea({ labelText1, labelText2, dataToForm, defaultV
 
     const subDistrictChange = (e) => {
         setSubdistrictSelect(e.target.value)
-        dataToForm([districtSelect, subdistrictSelect])
     }
+
+    useEffect(() => {
+        dataToForm([districtSelect, subdistrictSelect])
+        console.log([districtSelect, subdistrictSelect]);
+    }, [subdistrictSelect]);
+
 
     const emptyOption = (
         <option disabled key="empty" value="">

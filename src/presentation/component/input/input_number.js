@@ -10,7 +10,6 @@ export default function InputNumber({ labelText, placeholder, maxDigit, dataToFo
     }
     setNumber(numericValue)
   };
-  console.log(number)
 
   return (
     <div className="input-comp">

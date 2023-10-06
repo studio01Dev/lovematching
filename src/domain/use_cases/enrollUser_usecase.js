@@ -325,11 +325,11 @@ export default async function EnrollUserUseCase(user) {
     const docRef = collection(db.db, 'users');
     await addDoc(docRef, newUser);
 
-    const response = new MyResponse(true, newUser, '요청이 성공적으로 처리되었습니다.');
+    const response = new MyResponse(true, newUser, '성공적으로 신청되었어요!');
     alert(response.message);
   } catch (error) {
     console.error('Error:', error);
-    const response = new MyResponse(false, false, '잘못된 요청입니다.');
+    const response = new MyResponse(false, false, '오류가 발생했어요. 고객센터로 연락주세요.');
     alert(response.message);
   }
 }

@@ -2,7 +2,10 @@ import Button from "../../component/input/button";
 import Doodle from "../../asset/images/LovingDoodle.svg"
 import info from "../../asset/images/info.svg"
 
-export default function FormDone({name}) {
+export default function FormDone({ name }) {
+    const redirectToHomePage = () => {
+        window.location.href = 'https://www.lovematching.kr/';
+      };
     return (
         <div>
             <div class="valign calign">
@@ -10,7 +13,7 @@ export default function FormDone({name}) {
                     padding: '60px 20px 20px 20px',
                     width: '200px',
                     transform: 'translateX(-10px)'
-                }}/>
+                }} />
                 <div className="valign gap8 text-calign padding">
                     <div className="h5 m main500">신청 완료!</div>
                     <div className="h3 b grey900">{name}님,<br />좋은 분을 찾아드릴게요!</div>
@@ -18,7 +21,7 @@ export default function FormDone({name}) {
                 <div className="padding">
                     <div className="message gap8">
                         <div className="halign gap4 calign">
-                            <img src={info} style={{ width: '18px' }}/>
+                            <img src={info} style={{ width: '18px' }} />
                             <div className="h6 sb brand500">사용 방법</div>
                         </div>
                         <ul>
@@ -28,11 +31,11 @@ export default function FormDone({name}) {
                         </ul>
                     </div>
                 </div>
+                <div style={{ height: '80px' }} />
+                <button className='main-button' style={{ width: '350px' }} onClick={redirectToHomePage}>
+                    <div className="h5 sb">홈으로 돌아가기</div>
+                </button>
             </div>
-            <div style={{ height: '80px' }} />
-            <button className='main-button' style={{ width: '350px' }} onClick={''}>
-                <div className="h5 sb">홈으로 돌아가기</div>
-            </button>
         </div>
     );
 }
