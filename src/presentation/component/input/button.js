@@ -12,3 +12,13 @@ export default function Button({ buttonText, onClick, backClick }) {
         </div>
     );
 }
+
+export  function MainButton({ buttonText, onClick }) {
+    return (
+        <div className="side-padding halign gap12 button-container">
+            <button style={{ width: '100%' }} className='main-button' onClick={onClick}>
+                <div className="h5 sb">{buttonText}</div>
+            </button>
+        </div>
+    );
+}

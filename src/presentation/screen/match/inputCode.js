@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from "../../component/input/button";
+import Button, { MainButton } from "../../component/input/button";
 import InputText from "../../component/input/input_text";
 import { Link, useNavigate } from "react-router-dom";
 import response from '../../../domain/models/MyResponse';
@@ -51,7 +51,7 @@ export default function InputCode() {
                 </div> */}
                 {code && <p>입력한 코드: {code}</p>} {/* 코드가 입력되었을 때만 표시 */}
             </div>
-            <Button buttonText='러브매칭 이용하기' onClick={handleButtonClick} />
+            <MainButton buttonText='러브매칭 이용하기' onClick={handleButtonClick} />
             {/* <Link to='../queue'><Button buttonText='러브매칭 이용하기'/></Link> */}
         </div>
     );
