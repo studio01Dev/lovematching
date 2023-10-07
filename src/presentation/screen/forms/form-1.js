@@ -8,6 +8,9 @@ import InputIncome from "../../component/input/input_income";
 
 
 export default function Form1({ userData, view, onClick, backClick, name, phoneNum, sex, yearOfBirth, income, academicCareer, company, job, jobDetail, howWork, height, bodyType, style }) {
+    const toHome = () => {
+        window.location.href = 'https://www.lovematching.kr/';
+    }
     return (
         <div style={{ display: `${view}` }}>
             <div className="h3 b padding">기본 정보를 작성해주세요</div>
@@ -27,7 +30,7 @@ export default function Form1({ userData, view, onClick, backClick, name, phoneN
                 <Select labelText='스타일' values={['귀여움', '지적임', '듬직함', '평범함', '건강미', '청순함', '세련됨', '선한 인상']} dataToForm={data => style(data)} defaultValue={userData.style} />
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='다음으로' onClick={onClick} />
+            <Button buttonText='다음으로' onClick={onClick} backClick={toHome} />
         </div>
     );
 }

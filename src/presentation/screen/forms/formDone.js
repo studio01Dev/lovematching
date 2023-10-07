@@ -3,7 +3,7 @@ import Doodle from "../../asset/images/LovingDoodle.svg"
 import info from "../../asset/images/info.svg"
 
 export default function FormDone({ name }) {
-    const redirectToHomePage = () => {
+    const toHome = () => {
         window.location.href = 'https://www.lovematching.kr/';
       };
     return (
@@ -32,7 +32,7 @@ export default function FormDone({ name }) {
                     </div>
                 </div>
                 <div style={{ height: '80px' }} />
-                <button className='main-button' style={{ width: '350px' }} onClick={redirectToHomePage}>
+                <button className='main-button' style={{ width: '350px' }} onClick={toHome}>
                     <div className="h5 sb">홈으로 돌아가기</div>
                 </button>
             </div>
