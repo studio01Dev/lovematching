@@ -72,6 +72,7 @@ export default function Form() {
         5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion']
     };
 
+    //초기값 1로 해두고 주석처리한거 원상복구
     const [form, setForm] = useState(1);
     const nextForm = () => {
         const currentRequiredFields = requiredFields[form];
@@ -93,9 +94,9 @@ export default function Form() {
         setForm(form - 1);
     }
 
-    useEffect(() => {
-        console.log(userData.residence)
-    }, [userData])
+    // useEffect(() => {
+    //     console.log(userData.residence)
+    // }, [userData])
 
     switch (form) {
         case 1:

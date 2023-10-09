@@ -326,11 +326,13 @@ export default async function EnrollUserUseCase(user) {
     await addDoc(docRef, newUser);
 
     const response = new MyResponse(true, newUser, '성공적으로 신청되었어요!');
-    alert(response.message);
+    console.log(response)
+    return response
+    
   } catch (error) {
     console.error('Error:', error);
     const response = new MyResponse(false, false, '오류가 발생했어요. 고객센터로 연락주세요.');
-    alert(response.message);
+    return response
   }
 }
 

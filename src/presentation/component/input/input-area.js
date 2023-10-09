@@ -21,7 +21,7 @@ export default function InputArea({ labelText1, labelText2, dataToForm, defaultV
 
     useEffect(() => {
         dataToForm([districtSelect, subdistrictSelect])
-        console.log([districtSelect, subdistrictSelect]);
+        // console.log([districtSelect, subdistrictSelect]);
     }, [subdistrictSelect]);
 
 
