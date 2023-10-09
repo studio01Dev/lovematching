@@ -260,12 +260,6 @@ import MyResponse from '../models/MyResponse';
 
 export default async function EnrollUserUseCase(user) {
   try {
-    // Upload images to Firebase Storage and get download URLs
-    const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
-      uploadImageToStorage(user.faceImageData, 'face'),
-      uploadImageToStorage(user.bodyImageData, 'body'),
-      uploadImageToStorage(user.employImageData, 'employ'),
-    ]);
 
     // Create a new user object with download URLs
     const newUser = new User(
@@ -321,6 +315,12 @@ export default async function EnrollUserUseCase(user) {
       null
     ).toObject();
 
+    const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
+      uploadImageToStorage(user.faceImageData, 'face', newUser),
+      uploadImageToStorage(user.bodyImageData, 'body', newUser),
+      uploadImageToStorage(user.employImageData, 'employ', newUser),
+    ]);
+
     // Add the user document to Firestore
     const docRef = collection(db.db, 'users');
     await addDoc(docRef, newUser);
@@ -334,7 +334,9 @@ export default async function EnrollUserUseCase(user) {
   }
 }
 
-async function uploadImageToStorage(imageData, typeOfImage) {
+
+
+async function uploadImageToStorage(imageData, typeOfImage, newUser) {
   const storageRef = ref(storage.storage, newUser.name + newUser.phoneNum + newUser.yearOfBirth + typeOfImage);
   await uploadBytes(storageRef, imageData);
   const imageUrl = await getDownloadURL(storageRef);
