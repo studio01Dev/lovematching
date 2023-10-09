@@ -67,7 +67,7 @@ export default function Test() {
 
             <Link to='../form'><button>신청하기</button></Link>
             <Link to='../input-code'><button>매칭 확인하기</button></Link>
-            <button onClick={updateData}>사진을 파일이름에서 스토리지 URL로 바꾸기</button>
+            {/* <button onClick={updateData}>사진을 파일이름에서 스토리지 URL로 바꾸기</button> */}
         </div>
     );
 }

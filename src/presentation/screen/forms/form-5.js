@@ -7,6 +7,16 @@ import React from 'react';
 
 
 export default function Form5({ userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStyle, counterpartTattoo }) {
+    const enrollUser = async () => {
+        try {
+            const response = await EnrollUserUseCase(userData)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     return (
         <div>
             <div className="h3 b padding">원하는 이성을 알려주세요</div>
@@ -35,7 +45,7 @@ export default function Form5({ userData, onClick, backClick, counterpartAcademi
                 </div>
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='신청 완료하기' onClick={() => {  EnrollUserUseCase(userData); onClick(); }} backClick={backClick}/>
+            <Button buttonText='신청 완료하기' onClick={() => { enrollUser() }} backClick={backClick}/>
         </div>
     );
 }
