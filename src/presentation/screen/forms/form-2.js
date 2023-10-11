@@ -16,7 +16,7 @@ export default function Form2({ userData, residence, workPlace, onClick, backCli
                 <Select labelText='음주 횟수' values={['주 4회 이상', '주 2~3회', '월 2~4회', '월 1회 이하', '마시지 않음']} dataToForm={data => drinkingFrequency(data)} defaultValue={userData.drinkingFrequency} />
                 <InputRadio displayNotMatter='none' name='tattoo' labelText='문신 여부' id1='tattooYes' id2='tattooNo' value1='있음' value2='없음' dataToForm={data => tattoo(data)} defaultValue={userData.tattoo} />
                 <InputRadio displayNotMatter='none' name='smoking' labelText='흡연 여부' id1='smokingYes' id2='smokingNo' value1='흡연' value2='비흡연' dataToForm={data => smoking(data)} defaultValue={userData.smoking} />
-                <Select labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타(직접입력)']} dataToForm={data => religion(data)}  defaultValue={userData.religion}/>
+                <Select labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타']} dataToForm={data => religion(data)}  defaultValue={userData.religion}/>
                 <InputCheckbox labelText='선호하는 상담 방법' values={['카카오톡', '통화', '오프라인 상담']} number='3' dataToForm={data => consultingType(data)} defaultValue={userData.consultingType} />
             </div>
             <div style={{ height: '80px' }} />
