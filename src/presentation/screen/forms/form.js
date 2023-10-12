@@ -79,8 +79,9 @@ export default function Form() {
         const missingFields = currentRequiredFields
             .filter(field => !userData[field])
             .map(field => fieldTranslations[field]);
+        console.log(missingFields)
 
-        if (missingFields.length > 0) {
+        if (missingFields.length >= 0) {
             alert(`${missingFields.join(', ')} 항목을 입력해주세요!`);
         } else {
             setForm(form + 1);
@@ -94,9 +95,9 @@ export default function Form() {
         setForm(form - 1);
     }
 
-    // useEffect(() => {
-    //     console.log(userData.residence)
-    // }, [userData])
+    useEffect(() => {
+        console.log(userData.style)   
+    }, [userData])
 
     switch (form) {
         case 1:

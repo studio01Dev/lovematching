@@ -2,7 +2,7 @@ import { useState } from "react";
 import testEnrollUserUseCase from '../../../domain/use_cases/_test_enrollUser_usecase'
 import { Link } from "react-router-dom";
 import { getDocs, collection, getDoc, setDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import {ref, getStorage, getDownloadURL} from "firebase/storage"
+import { ref, getStorage, getDownloadURL } from "firebase/storage"
 import db from '../../../firebase/index'
 import storage from '../../../firebase/index'
 
@@ -13,10 +13,10 @@ export default function Test() {
 
 
     const handleClick = () => {
-        const user = {name, phoneNum}
+        const user = { name, phoneNum }
         testEnrollUserUseCase(user)
     }
-    
+
     const updateData = async () => {
         //1. 이름 가져오기 face, body, employ
         const userList = []
@@ -53,8 +53,6 @@ export default function Test() {
 
     }
 
-
-
     return (
         <div>
             {/* <Child dataToForm={smth1 => setName(smth1)}/>
@@ -73,8 +71,8 @@ export default function Test() {
 }
 
 
-export function Child({dataToForm}) {
-    return(
+export function Child({ dataToForm }) {
+    return (
         <input style={{ border: '1px solid black' }} type="text" onChange={e => dataToForm(e.target.value)} />
     );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../input/input.css';
 
-export default function InputCheckbox({ name, labelText, values, dataToForm, defaultValue }) {
+export default function InputCheckbox({ name, labelText, values, dataToForm, defaultValue, displayNotMatter }) {
     const [selectedValues, setSelectedValues] = useState(defaultValue || []);
     const [isNotMatterChecked, setIsNotMatterChecked] = useState(
         defaultValue !== undefined && defaultValue.includes('상관없음')
@@ -16,13 +16,20 @@ export default function InputCheckbox({ name, labelText, values, dataToForm, def
             setSelectedValues(isChecked ? ['상관없음'] : []);
         } else {
             if (isChecked) {
-                setSelectedValues([...selectedValues, value]);
+                // Check if the number of selected values is less than or equal to 2
+                if (selectedValues.length < 2) {
+                    setSelectedValues([...selectedValues, value]);
+                } else {
+                    // Do not allow more than 2 selected values
+                    event.preventDefault();
+                }
             } else {
                 setSelectedValues(selectedValues.filter((selectedValue) => selectedValue !== value));
             }
-            setIsNotMatterChecked(false); // Uncheck "상관없음" if any other checkbox is selected
+            setIsNotMatterChecked(false);
         }
     };
+        
 
     useEffect(() => {
         dataToForm(isNotMatterChecked ? ['상관없음'] : selectedValues);
@@ -31,12 +38,15 @@ export default function InputCheckbox({ name, labelText, values, dataToForm, def
     return (
         <div className='input-comp'>
             <div className='h6 m grey500'>{labelText}</div>
-            <InputCheckboxNotMatter
-                isNotMatterChecked={isNotMatterChecked}
-                setIsNotMatterChecked={setIsNotMatterChecked}
-                setSelectedValues={setSelectedValues}
-                labelText={labelText}
-            />
+            {
+                displayNotMatter ?
+                    <InputCheckboxNotMatter
+                        isNotMatterChecked={isNotMatterChecked}
+                        setIsNotMatterChecked={setIsNotMatterChecked}
+                        setSelectedValues={setSelectedValues}
+                        labelText={labelText}
+                    /> : null
+            }
             {isNotMatterChecked ? null : (
                 <div className='input'>
                     <div className='checkbox-container'>

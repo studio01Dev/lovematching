@@ -232,6 +232,16 @@ input::-webkit-file-upload-button {
   display: none;
 }
 
+.image-success {
+  display: flex;
+  width: 350px;
+  flex-direction: row;
+  align-items: flex-start;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: var(--brand-50);
+}
+
 /* list item */
 .item-container {
   display: flex;
