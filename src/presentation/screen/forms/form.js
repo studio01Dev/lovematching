@@ -24,10 +24,10 @@ export default function Form() {
         sex: '성별',
         yearOfBirth: '출생연도',
         academicCareer: '최종 학력',
-        job: '직업',
-        income: '소득',
-        company: '회사',
-        jobDetail: '직무',
+        job: '직장 유형',
+        income: '연소득',
+        company: '직장명',
+        jobDetail: '상세직종',
         howWork: '근무 형태',
         height: '키',
         bodyType: '체형',
@@ -53,6 +53,7 @@ export default function Form() {
         counterpartIncome: '상대방 소득',
         counterpartHowWork: '상대방 근무 형태',
         counterpartHeight: '상대방 키',
+        counterpartStrength: '상대방 매력',
         counterpartBodyType: '상대방 체형',
         counterpartStyle: '상대방 스타일',
         counterpartHaveCar: '상대방 자차 보유 여부',
@@ -72,31 +73,29 @@ export default function Form() {
         5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion']
     };
 
-    //초기값 1로 해두고 주석처리한거 원상복구
+    const [firstEmptyField, setFirstEmptyField] = useState(null)
     const [form, setForm] = useState(1);
-    const nextForm = () => {
-        const currentRequiredFields = requiredFields[form];
-        const missingFields = currentRequiredFields
-            .filter(field => !userData[field])
-            .map(field => fieldTranslations[field]);
-        console.log(missingFields)
-
-        if (missingFields.length >= 0) {
-            alert(`${missingFields.join(', ')} 항목을 입력해주세요!`);
-        } else {
-            setForm(form + 1);
-            window.scrollTo(0, 0);
-        }
-    };
     // const nextForm = () => {
-    //     setForm(form + 1);
-    // }
+    //     const currentRequiredFields = requiredFields[form];
+    //     const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length == 0)
+    //     const translateField = missingFields.map(field => fieldTranslations[field]);
+    //     if (missingFields.length > 0) {
+    //         alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
+    //         setFirstEmptyField(`${missingFields[0]}`)
+    //     } else {
+    //         setForm(form + 1);
+    //         window.scrollTo(0, 0);
+    //     }
+    // };
+    const nextForm = () => {
+        setForm(form + 1);
+    }
     const prevForm = () => {
         setForm(form - 1);
     }
 
     useEffect(() => {
-        console.log(userData.style)   
+        console.log(userData)
     }, [userData])
 
     switch (form) {
@@ -117,6 +116,7 @@ export default function Form() {
                     height={data => setUserData({ ...userData, height: data })}
                     bodyType={data => setUserData({ ...userData, bodyType: data })}
                     style={data => setUserData({ ...userData, style: data })}
+                    firstEmptyField={firstEmptyField}
                 /></div>;
         case 2:
             return <div><ProgressBar progressStatus={2} />
@@ -131,6 +131,7 @@ export default function Form() {
                     smoking={data => setUserData({ ...userData, smoking: data })}
                     religion={data => setUserData({ ...userData, religion: data })}
                     consultingType={data => setUserData({ ...userData, consultingType: data })}
+                    firstEmptyField={firstEmptyField}
                 /></div>;
         case 3:
             return <div><ProgressBar progressStatus={3} />
@@ -140,6 +141,7 @@ export default function Form() {
                     strength={data => setUserData({ ...userData, strength: data })}
                     interest={data => setUserData({ ...userData, interest: data })}
                     dateType={data => setUserData({ ...userData, dateType: data })}
+                    firstEmptyField={firstEmptyField}
                 /></div>;
         case 4:
             return <div><ProgressBar progressStatus={4} />
@@ -148,6 +150,7 @@ export default function Form() {
                     faceImageData={data => setUserData({ ...userData, faceImageData: data })}
                     bodyImageData={data => setUserData({ ...userData, bodyImageData: data })}
                     employImageData={data => setUserData({ ...userData, employImageData: data })}
+                    firstEmptyField={firstEmptyField}
                 /></div>;
         case 5:
             return <div><ProgressBar progressStatus={5} />
@@ -163,10 +166,12 @@ export default function Form() {
                     counterpartStyle={data => setUserData({ ...userData, counterpartStyle: data })}
                     counterpartHaveCar={data => setUserData({ ...userData, counterpartHaveCar: data })}
                     counterpartHaveHouse={data => setUserData({ ...userData, counterpartHaveHouse: data })}
+                    counterpartStrength={data => setUserData({ ...userData, counterpartStrength: data })}
                     counterpartDrinkingFrequency={data => setUserData({ ...userData, counterpartDrinkingFrequency: data })}
                     counterpartSmoking={data => setUserData({ ...userData, counterpartSmoking: data })}
                     counterpartTattoo={data => setUserData({ ...userData, counterpartTattoo: data })}
                     counterpartReligion={data => setUserData({ ...userData, counterpartReligion: data })}
+                    firstEmptyField={firstEmptyField}
                 /></div>;
         case 6:
             return <div><FormDone name={userData.name} onClick={nextForm} /></div>;

@@ -3,8 +3,27 @@ import Select from "../../component/input/select";
 import Button from "../../component/input/button";
 import InputArea from "../../component/input/input-area";
 import InputCheckbox from "../../component/input/input_checkbox";
+import { useRef, useEffect } from "react";
 
-export default function Form2({ userData, residence, workPlace, onClick, backClick, haveCar, haveHouse, drinkingFrequency, tattoo, smoking, religion, consultingType }) {
+export default function Form2({ firstEmptyField, userData, residence, workPlace, onClick, backClick, haveCar, haveHouse, drinkingFrequency, tattoo, smoking, religion, consultingType }) {
+
+    const inputRef = {
+        residence: useRef(),
+        workPlace: useRef(),
+        haveCar: useRef(),
+        haveHouse: useRef(),
+        drinkingFrequency: useRef(),
+        tattoo: useRef(),
+        smoking: useRef(),
+        religion: useRef(),
+        consultingType: useRef(),
+      };
+
+    useEffect(() => {
+        if (inputRef[firstEmptyField] && inputRef[firstEmptyField].current) {
+            inputRef[firstEmptyField].current.focus();
+        }
+    }, [firstEmptyField]);
     return (
         <div>
             <div className="h3 b padding">라이프스타일을 작성해주세요</div>

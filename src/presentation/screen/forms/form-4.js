@@ -1,8 +1,20 @@
 import Button from "../../component/input/button";
 import Upload from "../../component/input/upload";
-import { useEffect } from "react";
+import { useRef, useEffect } from "react";
 
-export default function Form4({ userData, onClick, backClick, faceImageData, bodyImageData, employImageData }) {
+export default function Form4({ firstEmptyField, userData, onClick, backClick, faceImageData, bodyImageData, employImageData }) {
+    const inputRef = {
+        faceImageData: useRef(),
+        bodyImageData: useRef(),
+        employImageData: useRef(),
+    };
+
+    useEffect(() => {
+        if (inputRef[firstEmptyField] && inputRef[firstEmptyField].current) {
+            inputRef[firstEmptyField].current.focus();
+        }
+    }, [firstEmptyField]);
+
     return (
         <div>
             <div class="valign gap8 padding">
@@ -12,8 +24,8 @@ export default function Form4({ userData, onClick, backClick, faceImageData, bod
             </div>
             <div class="valign gap32 margin">
                 <Upload labelText='인생샷 얼굴 사진(정면권장)' dataToForm={data => faceImageData(data)} defaultValue={userData.faceImageData} />
-                <Upload labelText='인생샷 전신 사진' dataToForm={data => bodyImageData(data)} defaultValue={userData.bodyImageData}/>
-                <Upload labelText='재직 증명 사진' dataToForm={data => employImageData(data)} defaultValue={userData.employImageData}/>
+                <Upload labelText='인생샷 전신 사진' dataToForm={data => bodyImageData(data)} defaultValue={userData.bodyImageData} />
+                <Upload labelText='재직 증명 사진' dataToForm={data => employImageData(data)} defaultValue={userData.employImageData} />
             </div>
             <div style={{ height: '80px' }} />
             <Button buttonText='다음으로' onClick={onClick} backClick={backClick} />

@@ -3,14 +3,13 @@ import Button from "../../component/input/button";
 import InputCheckbox from "../../component/input/input_checkbox";
 import InputRadio from "../../component/input/input_radio";
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
-import testEnrollUserUseCase from "../../../domain/use_cases/_test_enrollUser_usecase";
-import { React, useState } from 'react';
 import LoadingDialog from '../../component/loading_dialog/loading_dialog'
+import { React, useState, useRef, useEffect } from "react";
+import { charm } from "../../../domain/models/questionnaires";
 
 
-export default function Form5({ userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStyle, counterpartTattoo }) {
+export default function Form5({ firstEmptyField, userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStrength, counterpartStyle, counterpartTattoo }) {
     const [isLoading, setIsLoading] = useState(false);
-
 
     const enrollUser = async () => {
         try {
@@ -29,6 +28,30 @@ export default function Form5({ userData, onClick, backClick, counterpartAcademi
         }
 
     }
+
+    const inputRef = {
+        counterpartAge: useRef(),
+        counterpartAcademic: useRef(),
+        counterpartJob: useRef(),
+        counterpartIncome: useRef(),
+        counterpartHowWork: useRef(),
+        counterpartHeight: useRef(),
+        counterpartBodyType: useRef(),
+        counterpartStyle: useRef(),
+        counterpartStrength: useRef(),
+        counterpartHaveCar: useRef(),
+        counterpartHaveHouse: useRef(),
+        counterpartDrinkingFrequency: useRef(),
+        counterpartSmoking: useRef(),
+        counterpartTattoo: useRef(),
+        counterpartReligion: useRef(),
+      };
+
+    useEffect(() => {
+        if (inputRef[firstEmptyField] && inputRef[firstEmptyField].current) {
+            inputRef[firstEmptyField].current.focus();
+        }
+    }, [firstEmptyField]);
 
     return (
         <div>
@@ -58,6 +81,7 @@ export default function Form5({ userData, onClick, backClick, counterpartAcademi
                             <InputRadio name='counterpartSmoking' id1='counterpartSmokingYes' id2='counterpartSmokingNo' labelText='흡연 여부' value1='흡연' value2='비흡연' dataToForm={data => counterpartSmoking(data)} defaultValue={userData.counterpartSmoking}/>
                             <InputRadio name='counterpartTattoo' id1='counterpartTattooYes' id2='counterpartTattooNo' labelText='문신 여부' value1='있음' value2='없음' dataToForm={data => counterpartTattoo(data)} defaultValue={userData.counterpartTattoo}/>
                             <InputCheckbox labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타']} dataToForm={data => counterpartReligion(data)} />
+                            <InputCheckbox2 labelText='매력 (최대 3개 선택 가능)' values={charm} dataToForm={data => counterpartStrength(data)} maxValues={3} defaultValue={userData.counterpartStrength} />
                         </div>
                     </div>
                     <div style={{ height: '80px' }} />
@@ -65,6 +89,117 @@ export default function Form5({ userData, onClick, backClick, counterpartAcademi
                 </div>
             )}
             
+        </div>
+    );
+}
+
+export function InputCheckbox2({ name, labelText, values, dataToForm, defaultValue, displayNotMatter, inputRef, maxValues }) {
+    const [selectedValues, setSelectedValues] = useState(defaultValue || []);
+    const [isNotMatterChecked, setIsNotMatterChecked] = useState(
+        defaultValue !== undefined && defaultValue.includes('상관없음')
+    );
+
+    const handleCheckboxChange = (event) => {
+        const value = event.target.value;
+        const isChecked = event.target.checked;
+
+        if (value === 'notMatter') {
+            setIsNotMatterChecked(isChecked);
+            setSelectedValues(isChecked ? ['상관없음'] : []);
+        } else {
+            if (isChecked) {
+                if (maxValues != undefined) {
+                    if (selectedValues.length < maxValues) {
+                        setSelectedValues([...selectedValues, value]);
+                    } else {
+                        event.preventDefault();
+                    }
+                } else {
+                    setSelectedValues([...selectedValues, value]);
+                }
+            } else {
+                setSelectedValues(selectedValues.filter((selectedValue) => selectedValue !== value));
+            }
+            setIsNotMatterChecked(false);
+        }
+    };
+
+
+    useEffect(() => {
+        dataToForm(isNotMatterChecked ? ['상관없음'] : selectedValues);
+    }, [selectedValues, isNotMatterChecked]);
+
+    return (
+        <div className='input-comp'>
+            <div className='h6 m grey500'>{labelText}</div>
+            {
+                displayNotMatter ?
+                    <InputCheckboxNotMatter
+                        isNotMatterChecked={isNotMatterChecked}
+                        setIsNotMatterChecked={setIsNotMatterChecked}
+                        setSelectedValues={setSelectedValues}
+                        labelText={labelText}
+                    /> : null
+            }
+            {
+                isNotMatterChecked ? null : (
+                    <div className='input'>
+                        <div className='valign gap8'>
+                            {values.map((value, index) => (
+                                <Checkbox
+                                    key={index}
+                                    name={name}
+                                    value={value}
+                                    inputRef={inputRef}
+                                    id={value}
+                                    checked={selectedValues.includes(value)}
+                                    onChange={handleCheckboxChange}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    );
+}
+
+
+export function Checkbox({ name, value, checked, onChange, id, inputRef }) {
+    return (
+        <div className='input-container halign gap4 calign'>
+            <input ref={inputRef} type='checkbox' name={name} value={value} id={id} checked={checked} onChange={onChange} />
+            <label htmlFor={id} className='h6 r'>{value}</label>
+        </div>
+    );
+}
+
+export function InputCheckboxNotMatter({ isNotMatterChecked, setIsNotMatterChecked, setSelectedValues, labelText }) {
+    const handleCheckboxChange = (event) => {
+        setIsNotMatterChecked(event.target.checked);
+        if (event.target.checked) {
+            setSelectedValues([]);
+        }
+    };
+
+    return (
+        <div>
+            <label htmlFor={labelText}>
+                <div className={`input ${isNotMatterChecked ? 'bg-dark' : 'bg-grey'}`}>
+                    <div className='checkbox-container'>
+                        <div className='input-container halign gap4 calign'>
+                            <input
+                                type='checkbox'
+                                value='상관없음'
+                                id={labelText}
+                                onChange={handleCheckboxChange}
+                                checked={isNotMatterChecked}
+                            />
+                            <label htmlFor={labelText} className={`h5 r ${isNotMatterChecked ? 'label-dark' : ''}`}>상관없음</label>
+                        </div>
+                    </div>
+                </div>
+            </label>
         </div>
     );
 }

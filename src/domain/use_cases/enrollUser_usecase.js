@@ -312,6 +312,7 @@ export default async function EnrollUserUseCase(user) {
       user.counterpartSmoking,
       user.counterpartTattoo,
       user.counterpartReligion,
+      user.counterpartStrength,
       user.consultingType,
       false,
       new Date(),

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../input/input.css';
 
-export default function InputCheckbox({ name, labelText, values, dataToForm, defaultValue, displayNotMatter }) {
+export default function InputCheckbox({ name, labelText, values, dataToForm, defaultValue, displayNotMatter, inputRef, maxValues }) {
     const [selectedValues, setSelectedValues] = useState(defaultValue || []);
     const [isNotMatterChecked, setIsNotMatterChecked] = useState(
         defaultValue !== undefined && defaultValue.includes('상관없음')
@@ -16,12 +16,14 @@ export default function InputCheckbox({ name, labelText, values, dataToForm, def
             setSelectedValues(isChecked ? ['상관없음'] : []);
         } else {
             if (isChecked) {
-                // Check if the number of selected values is less than or equal to 2
-                if (selectedValues.length < 2) {
-                    setSelectedValues([...selectedValues, value]);
+                if (maxValues != undefined) {
+                    if (selectedValues.length < maxValues) {
+                        setSelectedValues([...selectedValues, value]);
+                    } else {
+                        event.preventDefault();
+                    }
                 } else {
-                    // Do not allow more than 2 selected values
-                    event.preventDefault();
+                    setSelectedValues([...selectedValues, value]);
                 }
             } else {
                 setSelectedValues(selectedValues.filter((selectedValue) => selectedValue !== value));
@@ -29,7 +31,7 @@ export default function InputCheckbox({ name, labelText, values, dataToForm, def
             setIsNotMatterChecked(false);
         }
     };
-        
+
 
     useEffect(() => {
         dataToForm(isNotMatterChecked ? ['상관없음'] : selectedValues);
@@ -47,31 +49,34 @@ export default function InputCheckbox({ name, labelText, values, dataToForm, def
                         labelText={labelText}
                     /> : null
             }
-            {isNotMatterChecked ? null : (
-                <div className='input'>
-                    <div className='checkbox-container'>
-                        {values.map((value, index) => (
-                            <Checkbox
-                                key={index}
-                                name={name}
-                                value={value}
-                                id={value}
-                                checked={selectedValues.includes(value)}
-                                onChange={handleCheckboxChange}
-                            />
-                        ))}
+            {
+                isNotMatterChecked ? null : (
+                    <div className='input'>
+                        <div className='checkbox-container'>
+                            {values.map((value, index) => (
+                                <Checkbox
+                                    key={index}
+                                    name={name}
+                                    value={value}
+                                    inputRef={inputRef}
+                                    id={value}
+                                    checked={selectedValues.includes(value)}
+                                    onChange={handleCheckboxChange}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
-            )}
+                )
+            }
         </div>
     );
 }
 
 
-export function Checkbox({ name, value, checked, onChange, id }) {
+export function Checkbox({ name, value, checked, onChange, id, inputRef }) {
     return (
         <div className='input-container halign gap4 calign'>
-            <input type='checkbox' name={name} value={value} id={id} checked={checked} onChange={onChange} />
+            <input ref={inputRef} type='checkbox' name={name} value={value} id={id} checked={checked} onChange={onChange} />
             <label htmlFor={id} className='h5 r'>{value}</label>
         </div>
     );

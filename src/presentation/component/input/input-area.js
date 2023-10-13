@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../input/input.css';
 import { district, subdistrict } from '../../../domain/models/area';
 
-export default function InputArea({ labelText1, labelText2, dataToForm, defaultValue }) {
+export default function InputArea({ labelText1, labelText2, dataToForm, inputRef }) {
     const [districtSelect, setDistrictSelect] = useState([])
     const [subdistrictSelect, setSubdistrictSelect] = useState([])
 
@@ -38,7 +38,7 @@ export default function InputArea({ labelText1, labelText2, dataToForm, defaultV
                     {labelText1}
                     <div className='area-input'>
                         <div className='input-container halign gap4 calign'>
-                            <select value={districtSelect} onChange={e => districtChange(e)}>
+                            <select ref={inputRef} value={districtSelect} onChange={e => districtChange(e)}>
                                 {emptyOption}
                                 {district.map((district) => (
                                     <option key={district} value={district}>

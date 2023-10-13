@@ -11,7 +11,19 @@ export const smoking = ['흡연', '비흡연']
 export const haveCar = ['있음', '없음']
 export const haveHouse = ['있음', '없음']
 export const consultingType = ['상관없음', '카카오톡', '통화', '오프라인 상담']
-export const tatooo = ['있음', '없음']
+export const tattoo = ['있음', '없음']
+export const charm = [
+    "연애에 집중하고 열정적인, 상대가 1순위인 사람",
+    "함께 다채로운 데이트를 할 수 있는, 활동적인 사람",
+    "같이 있으면 즐거운, 유머감각이 뛰어난 사람",
+    "직업이 안정적이고 경제관념이 뚜렷한 사람",
+    "다정하고 친절하며 성품이 온화한 사람",
+    "패션감각이 뛰어나고 옷 잘입는다는 말을 듣는 사람",
+    "함께 자기개발하며 성장하는 것을 즐거워하는 사람",
+    "외부 활동보다 집 데이트를 즐기는 사람",
+    "데이트를 주도적으로 이끌고 자기 주관이 뚜렷한 사람",
+    "상대방의 감정에 깊이 공감해줄 수 있는 사람",
+];
 
 export const counterpartAcademic = ['고졸 이하', '전문대', '4년제대학', '해외대학', '석사', '박사']
 export const counterpartAge = ['20~25', '26~30', '31~35', '36~40']
@@ -25,5 +37,5 @@ export const counterpartHaveCar = ['있음', '없음']
 export const counterpartHaveHouse = ['있음', '없음']
 export const counterpartStyle = ['귀여움', '지적임', '듬직함', '평범함', '건강미', '청순함', '세련됨', '선한 인상']
 export const counterpartTatoo = ['있음', '없음']
-export const counterpartIncome = ['1,000~2,000', '2,000~3,000', '3,000~4,000', '4,000~5,000', '5,000~6,000','6,000~7,000','8,000 이상']
+export const counterpartIncome = ['1,000~2,000', '2,000~3,000', '3,000~4,000', '4,000~5,000', '5,000~6,000', '6,000~7,000', '8,000 이상']
 export const counterpartHowWork = ['주 5일', '교대근무', '기타']

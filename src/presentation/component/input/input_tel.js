@@ -1,7 +1,7 @@
 import React from 'react';
 import '../input/input.css';
 
-export default function InputTel({ labelText, placeholder, dataToForm, defaultValue }) {
+export default function InputTel({ labelText, placeholder, dataToForm, defaultValue, inputRef }) {
   const handleInputChange = (e) => {
     // Remove non-numeric characters and dashes
     let numericValue = e.target.value.replace(/[^0-9]/g, '');
@@ -30,6 +30,7 @@ export default function InputTel({ labelText, placeholder, dataToForm, defaultVa
             onInput={handleInputChange} // Attach the input event handler
             onChange={e => dataToForm(String(e.target.value))}
             defaultValue={defaultValue}
+            ref={inputRef}
           />
         </div>
       </div>

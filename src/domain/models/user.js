@@ -48,6 +48,7 @@ export default class User {
         counterpartSmoking,
         counterpartTattoo,
         counterpartReligion,
+        counterpartStrength,
         consultingType,
         // service
         isMatched,
@@ -102,6 +103,7 @@ export default class User {
         this.counterpartSmoking = counterpartSmoking;
         this.counterpartTattoo = counterpartTattoo;
         this.counterpartReligion = counterpartReligion;
+        this.counterpartStrength = counterpartStrength;
         this.consultingType = consultingType;
         //
         this.isMatched = isMatched;
@@ -159,6 +161,7 @@ export default class User {
             counterpartSmoking: this.counterpartSmoking,
             counterpartTattoo: this.counterpartTattoo,
             counterpartReligion: this.counterpartReligion,
+            counterpartStrength: this.counterpartStrength,
             consultingType: this.consultingType,
             //
             isMatched: this.isMatched,

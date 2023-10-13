@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import upload from '../../asset/images/upload.png';
 import check from '../../asset/images/brand-check.svg'
 
-export default function Upload({ labelText, dataToForm, defaultValue }) {
+export default function Upload({ labelText, dataToForm, defaultValue, inputRef }) {
   const [image, setImage] = useState(defaultValue);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -40,6 +40,7 @@ export default function Upload({ labelText, dataToForm, defaultValue }) {
               <div className="input-container halign gap4 calign sbalign">
                 <input
                   type="file"
+                  ref={inputRef}
                   id="img"
                   style={{ display: 'none' }}
                   onChange={handleImageChange}
@@ -53,6 +54,7 @@ export default function Upload({ labelText, dataToForm, defaultValue }) {
               <div className="input-container halign gap4 calign sbalign">
                 <input
                   type="file"
+                  ref={inputRef}
                   id="img"
                   style={{ display: 'none' }}
                   onChange={handleImageChange}

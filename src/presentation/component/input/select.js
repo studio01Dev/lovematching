@@ -1,8 +1,8 @@
 import '../input/input.css';
 import { useState } from 'react';
 
-export default function Select({ name, labelText, values, dataToForm, defaultValue }) {
-    const [selectedValue, setSelectedValue] = useState(defaultValue); // Initialize with an empty default value
+export default function Select({ name, labelText, values, dataToForm, defaultValue, inputRef }) {
+    const [selectedValue, setSelectedValue] = useState(defaultValue);
 
     const handleSelectChange = (event) => {
         const newValue = event.target.value;
@@ -24,16 +24,33 @@ export default function Select({ name, labelText, values, dataToForm, defaultVal
     ];
 
     return (
-        <div className="input-comp">
+        <div>
+            <div className="input-comp">
+                <div className='h6 m grey500'>{labelText}</div>
+                <div className='input'>
+                    <div className='input-container halign gap4 calign'>
+                        <select ref={inputRef} value={selectedValue} onChange={handleSelectChange}>
+                            {options}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {selectedValue === '기타' && (
+                <InputText dataToForm={dataToForm} inputRef={inputRef} placeholder={`${labelText}를 직접 입력해주세요`} />
+            )}
+        </div>
+    );
+}
+
+export function InputText({ labelText, placeholder, dataToForm, inputRef }) {
+    return (
+        <div class="input-comp">
             <div className='h6 m grey500'>{labelText}</div>
             <div className='input'>
                 <div className='input-container halign gap4 calign'>
-                    <select value={selectedValue} onChange={handleSelectChange}>
-                        {options}
-                    </select>
+                    <input ref={inputRef} type='text' placeholder={placeholder} onChange={e => dataToForm(e.target.value)} />
                 </div>
             </div>
         </div>
     );
 }
-

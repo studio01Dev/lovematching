@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../input/input.css';
 
-export default function InputIncome({ labelText, placeholder, dataToForm, defaultValue }) {
+export default function InputIncome({ labelText, placeholder, dataToForm, defaultValue, inputRef }) {
     const [rawNumber, setRawNumber] = useState();
     const [formattedNumber, setFormattedNumber] = useState('');
 
@@ -29,6 +29,7 @@ export default function InputIncome({ labelText, placeholder, dataToForm, defaul
                 <div className="input-container halign gap4 calign">
                     <input
                         type="text"
+                        ref={inputRef}
                         pattern="[0-9]*"
                         placeholder={placeholder}
                         onInput={handleInputChange}

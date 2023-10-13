@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../input/input.css';
 
-export default function InputNumber({ labelText, placeholder, maxDigit, dataToForm, defaultValue }) {
+export default function InputNumber({ labelText, placeholder, maxDigit, dataToForm, defaultValue, inputRef }) {
   const [number, setNumber] = useState()
   const handleInputChange = (e) => {
     let numericValue = e.target.value
@@ -24,6 +24,7 @@ export default function InputNumber({ labelText, placeholder, maxDigit, dataToFo
             value={number}
             onChange={e => dataToForm(number)}
             defaultValue={defaultValue}
+            ref={inputRef}
           />
         </div>
       </div>
