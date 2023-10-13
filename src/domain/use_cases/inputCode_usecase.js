@@ -5,21 +5,23 @@ import db from '../../firebase/index';
 
 export default class InputCodeUseCase {
 
-    async validateUser(phoneNum) {
+    async validateUser(code) {
         try {
             // 1. check user exist
             // 2. if true, check consulting end time
             // 3. if consulting doesn't finish, read user
-            const q = query(collection(db.db, 'users'), where("phoneNum", "==", phoneNum))
+            const q = query(collection(db.db, 'users'), where("code", "==", code))
             const querySnapshot = await getDocs(q)
             let users = []
             querySnapshot.forEach((doc) => {
                 delete doc.data().id
+                console.log(doc.data().consultingEndTime)
                 users.unshift({
                 ...doc.data(),
                 id: doc.id,
                 })
             })
+            console.log(users[0])
             if(querySnapshot.size===0) {
                 var response = new MyResponse(true, 'absence', "존재하지 않는 유저입니다.")
                 return response

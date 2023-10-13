@@ -252,7 +252,7 @@
 
 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import User from '../models/user';
 import storage from '../../firebase/index';
 import db from '../../firebase/index';
@@ -263,9 +263,35 @@ export default async function EnrollUserUseCase(user) {
 
     const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
       uploadImageToStorage(user.faceImageData, 'face', user.name, user.phoneNum, user.yearOfBirth.toString()),
-      uploadImageToStorage(user.bodyImageData, 'body',  user.name, user.phoneNum, user.yearOfBirth.toString()),
-      uploadImageToStorage(user.employImageData, 'employ',  user.name, user.phoneNum, user.yearOfBirth.toString()),
+      uploadImageToStorage(user.bodyImageData, 'body', user.name, user.phoneNum, user.yearOfBirth.toString()),
+      uploadImageToStorage(user.employImageData, 'employ', user.name, user.phoneNum, user.yearOfBirth.toString()),
     ]);
+
+    // 올해 가입한 고객 목록
+    const users = [];
+    const userSnapshot = await getDocs(collection(db.db, "users"));
+    userSnapshot.forEach((doc) => {
+      users.push(
+        {
+          ...doc.data(),
+          id: doc.id
+        }
+      )
+    }
+    )
+    const usersThisYear = users.filter(user => parseInt(user.createdAt.toDate().getFullYear()) === parseInt(new Date().getFullYear()))
+
+    // 코드 마지막 4자리 중 가장 큰 숫자
+    const codes = [];
+    usersThisYear.forEach((user) => {
+      codes.push(parseInt(user.code.slice(-4)));
+    });
+    const lastCode = Math.max(...codes)
+
+    const num = String(lastCode + 1).padStart(4, '0')
+
+    const date = new Date()
+    const currentYear = date.getFullYear()
 
     // Create a new user object with download URLs
     const newUser = new User(
@@ -319,7 +345,8 @@ export default async function EnrollUserUseCase(user) {
       false,
       false,
       false,
-      null
+      null,
+      `${user.sex == '남성' ? 'M' : 'F'}${currentYear}${num}`,
     ).toObject();
 
     // Add the user document to Firestore
@@ -329,7 +356,7 @@ export default async function EnrollUserUseCase(user) {
     const response = new MyResponse(true, newUser, '성공적으로 신청되었어요!');
     console.log(response)
     return response
-    
+
   } catch (error) {
     console.error('Error:', error);
     const response = new MyResponse(false, false, '오류가 발생했어요. 고객센터로 연락주세요.');

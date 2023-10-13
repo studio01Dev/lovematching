@@ -57,6 +57,7 @@ export default class User {
         firstSignUpStatus,
         blackConsumerStatus,
         consultingEndTime,
+        code,
     ) {
         this.id = id;
         this.name = name;
@@ -112,6 +113,7 @@ export default class User {
         this.firstSignUpStatus = firstSignUpStatus;
         this.blackConsumerStatus = blackConsumerStatus;
         this.consultingEndTime = consultingEndTime;
+        this.code = code;
     }
     toObject() {
         return {
@@ -170,6 +172,7 @@ export default class User {
             firstSignUpStatus: this.firstSignUpStatus,
             blackConsumerStatus: this.blackConsumerStatus,
             consultingEndTime: this.consultingEndTime,
+            code: this.code,
         };
     }
 }

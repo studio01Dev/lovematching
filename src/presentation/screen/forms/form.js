@@ -75,21 +75,21 @@ export default function Form() {
 
     const [firstEmptyField, setFirstEmptyField] = useState(null)
     const [form, setForm] = useState(1);
-    // const nextForm = () => {
-    //     const currentRequiredFields = requiredFields[form];
-    //     const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length == 0)
-    //     const translateField = missingFields.map(field => fieldTranslations[field]);
-    //     if (missingFields.length > 0) {
-    //         alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
-    //         setFirstEmptyField(`${missingFields[0]}`)
-    //     } else {
-    //         setForm(form + 1);
-    //         window.scrollTo(0, 0);
-    //     }
-    // };
     const nextForm = () => {
-        setForm(form + 1);
-    }
+        const currentRequiredFields = requiredFields[form];
+        const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length == 0)
+        const translateField = missingFields.map(field => fieldTranslations[field]);
+        if (missingFields.length > 0) {
+            alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
+            setFirstEmptyField(`${missingFields[0]}`)
+        } else {
+            setForm(form + 1);
+            window.scrollTo(0, 0);
+        }
+    };
+    // const nextForm = () => {
+    //     setForm(form + 1);
+    // }
     const prevForm = () => {
         setForm(form - 1);
     }
