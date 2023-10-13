@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import '../input/input.css';
 
 export default function InputIncome({ labelText, placeholder, dataToForm, defaultValue, inputRef }) {
-    const [rawNumber, setRawNumber] = useState();
+    const [rawNumber, setRawNumber] = useState(defaultValue);
     const [formattedNumber, setFormattedNumber] = useState('');
 
     const handleInputChange = (e) => {
         const inputValue = e.target.value.replace(/[^0-9]/g, '');
         setFormattedNumber(inputValue);
-
-        // Parse the numeric value if it's not empty, or set it to undefined
         setRawNumber(inputValue !== '' ? parseInt(inputValue) : undefined);
     };
 
@@ -20,6 +18,11 @@ export default function InputIncome({ labelText, placeholder, dataToForm, defaul
         } else {
             setFormattedNumber('');
         }
+    }, [rawNumber]);
+
+    // Call dataToForm when rawNumber changes
+    useEffect(() => {
+        dataToForm(rawNumber);
     }, [rawNumber]);
 
     return (
@@ -34,11 +37,7 @@ export default function InputIncome({ labelText, placeholder, dataToForm, defaul
                         placeholder={placeholder}
                         onInput={handleInputChange}
                         value={formattedNumber}
-                        onChange={(e) => {
-                            handleInputChange(e);
-                            dataToForm(parseInt(rawNumber));
-                        }}
-                        defaultValue={defaultValue}
+                        defaultValue={formattedNumber}
                     />
                 </div>
             </div>

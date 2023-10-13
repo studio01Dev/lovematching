@@ -4,10 +4,11 @@ import '../input/input.css';
 export default function InputNumber({ labelText, placeholder, maxDigit, dataToForm, defaultValue, inputRef }) {
   const [number, setNumber] = useState()
   const handleInputChange = (e) => {
-    let numericValue = e.target.value
+    let numericValue = e.target.value;
     if (numericValue.length > maxDigit) {
       numericValue = numericValue.slice(0, maxDigit);
     }
+    dataToForm(numericValue); // Pass the input value directly to the parent component
     setNumber(numericValue)
   };
 
@@ -20,9 +21,8 @@ export default function InputNumber({ labelText, placeholder, maxDigit, dataToFo
             type="number"
             pattern="[0-9]*"
             placeholder={placeholder}
-            onInput={handleInputChange}
             value={number}
-            onChange={e => dataToForm(number)}
+            onInput={handleInputChange}
             defaultValue={defaultValue}
             ref={inputRef}
           />
@@ -31,4 +31,3 @@ export default function InputNumber({ labelText, placeholder, maxDigit, dataToFo
     </div>
   );
 }
-

@@ -35,6 +35,10 @@ export default function Form1({ userData, view, onClick, firstEmptyField, name, 
         }
     }, [firstEmptyField]);
 
+    useEffect(() => {
+        console.log(userData.income)
+    }, [userData.income])
+
     return (
         <div style={{ display: `${view}` }}>
             <div className="h3 b padding">기본 정보를 작성해주세요</div>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../input/input.css';
 
 export default function InputTel({ labelText, placeholder, dataToForm, defaultValue, inputRef }) {
+  const [formattedValue, setFormattedValue] = useState(defaultValue || '');
+
   const handleInputChange = (e) => {
     // Remove non-numeric characters and dashes
     let numericValue = e.target.value.replace(/[^0-9]/g, '');
@@ -12,10 +14,13 @@ export default function InputTel({ labelText, placeholder, dataToForm, defaultVa
     }
 
     // Split the numeric value into groups of 4 digits separated by dashes
-    const formattedValue = numericValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+    const newFormattedValue = numericValue.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
 
-    // Update the input field value with the formatted value
-    e.target.value = formattedValue;
+    // Update the state with the formatted value
+    setFormattedValue(newFormattedValue);
+
+    // Pass the raw numeric value to the parent component
+    dataToForm(numericValue);
   };
 
   return (
@@ -27,9 +32,8 @@ export default function InputTel({ labelText, placeholder, dataToForm, defaultVa
             type="tel"
             pattern="[0-9]*"
             placeholder={placeholder}
-            onInput={handleInputChange} // Attach the input event handler
-            onChange={e => dataToForm(String(e.target.value))}
-            defaultValue={defaultValue}
+            onInput={handleInputChange}
+            value={formattedValue}
             ref={inputRef}
           />
         </div>
