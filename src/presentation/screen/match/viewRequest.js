@@ -42,6 +42,10 @@ export default function ViewRequest({ suggestList }) {
         // fetchOneUser();
         fetchAdminSuggestList();
     }, [])
+
+    const date = new Date()
+    const year = date.getFullYear()
+
     return (
         <div>
 
@@ -72,7 +76,9 @@ export default function ViewRequest({ suggestList }) {
             <div class="valign gap20 padding">
                 {/* index:  int 0~ */}
                 {adminSuggestList.map((item, index) => (
-                    <Link style={{ textDecoration: 'none' }} to={`../make-request/${uid}/${item.id}`}><ListItem name={item.name} age={item.age} residence={item.residence[0]+" "+item.residence[1]} job={item.job} mbti={item.mbti}/></Link>
+                    <Link style={{ textDecoration: 'none' }} to={`../make-request/${uid}/${item.id}`}><ListItem name={item.name} age={
+                        parseInt(year) - parseInt(item.yearOfBirth)
+                    } residence={item.residence[0]+" "+item.residence[1]} job={item.job} mbti={item.mbti}/></Link>
                 ))}
             </div>
 
