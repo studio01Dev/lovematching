@@ -63,7 +63,7 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
                         <div className="h4 b grey700 side-padding">기본 정보</div>
                         <div class="valign gap32">
                             <InputCheckbox displayNotMatter={'block'} labelText='나이' values={['20~25', '26~30', '31~35', '36~40']} dataToForm={data => counterpartAge(data)} />
-                            <InputCheckbox displayNotMatter={'block'} labelText='학력' values={['고졸 이하', '전문대', '4년제 대학', '해외 대학', '석사', '박사']} dataToForm={data => counterpartAcademic(data)} />
+                            <InputCheckbox displayNotMatter={'block'} labelText='학력' values={['고졸 이하', '전문대', '4년제대학', '해외 대학', '석사', '박사']} dataToForm={data => counterpartAcademic(data)} />
                             <InputCheckbox displayNotMatter={'block'} labelText='직종' values={['전문직', '대기업', '중견기업', '중소기업/스타트업', '공무원', '자영업', '공기업', '연구소', '프리랜서', '외국계']} dataToForm={data => counterpartJob(data)} />
                             <InputCheckbox displayNotMatter={'block'} labelText='연소득 (단위: 만 원)' values={['1,001~2,000', '2,001~3,000', '3,001~4,000', '4,001~5,000', '5,001~6,000','6,001~7,000','7,001~8,000', '8,001 이상']} dataToForm={data => counterpartIncome(data)} />
                             <InputCheckbox displayNotMatter={'block'} labelText='근무 형태' values={['주 5일', '교대근무']} dataToForm={data => counterpartHowWork(data)} />

@@ -1,9 +1,9 @@
 import sampleImage from '../../asset/images/sampleImage.png'
 
-export default function ListItem({name, age, mbti, residence, job}) {
+export default function ListItem({name, age, mbti, residence, job, source}) {
     return (
         <div className="item-container">
-            <img style={{ width: '100px', borderRadius: '4px 0 0 4px' }} src={sampleImage}/>
+            <img style={{ minWidth: '100px', minHeight: '100px', maxWidth: '100px', maxHeight: '100px', borderRadius: '4px 0 0 4px', objectFit: 'cover' }} src={source}/>
             <div className='detail-container valign gap4'>
                 <div className='halign gap8 calign'>
                     <div className='h4 b grey800'>{name}</div>

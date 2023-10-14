@@ -18,19 +18,19 @@ export default function ApproveRequest({ name }) {
     const navigate = useNavigate()
     const [counterUser, setCounterUser] = useState(Object);
     const [isLoading, setIsLoading] = useState(true);
-    useEffect ( ()=> {
+    useEffect(() => {
         async function fetchOneUser() {
             try {
                 const readUserUseCase = new ReadUserUseCase();
-                var response =  await readUserUseCase.readUser(counterId)
+                var response = await readUserUseCase.readUser(counterId)
                 console.log(response)
-                if(response.success === true) {
+                if (response.success === true) {
                     setCounterUser(response.data)
                     setIsLoading(false)
                 } else {
                     alert(response.message)
                 }
-            } catch(error) {
+            } catch (error) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
@@ -51,9 +51,9 @@ export default function ApproveRequest({ name }) {
         try {
             setIsLoading(true)
             const acceptMatchUseCase = new AcceptMatchUseCase();
-            var response =  await acceptMatchUseCase.acceptMatch(uid, counterId)
+            var response = await acceptMatchUseCase.acceptMatch(uid, counterId)
             console.log(response)
-            if(response.success === true) {
+            if (response.success === true) {
                 setIsLoading(false)
                 showNotification()
                 navigate(`/review-request/${uid}`, { replace: true })
@@ -61,10 +61,10 @@ export default function ApproveRequest({ name }) {
                 setIsLoading(false)
                 alert('다시 시도해주세요')
             }
-        } catch(error) {
+        } catch (error) {
             setIsLoading(false)
             alert('일시적으로 오류가 생겼습니다. 다시 시도해주세요.')
-        }        
+        }
     }
 
 
@@ -93,8 +93,8 @@ export default function ApproveRequest({ name }) {
                         {/* carousel 부분 */}
                         <div class="slider-wrapper padding">
                             <div className='slider halign gap20'>
-                                <img src={sampleImage} />
-                                <img src={sampleImage} />
+                                <img src={counterUser.faceImageUrl} />
+                                <img src={counterUser.bodyImageUrl} />
                             </div>
                         </div>
 
@@ -119,8 +119,8 @@ export default function ApproveRequest({ name }) {
                         <div className='padding valign gap20'>
                             <div className='h4 b grey800'>라이프스타일</div>
                             <div className='profile'>
-                                <InfoCard dataName='거주지' value={counterUser.residence[0] + " " + counterUser.residence[1]}/>
-                                <InfoCard dataName='근무지' value={counterUser.workPlace[0]+" "+counterUser.workPlace[1]} />
+                                <InfoCard dataName='거주지' value={counterUser.residence[0] + " " + counterUser.residence[1]} />
+                                <InfoCard dataName='근무지' value={counterUser.workPlace[0] + " " + counterUser.workPlace[1]} />
                                 <InfoCard dataName='자차 보유 여부' value={counterUser.haveCar} />
                                 <InfoCard dataName='자가 보유 여부' value={counterUser.haveHouse} />
                                 <InfoCard dataName='음주 횟수' value={counterUser.drinkingFrequency} />
@@ -147,11 +147,11 @@ export default function ApproveRequest({ name }) {
                 </div>
             )}
 
-            
 
 
-            
-            
+
+
+
         </div>
     );
 }

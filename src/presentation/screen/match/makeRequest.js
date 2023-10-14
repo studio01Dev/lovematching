@@ -88,8 +88,8 @@ export default function MakeRequest({ name }) {
                         {/* carousel 부분 */}
                         <div class="slider-wrapper padding">
                             <div className='slider halign gap20'>
-                                <img src={sampleImage} />
-                                <img src={sampleImage} />
+                                <img src={counterUser.faceImageUrl} />
+                                <img src={counterUser.bodyImageUrl} />
                             </div>
                         </div>
 

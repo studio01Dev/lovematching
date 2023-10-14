@@ -10,7 +10,7 @@ export default function ViewRequest({ suggestList }) {
     const { uid } = useParams();
     // const [user, setUser] = useState(Object);
     const [adminSuggestList, setAdminSuggestList] = useState(Array);
-    useEffect ( ()=> {
+    useEffect(() => {
         // async function fetchOneUser() {
         //     try {
         //         const readUserUseCase = new ReadUserUseCase();
@@ -28,14 +28,14 @@ export default function ViewRequest({ suggestList }) {
         async function fetchAdminSuggestList() {
             try {
                 const adminSuggestList = new AdminSuggestListUseCase();
-                var response =  await adminSuggestList.readAdminSuggestList(uid)
+                var response = await adminSuggestList.readAdminSuggestList(uid)
                 console.log(response)
-                if(response.success === true) {
+                if (response.success === true) {
                     setAdminSuggestList(response.data)
                 } else {
                     alert(response.message)
                 }
-            } catch(error) {
+            } catch (error) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
@@ -76,9 +76,15 @@ export default function ViewRequest({ suggestList }) {
             <div class="valign gap20 padding">
                 {/* index:  int 0~ */}
                 {adminSuggestList.map((item, index) => (
-                    <Link style={{ textDecoration: 'none' }} to={`../make-request/${uid}/${item.id}`}><ListItem name={item.name} age={
-                        parseInt(year) - parseInt(item.yearOfBirth)
-                    } residence={item.residence[0]+" "+item.residence[1]} job={item.job} mbti={item.mbti}/></Link>
+                    <Link style={{ textDecoration: 'none' }} to={`../make-request/${uid}/${item.id}`}>
+                        <ListItem
+                            name={item.name}
+                            age={parseInt(year) - parseInt(item.yearOfBirth)}
+                            residence={item.residence[0] + " " + item.residence[1]}
+                            job={item.job}
+                            mbti={item.mbti}
+                            source={item.faceImageUrl} />
+                    </Link>
                 ))}
             </div>
 
