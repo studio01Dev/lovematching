@@ -2,9 +2,17 @@ import React, { useEffect, useState } from 'react';
 import '../input/input.css';
 import { district, subdistrict } from '../../../domain/models/area';
 
-export default function InputArea({ labelText1, labelText2, dataToForm, inputRef }) {
+export default function InputArea({ labelText1, labelText2, dataToForm, inputRef, defaultValue }) {
     const [districtSelect, setDistrictSelect] = useState([])
     const [subdistrictSelect, setSubdistrictSelect] = useState([])
+
+    useEffect(() => {
+        if (defaultValue != undefined) {
+            setDistrictSelect(defaultValue[0])
+            setSubdistrictSelect(defaultValue[1])
+        }
+        console.log(defaultValue != undefined)
+    }, [])
 
     // 도, 시군구 모두 보여주고
     // 도를 입력하면 그에 해당하는 시군구 입력하고

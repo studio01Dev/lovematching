@@ -17,7 +17,6 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
             const response = await EnrollUserUseCase(userData)
             if(response.success) {
                 setIsLoading(false)
-                onClick()
             } else {
                 setIsLoading(false)
                 alert('다시 시도해주세요!')
@@ -26,7 +25,6 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
             setIsLoading(false)
             console.log(error)
         }
-
     }
 
     const inputRef = {
@@ -52,6 +50,11 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
             inputRef[firstEmptyField].current.focus();
         }
     }, [firstEmptyField]);
+
+    const handleButtonClick = () => {
+        onClick();
+        enrollUser();
+      };
 
     return (
         <div>
@@ -85,7 +88,7 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
                         </div>
                     </div>
                     <div style={{ height: '80px' }} />
-                    <Button buttonText='신청 완료하기' onClick={() => { enrollUser(); }} backClick={backClick}/>
+                    <Button buttonText='신청 완료하기' onClick={handleButtonClick} backClick={backClick}/>
                 </div>
             )}
             
