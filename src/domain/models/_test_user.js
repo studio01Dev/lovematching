@@ -1,12 +1,16 @@
 export default class TestUser {
-  constructor(name, phoneNum) {
+  constructor(name, sex, createdAt, code) {
     this.name = name;
-    this.phoneNum = phoneNum;
+    this.sex = sex;
+    this.createdAt = createdAt;
+    this.code = code;
   }
   toObject() {
     return {
       name: this.name,
-      phoneNum: this.phoneNum,
+      sex: this.sex,
+      createdAt: this.createdAt,
+      code: this.code,
     };
   }
 }

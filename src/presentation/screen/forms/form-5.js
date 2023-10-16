@@ -84,7 +84,7 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
                             <InputRadio name='counterpartSmoking' id1='counterpartSmokingYes' id2='counterpartSmokingNo' labelText='흡연 여부' value1='흡연' value2='비흡연' dataToForm={data => counterpartSmoking(data)} defaultValue={userData.counterpartSmoking}/>
                             <InputRadio name='counterpartTattoo' id1='counterpartTattooYes' id2='counterpartTattooNo' labelText='문신 여부' value1='있음' value2='없음' dataToForm={data => counterpartTattoo(data)} defaultValue={userData.counterpartTattoo}/>
                             <InputCheckbox displayNotMatter={'block'} labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타']} dataToForm={data => counterpartReligion(data)} />
-                            <InputCheckbox2 displayNotMatter={'block'} labelText='매력 (최대 3개 선택 가능)' values={charm} dataToForm={data => counterpartStrength(data)} maxValues={3} defaultValue={userData.counterpartStrength} />
+                            <InputCheckbox2 displayNotMatter={'block'} labelText='어떤 사람을 원하시나요? (최대 3개 선택 가능)' values={charm} dataToForm={data => counterpartStrength(data)} maxValues={3} defaultValue={userData.counterpartStrength} />
                         </div>
                     </div>
                     <div style={{ height: '80px' }} />

@@ -5,6 +5,8 @@ import { getDocs, collection, getDoc, setDoc, doc, Timestamp, updateDoc, orderBy
 import { ref, getStorage, getDownloadURL } from "firebase/storage"
 import db from '../../../firebase/index'
 import storage from '../../../firebase/index'
+import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
+import TestEnrollUserUseCase from "../../../domain/use_cases/_test_enrollUser_usecase";
 
 export default function Test() {
     const [name, setName] = useState('')
@@ -108,39 +110,65 @@ export default function Test() {
         return lastCode
     };
 
-    let order = 0;
+    let maleOrder = 0;
+    let femaleOrder = 0;
+    let currentDay = null;
+
     const addRegistrationOrder = async () => {
         try {
-            function to4Digits(number) {
-                const num = String(number).padStart(4, '0');
+            function to3Digits(number) {
+                const num = String(number).padStart(3, '0');
                 return num;
             }
-            // users 컬렉션에서 모든 정보를 가져와서
-            // const querySnapshot = await getDocs(collection(db.db, "users").orderBy('createdAt'))
+
             const q = query(collection(db.db, 'users'), orderBy('createdAt', 'asc'));
             const querySnapshot = await getDocs(q);
 
             querySnapshot.forEach(
-                // createdAt 순서로 정렬
                 async (docs) => {
-                    order++;
-                    const createdAt = docs.data().createdAt
+                    const createdAt = docs.data().createdAt.toDate()
                     const sex = docs.data().sex
                     const ref = doc(db.db, 'users', docs.id);
-                    const inputCode = `${sex == '남성' ? 'M' : 'F'}${createdAt != undefined ? createdAt.toDate().getFullYear() : ''}${to4Digits(order)}`
-                    // console.log(docs.data().name, createdAt.toDate(), order)
-                    await updateDoc(ref, {
-                        code: inputCode
-                    });
+
+                    // If we're on a new day or haven't set the currentDay yet...
+                    if (!currentDay || (createdAt.getDate() !== currentDay.getDate() || createdAt.getMonth() !== currentDay.getMonth() || createdAt.getFullYear() !== currentDay.getFullYear())) {
+                        // Reset order and update current day.
+                        maleOrder = sex === "남성" ? 1 : 0;
+                        femaleOrder = sex === "여성" ? 1 : 0;
+                        currentDay = createdAt;
+                    } else {
+                        // Increment order for same day.
+                        if (sex === "남성") maleOrder++;
+                        else if (sex === "여성") femaleOrder++;
+                    }
+
+                    const year = createdAt.getFullYear();
+                    const month = (createdAt.getMonth() + 1).toString().padStart(2, '0');
+                    const day = (createdAt.getDate()).toString().padStart(2, '0');
+
+                    // Use updated value of "order".
+                    let inputCode =
+                        `${sex == "남성" ? ("M" + year + month + day + to3Digits(maleOrder)) :
+                            ("F" + year + month + day + to3Digits(femaleOrder))}`;
+
                     console.log(inputCode)
+
+                    // Update Firestore document with new code.
+                    await updateDoc(ref, { code: inputCode });
                 }
             )
-            console.log('done')
-        } catch (error) {
-            console.log(error)
-        }
 
+            console.log("done");
+        } catch (error) {
+            console.error(error);
+        }
     }
+
+    const date = new Date()
+    const currentYear = date.getFullYear()
+
+    const currentDate = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+    console.log(currentDate)
 
     const changeMsToTimestamp = async () => {
         // users 컬렉션에서 모든 정보를 가져와서
@@ -168,11 +196,18 @@ export default function Test() {
         console.log(date.getFullYear())
     }
 
+    const test = () => {
+        const user = {
+            name: 'test1', sex: '남성', createdAt: new Date()
+        }
+        TestEnrollUserUseCase(user)
+    }
+
     return (
         <div>
             <Link to='../form'><button>신청하기</button></Link>
             <Link to='../input-code'><button>매칭 확인하기</button></Link>
-            <button onClick={getCreatedAt}>테스트 버튼</button>
+            <button onClick={test}>테스트 버튼</button>
         </div>
     );
 }

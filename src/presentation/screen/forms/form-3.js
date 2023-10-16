@@ -25,7 +25,7 @@ export default function Form3({ firstEmptyField, userData, onClick, backClick, m
             <div className="h3 b padding">성격을 작성해주세요</div>
             <div class="valign gap32 margin">
                 <Select labelText='MBTI' values={['ISTJ', 'ISFJ', 'INFJ', 'INTJ', 'ISTP', 'ISFP', 'INFP', 'INTP', 'ESTP', 'ESFP', 'ENFP', 'ENTP', 'ESTJ', 'ESFJ', 'ENFJ', 'ENTJ']} dataToForm={data => mbti(data)} defaultValue={userData.mbti} />
-                <InputCheckbox labelText='매력 (최대 3개 선택 가능)' values={charm} dataToForm={data => strength(data)} maxValues={3} defaultValue={userData.strength} />
+                <InputCheckbox labelText='나는 어떤 사람인가요? (최대 3개 선택 가능)' values={charm} dataToForm={data => strength(data)} maxValues={3} defaultValue={userData.strength} />
                 <InputText labelText='취미/관심사' placeholder='취미나 관심사를 입력해주세요' dataToForm={data => interest(data)} defaultValue={userData.interest} />
                 <InputText labelText='선호하는 데이트' placeholder='선호하는 데이트를 입력해주세요' dataToForm={data => dateType(data)} defaultValue={userData.dateType} />
             </div>
