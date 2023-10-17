@@ -7,6 +7,7 @@ import Form5 from "./form-5";
 import FormDone from "./formDone";
 import { useState, useEffect } from "react";
 import User from "../../../domain/models/user";
+import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
 
 export default function Form() {
     const [formDataPage1, setFormDataPage1] = useState({});
@@ -75,7 +76,7 @@ export default function Form() {
 
     const [firstEmptyField, setFirstEmptyField] = useState(null)
     const [form, setForm] = useState(1);
-    const nextForm = () => {
+    const nextForm = async () => {
         const currentRequiredFields = requiredFields[form];
         const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length == 0)
         const translateField = missingFields.map(field => fieldTranslations[field]);
@@ -85,6 +86,23 @@ export default function Form() {
         } else {
             setForm(form + 1);
             window.scrollTo(0, 0);
+        }
+        if (form == 5) {
+            try {
+                // setIsLoading(true)
+                const response = await EnrollUserUseCase(userData)
+                if (response.success) {
+                    console.log(response.success, response.fail)
+                    // setIsLoading(false)
+                } else {
+                    console.log(response.success, response.fail)
+                    // setIsLoading(false)
+                    alert('다시 시도해주세요!')
+                }
+            } catch (error) {
+                // setIsLoading(false)
+                console.log(error)
+                }
         }
     };
     // const nextForm = () => {

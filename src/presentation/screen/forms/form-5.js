@@ -11,22 +11,6 @@ import { charm } from "../../../domain/models/questionnaires";
 export default function Form5({ firstEmptyField, userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStrength, counterpartStyle, counterpartTattoo }) {
     const [isLoading, setIsLoading] = useState(false);
 
-    const enrollUser = async () => {
-        try {
-            setIsLoading(true)
-            const response = await EnrollUserUseCase(userData)
-            if(response.success) {
-                setIsLoading(false)
-            } else {
-                setIsLoading(false)
-                alert('다시 시도해주세요!')
-            }
-        } catch (error) {
-            setIsLoading(false)
-            console.log(error)
-        }
-    }
-
     const inputRef = {
         counterpartAge: useRef(),
         counterpartAcademic: useRef(),
@@ -50,11 +34,6 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
             inputRef[firstEmptyField].current.focus();
         }
     }, [firstEmptyField]);
-
-    const handleButtonClick = () => {
-        onClick();
-        enrollUser();
-      };
 
     return (
         <div>
@@ -88,7 +67,7 @@ export default function Form5({ firstEmptyField, userData, onClick, backClick, c
                         </div>
                     </div>
                     <div style={{ height: '80px' }} />
-                    <Button buttonText='신청 완료하기' onClick={handleButtonClick} backClick={backClick}/>
+                    <Button buttonText='신청 완료하기' onClick={onClick} backClick={backClick}/>
                 </div>
             )}
             
