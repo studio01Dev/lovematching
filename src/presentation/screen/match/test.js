@@ -196,11 +196,20 @@ export default function Test() {
         console.log(date.getFullYear())
     }
 
-    const test = () => {
-        const user = {
-            name: 'test1', sex: '남성', createdAt: new Date()
+    const test = async () => {
+        try {
+            const response = await TestEnrollUserUseCase({
+                name: 'testf1',
+                sex: '여성'
+            })
+            if (response.success) {
+                console.log('success')
+            } else {
+                console.log('fuck')
+            }
+        } catch (error) {
+            console.log(error)
         }
-        TestEnrollUserUseCase(user)
     }
 
     return (
@@ -209,12 +218,5 @@ export default function Test() {
             <Link to='../input-code'><button>매칭 확인하기</button></Link>
             <button onClick={test}>테스트 버튼</button>
         </div>
-    );
-}
-
-
-export function Child({ dataToForm }) {
-    return (
-        <input style={{ border: '1px solid black' }} type="text" onChange={e => dataToForm(e.target.value)} />
     );
 }

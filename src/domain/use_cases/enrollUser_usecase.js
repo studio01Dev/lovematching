@@ -31,16 +31,19 @@ export default async function EnrollUserUseCase(user) {
       user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
       user.sex === '남성'
     );
-    const maleMaxCode = Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
-    const maleWithMaxCode = malesToday.find(user => parseInt(user.code.slice(-3)) === maleMaxCode);
+    const maleMaxCode = malesToday.length == 0
+      ? 0
+      : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
 
 
     const femalesToday = users.filter(user =>
       user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
       user.sex === '여성'
-    );
-    const femaleMaxCode = Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
-    const femaleWithMaxCode = femalesToday.find(user => parseInt(user.code.slice(-3)) === femaleMaxCode);
+    )
+    const femaleMaxCode = femalesToday.length == 0
+      ? 0
+      : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
+
 
     const date = new Date()
     const currentYear = date.getFullYear()
