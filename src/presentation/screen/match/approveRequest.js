@@ -23,7 +23,7 @@ export default function ApproveRequest({ name }) {
             try {
                 const readUserUseCase = new ReadUserUseCase();
                 var response = await readUserUseCase.readUser(counterId)
-                console.log(response)
+                // console.log(response)
                 if (response.success === true) {
                     setCounterUser(response.data)
                     setIsLoading(false)
@@ -52,7 +52,7 @@ export default function ApproveRequest({ name }) {
             setIsLoading(true)
             const acceptMatchUseCase = new AcceptMatchUseCase();
             var response = await acceptMatchUseCase.acceptMatch(uid, counterId)
-            console.log(response)
+            // console.log(response)
             if (response.success === true) {
                 setIsLoading(false)
                 showNotification()

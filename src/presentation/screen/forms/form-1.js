@@ -36,7 +36,7 @@ export default function Form1({ userData, view, onClick, firstEmptyField, name, 
     }, [firstEmptyField]);
 
     useEffect(() => {
-        console.log(userData.income)
+        // console.log(userData.income)
     }, [userData.income])
 
     return (

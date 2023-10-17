@@ -21,7 +21,7 @@ export default function Queue() {
             try {
                 const readUserUseCase = new ReadUserUseCase();
                 var response =  await readUserUseCase.readUser(uid)
-                console.log(response)
+                // console.log(response)
                 if(response.success === true) {
                     setUser(response.data)
                 } else {
@@ -35,7 +35,7 @@ export default function Queue() {
             try {
                 const adminSuggestList = new AdminSuggestListUseCase();
                 var response =  await adminSuggestList.readAdminSuggestList(uid)
-                console.log(response)
+                // console.log(response)
                 if(response.success === true) {
                     setAdminSuggestListLength(response.data.length)
                 } else {
@@ -49,7 +49,7 @@ export default function Queue() {
             try {
                 const acceptMatchUseCase = new AcceptMatchUseCase();
                 var response =  await acceptMatchUseCase.readInCounterChosenFromAdminSuggestList(uid)
-                console.log(response)
+                // console.log(response)
                 if(response.success === true) {
                     setInCounterChosenFromAdminSuggestListLength(response.data.length)
                 } else {

@@ -41,7 +41,7 @@ export default class AdminSuggestListUseCase {
                     docRef2, docSnap1.data()
                 )
             } else {
-                console.log("No such document!");
+                // console.log("No such document!");
             }
             // 4. create me in counter InCounterChosenFromAdminSuggestList
             const docRef3 = doc(db.db, "users", myUid)
@@ -52,7 +52,7 @@ export default class AdminSuggestListUseCase {
                     docRef4, docSnap2.data()
                 );
             } else {
-                console.log("No such document!");
+                // console.log("No such document!");
             }
             var response = new MyResponse(true, true, "요청이 성공적으로 처리되었습니다.");
             return response;

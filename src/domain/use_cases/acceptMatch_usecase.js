@@ -43,7 +43,7 @@ export default class AcceptMatchUseCase {
                 {createdAt: new Date()}
             );
             firstMatchingDocId = docRef1.id
-            console.log("Document written with ID: ", firstMatchingDocId);
+            // console.log("Document written with ID: ", firstMatchingDocId);
 
             // create me in FirstMatching
             const docRef2 = doc(db.db, "users", myUid)
@@ -61,7 +61,7 @@ export default class AcceptMatchUseCase {
                     )
                 }
             } else {
-                console.log("No such document!");
+                // console.log("No such document!");
             }
 
             // create counter in FirstMatching
@@ -80,12 +80,12 @@ export default class AcceptMatchUseCase {
                     )
                 }
             } else {
-                console.log("No such document!");
+                // console.log("No such document!");
             }
             var response = new MyResponse(true, true, "요청이 성공적으로 처리되었습니다.");
             return response;
         } catch (error) {
-            console.log(error.message)
+            // console.log(error.message)
             var response = new MyResponse(false, false, "매칭 생성 실패.")
             return response
         }

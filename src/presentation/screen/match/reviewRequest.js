@@ -15,7 +15,7 @@ export default function ReviewRequest({ suggestList }) {
             try {
                 const acceptMatchUseCase = new AcceptMatchUseCase();
                 var response =  await acceptMatchUseCase.readInCounterChosenFromAdminSuggestList(uid)
-                console.log(response)
+                // console.log(response)
                 if(response.success === true) {
                     setInCounterChosenFromAdminSuggestList(response.data)
                 } else {

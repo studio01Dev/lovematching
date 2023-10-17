@@ -15,7 +15,7 @@ export default function ViewRequest({ suggestList }) {
         //     try {
         //         const readUserUseCase = new ReadUserUseCase();
         //         var response =  await readUserUseCase.readUser(uid)
-        //         console.log(response)
+        //         // console.log(response)
         //         if(response.success === true) {
         //             setUser(response.data)
         //         } else {
@@ -29,7 +29,7 @@ export default function ViewRequest({ suggestList }) {
             try {
                 const adminSuggestList = new AdminSuggestListUseCase();
                 var response = await adminSuggestList.readAdminSuggestList(uid)
-                console.log(response)
+                // console.log(response)
                 if (response.success === true) {
                     setAdminSuggestList(response.data)
                 } else {

@@ -22,7 +22,7 @@ export default function MakeRequest({ name }) {
             try {
                 const readUserUseCase = new ReadUserUseCase();
                 var response =  await readUserUseCase.readUser(counterId)
-                console.log(response)
+                // console.log(response)
                 if(response.success === true) {
                     setCounterUser(response.data)
                     setIsLoading(false)
@@ -52,7 +52,7 @@ export default function MakeRequest({ name }) {
             setIsLoading(true)
             const adminSuggestListUseCase = new AdminSuggestListUseCase();
             var response =  await adminSuggestListUseCase.suggestMatch(uid, counterId)
-            console.log(response)
+            // console.log(response)
             if(response.success === true) {
                 setIsLoading(false)
                 showNotification()

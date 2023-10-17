@@ -123,7 +123,7 @@ export default async function EnrollUserUseCase(user) {
     await addDoc(docRef, newUser);
 
     const response = new MyResponse(true, newUser, '성공적으로 신청되었어요!');
-    console.log(response)
+    // console.log(response)
     return response
 
   } catch (error) {

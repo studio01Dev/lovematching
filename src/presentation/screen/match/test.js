@@ -46,9 +46,9 @@ export default function Test() {
                 bodyImageUrl: realBodyImageUrl,
                 employImageUrl: realEmployImageUrl,
             });
-            console.log("끝남");
+            // console.log("끝남");
         } else {
-            console.log("No such document!");
+            // console.log("No such document!");
         }
         // userList.forEach(
         //     async (user) => {
@@ -151,14 +151,14 @@ export default function Test() {
                         `${sex == "남성" ? ("M" + year + month + day + to3Digits(maleOrder)) :
                             ("F" + year + month + day + to3Digits(femaleOrder))}`;
 
-                    console.log(inputCode)
+                    // console.log(inputCode)
 
                     // Update Firestore document with new code.
                     await updateDoc(ref, { code: inputCode });
                 }
             )
 
-            console.log("done");
+            // console.log("done");
         } catch (error) {
             console.error(error);
         }
@@ -168,7 +168,7 @@ export default function Test() {
     const currentYear = date.getFullYear()
 
     const currentDate = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
-    console.log(currentDate)
+    // console.log(currentDate)
 
     const changeMsToTimestamp = async () => {
         // users 컬렉션에서 모든 정보를 가져와서
@@ -178,7 +178,7 @@ export default function Test() {
                 const ref = doc(db.db, 'users', docs.id);
                 if (typeof docs.data().createdAt == 'number') { // 여기서 number(밀리초) -> 타임스탬프
                     const ts = new Timestamp(docs.data().createdAt / 1000, 100000000)
-                    console.log(ts)
+                    // console.log(ts)
                     await updateDoc(ref, { createdAt: ts });
                 }
             }
@@ -193,7 +193,7 @@ export default function Test() {
             user.unshift(docSnap.data().createdAt)
         }
         const date = new Date()
-        console.log(date.getFullYear())
+        // console.log(date.getFullYear())
     }
 
     const test = async () => {
@@ -203,12 +203,12 @@ export default function Test() {
                 sex: '여성'
             })
             if (response.success) {
-                console.log('success')
+                // console.log('success')
             } else {
-                console.log('fuck')
+                // console.log('fuck')
             }
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
     }
 

@@ -12,7 +12,7 @@ export default function Form5({ isLoading, firstEmptyField, userData, onClick, b
     // const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        console.log(isLoading)
+        // console.log(isLoading)
     }, [isLoading])
 
     const inputRef = {

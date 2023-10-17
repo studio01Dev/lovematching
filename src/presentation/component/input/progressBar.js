@@ -10,7 +10,7 @@ export default function ProgressBar({ progressStatus }) {
     const [progressStatus5, setProgressStatus5] = useState('no');
 
     useEffect(() => {
-        // console.log(progressStatus)
+        // // console.log(progressStatus)
         if (progressStatus == 1) {
             setProgressStatus1('yes')
             setProgressStatus2('no')

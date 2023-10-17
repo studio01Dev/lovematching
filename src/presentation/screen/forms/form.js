@@ -89,21 +89,21 @@ export default function Form() {
             } else {
                 try {
                     setIsLoading(true)
-                    console.log(isLoading)
+                    // console.log(isLoading)
                     const response = await EnrollUserUseCase(userData)
                     if (response.success) {
                         setForm(form + 1);
                         window.scrollTo(0, 0);
                         setIsLoading(false)
-                        console.log(isLoading)
+                        // console.log(isLoading)
                     } else {
                         setIsLoading(false)
-                        console.log(isLoading)
+                        // console.log(isLoading)
                         alert('다시 시도해주세요!')
                     }
                 } catch (error) {
                     setIsLoading(false)
-                    console.log(error)
+                    // console.log(error)
                 }
             }
         } else {
@@ -125,7 +125,7 @@ export default function Form() {
     }
 
     useEffect(() => {
-        console.log(userData)
+        // console.log(userData)
     }, [userData])
 
     switch (form) {

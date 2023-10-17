@@ -11,7 +11,7 @@ export default function InputArea({ labelText1, labelText2, dataToForm, inputRef
             setDistrictSelect(defaultValue[0])
             setSubdistrictSelect(defaultValue[1])
         }
-        console.log(defaultValue != undefined)
+        // console.log(defaultValue != undefined)
     }, [])
 
     // 도, 시군구 모두 보여주고
@@ -29,7 +29,7 @@ export default function InputArea({ labelText1, labelText2, dataToForm, inputRef
 
     useEffect(() => {
         dataToForm([districtSelect, subdistrictSelect])
-        // console.log([districtSelect, subdistrictSelect]);
+        // // console.log([districtSelect, subdistrictSelect]);
     }, [subdistrictSelect]);
 
 

@@ -15,18 +15,18 @@ export default class InputCodeUseCase {
             let users = []
             querySnapshot.forEach((doc) => {
                 delete doc.data().id
-                console.log(doc.data().consultingEndTime)
+                // console.log(doc.data().consultingEndTime)
                 users.unshift({
                 ...doc.data(),
                 id: doc.id,
                 })
             })
-            console.log(users[0])
+            // console.log(users[0])
             if(querySnapshot.size===0) {
                 var response = new MyResponse(true, 'absence', "존재하지 않는 유저입니다.")
                 return response
             } else {
-                console.log(users[0].consultingEndTime.toDate() > Date.now())
+                // console.log(users[0].consultingEndTime.toDate() > Date.now())
                 if(users[0].consultingEndTime.toDate() > Date.now()) {
                     var response = new MyResponse(true, users[0].id, "접속 허가")
                     return response
@@ -36,7 +36,7 @@ export default class InputCodeUseCase {
                 }
             }
         } catch(error) {
-            console.log(error.message)
+            // console.log(error.message)
             var response = new MyResponse(false, false, "네트워크 오류입니다. 다시 시도하거나, 관리자에게 문의해주세요.")
             return response
         }
