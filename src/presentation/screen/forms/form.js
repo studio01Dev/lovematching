@@ -63,6 +63,7 @@ export default function Form() {
         counterpartSmoking: '상대방 흡연 여부',
         counterpartTattoo: '상대방 문신 여부',
         counterpartReligion: '상대방 종교',
+        counterpartStrength: '원하시는 상대방',
         consultingType: '선호하는 상담 방법',
     };
 
@@ -71,7 +72,7 @@ export default function Form() {
         2: ['residence', 'workPlace', 'haveCar', 'haveHouse', 'drinkingFrequency', 'tattoo', 'smoking', 'religion', 'consultingType'],
         3: ['mbti', 'strength', 'interest', 'dateType'],
         4: ['faceImageData', 'bodyImageData', 'employImageData'],
-        5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion']
+        5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion', 'counterpartStrength']
     };
 
     const [firstEmptyField, setFirstEmptyField] = useState(null)
@@ -80,30 +81,39 @@ export default function Form() {
         const currentRequiredFields = requiredFields[form];
         const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length == 0)
         const translateField = missingFields.map(field => fieldTranslations[field]);
-        if (missingFields.length > 0) {
-            alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
-            setFirstEmptyField(`${missingFields[0]}`)
-        } else {
-            setForm(form + 1);
-            window.scrollTo(0, 0);
-        }
         if (form == 5) {
-            try {
-                // setIsLoading(true)
-                const response = await EnrollUserUseCase(userData)
-                if (response.success) {
-                    console.log(response.success, response.fail)
+            if (missingFields.length > 0) {
+                alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
+                setFirstEmptyField(`${missingFields[0]}`)
+            } else {
+                try {
+                    // setIsLoading(true)
+                    const response = await EnrollUserUseCase(userData)
+                    if (response.success) {
+                        console.log(response.success, response.fail)
+                        setForm(form + 1);
+                        window.scrollTo(0, 0);
+                        // setIsLoading(false)
+                    } else {
+                        console.log(response.success, response.fail)
+                        // setIsLoading(false)
+                        alert('다시 시도해주세요!')
+                    }
+                } catch (error) {
                     // setIsLoading(false)
-                } else {
-                    console.log(response.success, response.fail)
-                    // setIsLoading(false)
-                    alert('다시 시도해주세요!')
+                    console.log(error)
                 }
-            } catch (error) {
-                // setIsLoading(false)
-                console.log(error)
-                }
+            }
+        } else {
+            if (missingFields.length > 0) {
+                alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
+                setFirstEmptyField(`${missingFields[0]}`)
+            } else {
+                setForm(form + 1);
+                window.scrollTo(0, 0);
+            }
         }
+
     };
     // const nextForm = () => {
     //     setForm(form + 1);

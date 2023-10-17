@@ -48,14 +48,11 @@ export default async function EnrollUserUseCase(user) {
     const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
     let num;
 
-    let maleCounter = 0;
-    let femaleCounter = 0;
-
     if (user.sex === '남성') {
-      maleCounter++;
+      let maleCounter = maleMaxCode + 1;
       num = String(maleCounter).padStart(3, '0');
     } else {
-      femaleCounter++;
+      let femaleCounter = femaleMaxCode + 1;
       num = String(femaleCounter).padStart(3, '0');
     }
 
@@ -132,8 +129,6 @@ export default async function EnrollUserUseCase(user) {
     return response
   }
 }
-
-
 
 async function uploadImageToStorage(imageData, typeOfImage, name, phoneNum, yearOfBirth) {
   const storageRef = ref(storage.storage, name + phoneNum + yearOfBirth + typeOfImage);
