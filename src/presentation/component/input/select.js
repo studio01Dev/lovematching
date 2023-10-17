@@ -28,7 +28,6 @@ export default function Select({ name, labelText, values, dataToForm, defaultVal
             </option>
         ))
     ];
-    console.log(otherInput)
 
     return (
         <div>

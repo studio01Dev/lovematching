@@ -76,6 +76,7 @@ export default function Form() {
     };
 
     const [firstEmptyField, setFirstEmptyField] = useState(null)
+    const [isLoading, setIsLoading] = useState(false);
     const [form, setForm] = useState(1);
     const nextForm = async () => {
         const currentRequiredFields = requiredFields[form];
@@ -87,20 +88,21 @@ export default function Form() {
                 setFirstEmptyField(`${missingFields[0]}`)
             } else {
                 try {
-                    // setIsLoading(true)
+                    setIsLoading(true)
+                    console.log(isLoading)
                     const response = await EnrollUserUseCase(userData)
                     if (response.success) {
-                        console.log(response.success, response.fail)
                         setForm(form + 1);
                         window.scrollTo(0, 0);
-                        // setIsLoading(false)
+                        setIsLoading(false)
+                        console.log(isLoading)
                     } else {
-                        console.log(response.success, response.fail)
-                        // setIsLoading(false)
+                        setIsLoading(false)
+                        console.log(isLoading)
                         alert('다시 시도해주세요!')
                     }
                 } catch (error) {
-                    // setIsLoading(false)
+                    setIsLoading(false)
                     console.log(error)
                 }
             }
@@ -183,7 +185,7 @@ export default function Form() {
         case 5:
             return <div><ProgressBar progressStatus={5} />
                 <div style={{ height: '80px' }} />
-                <Form5 onClick={nextForm} userData={userData} backClick={prevForm} setFormData={setFormDataPage5}
+                <Form5 isLoading={isLoading} onClick={nextForm} userData={userData} backClick={prevForm} setFormData={setFormDataPage5}
                     counterpartAge={data => setUserData({ ...userData, counterpartAge: data })}
                     counterpartAcademic={data => setUserData({ ...userData, counterpartAcademic: data })}
                     counterpartJob={data => setUserData({ ...userData, counterpartJob: data })}
