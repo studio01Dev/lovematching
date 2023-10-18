@@ -81,7 +81,7 @@ export default function ApproveRequest({ name }) {
                     </div> */}
                     {/* 님의 프로필 부분 */}
                     <div class="valign gap8">
-                        <div className='padding h3 b grey900'>{counterUser.name}님의 프로필</div>
+                        <div className='padding h3 b grey900'>{counterUser.name.charAt(0)+'**'}님의 프로필</div>
 
 
 
