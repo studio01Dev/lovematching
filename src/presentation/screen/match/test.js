@@ -199,16 +199,16 @@ export default function Test() {
     const test = async () => {
         try {
             const response = await TestEnrollUserUseCase({
-                name: 'testf1',
-                sex: '여성'
+                name: 'testm1',
+                sex: '남성'
             })
             if (response.success) {
-                // console.log('success')
+                console.log('success')
             } else {
-                // console.log('fuck')
+                console.log('fuck')
             }
         } catch (error) {
-            // console.log(error)
+            console.log(error)
         }
     }
 

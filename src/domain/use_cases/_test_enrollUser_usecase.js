@@ -20,6 +20,7 @@ export default async function TestEnrollUserUseCase(user) {
         }
         )
 
+        // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
         const malesToday = users.filter(user =>
             user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
             user.sex === '남성'
@@ -28,7 +29,7 @@ export default async function TestEnrollUserUseCase(user) {
             ? 0
             : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
 
-
+        // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
         const femalesToday = users.filter(user =>
             user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
             user.sex === '여성'
@@ -37,7 +38,6 @@ export default async function TestEnrollUserUseCase(user) {
             ? 0
             : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
 
-
         const date = new Date()
         const currentYear = date.getFullYear()
 
@@ -45,15 +45,14 @@ export default async function TestEnrollUserUseCase(user) {
         let num;
 
         if (user.sex === '남성') {
-            let maleCounter = maleMaxCode + 1;
-            num = String(maleCounter).padStart(3, '0');
+            num = String(maleMaxCode + 1).padStart(3, '0');
+        } else if (user.sex === '여성') {
+            num = String(femaleMaxCode + 1).padStart(3, '0');
         } else {
-            let femaleCounter = femaleMaxCode + 1;
-            num = String(femaleCounter).padStart(3, '0');
+            num = 999
         }
 
         const newCode = `${user.sex === '남성' ? 'M' : 'F'}${today}${num}`;
-
         // Create a new user object with download URLs
         const newUser = new TestUser(
             user.name,

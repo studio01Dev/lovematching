@@ -10,18 +10,18 @@ import AcceptMatchUseCase from '../../../domain/use_cases/acceptMatch_usecase';
 export default function ReviewRequest({ suggestList }) {
     const { uid } = useParams();
     const [inCounterChosenFromAdminSuggestList, setInCounterChosenFromAdminSuggestList] = useState(Array);
-    useEffect ( ()=> {
+    useEffect(() => {
         async function fetchInCounterChosenFromAdminSuggestList() {
             try {
                 const acceptMatchUseCase = new AcceptMatchUseCase();
-                var response =  await acceptMatchUseCase.readInCounterChosenFromAdminSuggestList(uid)
+                var response = await acceptMatchUseCase.readInCounterChosenFromAdminSuggestList(uid)
                 // console.log(response)
-                if(response.success === true) {
+                if (response.success === true) {
                     setInCounterChosenFromAdminSuggestList(response.data)
                 } else {
                     alert(response.message)
                 }
-            } catch(error) {
+            } catch (error) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
@@ -61,9 +61,11 @@ export default function ReviewRequest({ suggestList }) {
             <div class="valign gap20 padding">
                 {/* index:  int 0~ */}
                 {inCounterChosenFromAdminSuggestList.map((item, index) => (
-                    <Link style={{ textDecoration: 'none' }} to={`../approve-request/${uid}/${item.id}`}><ListItem name={item.name} age={
-                        parseInt(year) - parseInt(item.yearOfBirth)
-                    } residence={item.residence[0]+" "+item.residence[1]} job={item.job} mbti={item.mbti}/></Link>
+                    <Link style={{ textDecoration: 'none' }} to={`../approve-request/${uid}/${item.id}`}>
+                        <ListItem name={item.name} age={
+                            parseInt(year) - parseInt(item.yearOfBirth)
+                        } residence={item.residence[0] + " " + item.residence[1]} job={item.job} mbti={item.mbti} />
+                    </Link>
                 ))}
             </div>
 

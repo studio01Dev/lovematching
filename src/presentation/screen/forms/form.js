@@ -8,6 +8,9 @@ import FormDone from "./formDone";
 import { useState, useEffect } from "react";
 import User from "../../../domain/models/user";
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
+import { getDocs, collection } from "firebase/firestore";
+import db from '../../../firebase/index'
+import LoadingDialog from "../../component/loading_dialog/loading_dialog";
 
 export default function Form() {
     const [formDataPage1, setFormDataPage1] = useState({});
@@ -15,6 +18,8 @@ export default function Form() {
     const [formDataPage3, setFormDataPage3] = useState({});
     const [formDataPage4, setFormDataPage4] = useState({});
     const [formDataPage5, setFormDataPage5] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [render, setRender] = useState()
 
     const newConsumer = new User();
     const [userData, setUserData] = useState(newConsumer);
@@ -75,48 +80,123 @@ export default function Form() {
         5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion', 'counterpartStrength']
     };
 
+    const [users, setUsers] = useState();
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                setIsLoading(true);
+                const users = [];
+
+                // Create a promise that resolves after 1 second (adjust as needed)
+                const timeoutPromise = new Promise((resolve) => {
+                    setTimeout(() => resolve(null), 1000); // 1 second
+                });
+
+                // Use Promise.race to wait for either getDocs or the timeout to resolve
+                const result = await Promise.race([getDocs(collection(db.db, "users")), timeoutPromise]);
+
+                if (result === null) {
+                    // Timeout occurred
+                    console.log('Timeout exceeded. Reloading the page...');
+                    window.location.reload();
+                } else {
+                    // Data was fetched successfully
+                    result.forEach((doc) => {
+                        users.push({
+                            ...doc.data(),
+                            id: doc.id,
+                        });
+                    });
+
+                    setUsers(users);
+                    setIsLoading(false);
+                }
+            } catch (error) {
+                console.error("Error fetching users:", error);
+                window.location.reload();
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    const getCode = () => {
+
+        // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
+        const malesToday = users.filter(user =>
+            user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+            user.sex === '남성'
+        );
+        const maleMaxCode = malesToday.length == 0
+            ? 0
+            : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
+
+        // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
+        const femalesToday = users.filter(user =>
+            user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+            user.sex === '여성'
+        )
+        const femaleMaxCode = femalesToday.length == 0
+            ? 0
+            : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
+
+        const date = new Date()
+        const currentYear = date.getFullYear()
+
+        const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+        let num;
+
+        if (userData.sex === '남성') {
+            num = String(maleMaxCode + 1).padStart(3, '0');
+        } else if (userData.sex === '여성') {
+            num = String(femaleMaxCode + 1).padStart(3, '0');
+        } else {
+            num = 999
+        }
+
+        const newCode = `${userData.sex === '남성' ? 'M' : 'F'}${today}${num}`;
+        setUserData({ ...userData, code: newCode });
+    }
+
     const [firstEmptyField, setFirstEmptyField] = useState(null)
-    const [isLoading, setIsLoading] = useState(false);
     const [form, setForm] = useState(1);
     const nextForm = async () => {
         const currentRequiredFields = requiredFields[form];
-        const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length == 0)
+        const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length === 0);
         const translateField = missingFields.map(field => fieldTranslations[field]);
-        if (form == 5) {
+        getCode();
+        if (form === 5) {
             if (missingFields.length > 0) {
                 alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
-                setFirstEmptyField(`${missingFields[0]}`)
+                setFirstEmptyField(`${missingFields[0]}`);
             } else {
                 try {
-                    setIsLoading(true)
-                    // console.log(isLoading)
-                    const response = await EnrollUserUseCase(userData)
+                    setIsLoading(true);
+                    const response = await EnrollUserUseCase(userData);
                     if (response.success) {
                         setForm(form + 1);
                         window.scrollTo(0, 0);
-                        setIsLoading(false)
-                        // console.log(isLoading)
+                        setIsLoading(false);
                     } else {
-                        setIsLoading(false)
-                        // console.log(isLoading)
-                        alert('다시 시도해주세요!')
+                        setIsLoading(false);
+                        alert('다시 시도해주세요!');
                     }
                 } catch (error) {
-                    setIsLoading(false)
-                    // console.log(error)
+                    setIsLoading(false);
+                    console.log(error);
                 }
             }
         } else {
             if (missingFields.length > 0) {
                 alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
-                setFirstEmptyField(`${missingFields[0]}`)
+                setFirstEmptyField(`${missingFields[0]}`);
             } else {
                 setForm(form + 1);
                 window.scrollTo(0, 0);
             }
         }
-
     };
+
     // const nextForm = () => {
     //     setForm(form + 1);
     // }
@@ -124,30 +204,35 @@ export default function Form() {
         setForm(form - 1);
     }
 
-    useEffect(() => {
-        // console.log(userData)
-    }, [userData])
+    // useEffect(() => {
+    //     console.log(userData)
+    // }, [userData])
 
     switch (form) {
         case 1:
-            return <div><ProgressBar progressStatus={1} />
-                <div style={{ height: '80px' }} />
-                <Form1 onClick={nextForm} backClick={''} setFormData={setFormDataPage1} userData={userData}
-                    name={data => setUserData({ ...userData, name: data })}
-                    phoneNum={data => setUserData({ ...userData, phoneNum: data })}
-                    sex={data => setUserData({ ...userData, sex: data })}
-                    yearOfBirth={data => setUserData({ ...userData, yearOfBirth: data })}
-                    income={data => setUserData({ ...userData, income: data })}
-                    academicCareer={data => setUserData({ ...userData, academicCareer: data })}
-                    company={data => setUserData({ ...userData, company: data })}
-                    job={data => setUserData({ ...userData, job: data })}
-                    jobDetail={data => setUserData({ ...userData, jobDetail: data })}
-                    howWork={data => setUserData({ ...userData, howWork: data })}
-                    height={data => setUserData({ ...userData, height: data })}
-                    bodyType={data => setUserData({ ...userData, bodyType: data })}
-                    style={data => setUserData({ ...userData, style: data })}
-                    firstEmptyField={firstEmptyField}
-                /></div>;
+            return <div>
+                {isLoading && <LoadingDialog />}
+                {!isLoading && (<div>
+                    <ProgressBar progressStatus={1} />
+                    <div style={{ height: '80px' }} />
+                    <Form1 onClick={nextForm} backClick={''} setFormData={setFormDataPage1} userData={userData}
+                        name={data => setUserData({ ...userData, name: data })}
+                        phoneNum={data => setUserData({ ...userData, phoneNum: data })}
+                        sex={data => setUserData({ ...userData, sex: data })}
+                        yearOfBirth={data => setUserData({ ...userData, yearOfBirth: data })}
+                        income={data => setUserData({ ...userData, income: data })}
+                        academicCareer={data => setUserData({ ...userData, academicCareer: data })}
+                        company={data => setUserData({ ...userData, company: data })}
+                        job={data => setUserData({ ...userData, job: data })}
+                        jobDetail={data => setUserData({ ...userData, jobDetail: data })}
+                        howWork={data => setUserData({ ...userData, howWork: data })}
+                        height={data => setUserData({ ...userData, height: data })}
+                        bodyType={data => setUserData({ ...userData, bodyType: data })}
+                        style={data => setUserData({ ...userData, style: data })}
+                        firstEmptyField={firstEmptyField}
+                    />
+                </div>)}
+            </div>;
         case 2:
             return <div><ProgressBar progressStatus={2} />
                 <div style={{ height: '80px' }} />

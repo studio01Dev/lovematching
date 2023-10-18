@@ -14,53 +14,53 @@ export default async function EnrollUserUseCase(user) {
       uploadImageToStorage(user.employImageData, 'employ', user.name, user.phoneNum, user.yearOfBirth.toString()),
     ]);
 
-    // 올해 가입한 고객 목록
-    const users = [];
-    const userSnapshot = await getDocs(collection(db.db, "users"));
-    userSnapshot.forEach((doc) => {
-      users.push(
-        {
-          ...doc.data(),
-          id: doc.id
-        }
-      )
-    }
-    )
+    // // 올해 가입한 고객 목록
+    // const users = [];
+    // const userSnapshot = await getDocs(collection(db.db, "users"));
+    // userSnapshot.forEach((doc) => {
+    //   users.push(
+    //     {
+    //       ...doc.data(),
+    //       id: doc.id
+    //     }
+    //   )
+    // }
+    // )
 
-    const malesToday = users.filter(user =>
-      user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-      user.sex === '남성'
-    );
-    const maleMaxCode = malesToday.length == 0
-      ? 0
-      : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
+    // // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
+    // const malesToday = users.filter(user =>
+    //   user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+    //   user.sex === '남성'
+    // );
+    // const maleMaxCode = malesToday.length == 0
+    //   ? 0
+    //   : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
+
+    // // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
+    // const femalesToday = users.filter(user =>
+    //   user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+    //   user.sex === '여성'
+    // )
+    // const femaleMaxCode = femalesToday.length == 0
+    //   ? 0
+    //   : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
 
 
-    const femalesToday = users.filter(user =>
-      user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-      user.sex === '여성'
-    )
-    const femaleMaxCode = femalesToday.length == 0
-      ? 0
-      : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
+    // const date = new Date()
+    // const currentYear = date.getFullYear()
 
+    // const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+    // let num;
 
-    const date = new Date()
-    const currentYear = date.getFullYear()
+    // if (user.sex === '남성') {
+    //   num = String(maleMaxCode + 1).padStart(3, '0');
+    // } else if (user.sex === '여성') {
+    //   num = String(femaleMaxCode + 1).padStart(3, '0');
+    // } else {
+    //   num = 999
+    // }
 
-    const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
-    let num;
-
-    if (user.sex === '남성') {
-      let maleCounter = maleMaxCode + 1;
-      num = String(maleCounter).padStart(3, '0');
-    } else {
-      let femaleCounter = femaleMaxCode + 1;
-      num = String(femaleCounter).padStart(3, '0');
-    }
-
-    const newCode = `${user.sex === '남성' ? 'M' : 'F'}${today}${num}`;
-
+    // const newCode = `${user.sex === '남성' ? 'M' : 'F'}${today}${num}`;
 
     // Create a new user object with download URLs
     const newUser = new User(
@@ -115,7 +115,7 @@ export default async function EnrollUserUseCase(user) {
       false,
       false,
       null,
-      newCode,
+      user.code,
     ).toObject();
 
     // Add the user document to Firestore

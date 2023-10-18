@@ -6,7 +6,7 @@ export default function ListItem({name, age, mbti, residence, job, source}) {
             <img style={{ minWidth: '100px', minHeight: '100px', maxWidth: '100px', maxHeight: '100px', borderRadius: '4px 0 0 4px', objectFit: 'cover' }} src={source}/>
             <div className='detail-container valign gap4'>
                 <div className='halign gap8 calign'>
-                    <div className='h4 b grey800'>{name}</div>
+                    <div className='h4 b grey800'>{name.charAt(0)}**</div>
                     <div className='h6 sb brand500'>({age}세, {mbti})</div>
                 </div>
                 <div className='detail-grid'>
