@@ -97,7 +97,7 @@ export default function Queue() {
                                 </div>
                             </div>
                             <div className='h4 sb grey800'>나에게 온 매칭 확인하기</div>
-                            <div className='h5 r grey600'>님께 호감을 표시한 {inCounterChosenFromAdminSuggestListLength}명 중,<br />마음에 드는 분을 수락해보세요.</div>
+                            <div className='h5 r grey600'>{user.name}님께 호감을 표시한 {inCounterChosenFromAdminSuggestListLength}명 중,<br />마음에 드는 분을 수락해보세요.</div>
                         </div>
                     </Link>
                 </div>
