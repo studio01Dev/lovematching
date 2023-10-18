@@ -96,7 +96,7 @@ export default function Queue() {
                                     <div className='h6 sb brand500'>{inCounterChosenFromAdminSuggestListLength}</div>
                                 </div>
                             </div>
-                            <div className='h4 sb grey800'>내가 매칭 신청하기</div>
+                            <div className='h4 sb grey800'>나에게 온 매칭 확인하기</div>
                             <div className='h5 r grey600'>님께 호감을 표시한 {inCounterChosenFromAdminSuggestListLength}명 중,<br />마음에 드는 분을 수락해보세요.</div>
                         </div>
                     </Link>
