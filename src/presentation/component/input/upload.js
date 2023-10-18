@@ -44,6 +44,7 @@ export default function Upload({ labelText, dataToForm, defaultValue, inputRef }
                   id="img"
                   style={{ display: 'none' }}
                   onChange={handleImageChange}
+                  accept=".pdf, .jpg, .jpeg, .png .svg"
                 />
                 <div htmlFor="img" className='h5 r brand500'>{text}</div>
                 <img style={{ width: '20px' }} src={check} alt="Upload" />
@@ -58,6 +59,7 @@ export default function Upload({ labelText, dataToForm, defaultValue, inputRef }
                   id="img"
                   style={{ display: 'none' }}
                   onChange={handleImageChange}
+                  accept=".pdf, .jpg, .jpeg, .png .svg"
                 />
                 <div htmlFor="img" className='h5 r grey700'>{text}</div>
                 <img style={{ width: '20px' }} src={upload} alt="Upload" />
