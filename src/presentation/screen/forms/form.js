@@ -8,7 +8,7 @@ import FormDone from "./formDone";
 import { useState, useEffect } from "react";
 import User from "../../../domain/models/user";
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, where } from "firebase/firestore";
 import db from '../../../firebase/index'
 import LoadingDialog from "../../component/loading_dialog/loading_dialog";
 
@@ -19,7 +19,6 @@ export default function Form() {
     const [formDataPage4, setFormDataPage4] = useState({});
     const [formDataPage5, setFormDataPage5] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const [render, setRender] = useState()
 
     const newConsumer = new User();
     const [userData, setUserData] = useState(newConsumer);
@@ -86,6 +85,8 @@ export default function Form() {
             try {
                 setIsLoading(true);
                 const users = [];
+                const startOfToday = new Date();
+                startOfToday.setHours(0, 0, 0, 0);
 
                 // Create a promise that resolves after 1 second (adjust as needed)
                 const timeoutPromise = new Promise((resolve) => {
@@ -93,7 +94,7 @@ export default function Form() {
                 });
 
                 // Use Promise.race to wait for either getDocs or the timeout to resolve
-                const result = await Promise.race([getDocs(collection(db.db, "users")), timeoutPromise]);
+                const result = await Promise.race([getDocs(collection(db.db, 'users'), where("createdAt", ">=", startOfToday)), timeoutPromise]);
 
                 if (result === null) {
                     // Timeout occurred
@@ -286,6 +287,7 @@ export default function Form() {
                     counterpartSmoking={data => setUserData({ ...userData, counterpartSmoking: data })}
                     counterpartTattoo={data => setUserData({ ...userData, counterpartTattoo: data })}
                     counterpartReligion={data => setUserData({ ...userData, counterpartReligion: data })}
+                    counterpartResidence={data => setUserData({ ...userData, counterpartResidence: data })}
                     firstEmptyField={firstEmptyField}
                 /></div>;
         case 6:

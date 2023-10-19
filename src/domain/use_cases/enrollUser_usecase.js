@@ -101,6 +101,7 @@ export default async function EnrollUserUseCase(user) {
       user.counterpartHeight,
       user.counterpartBodyType,
       user.counterpartStyle,
+      user.counterpartResidence,
       user.counterpartHaveCar,
       user.counterpartHaveHouse,
       user.counterpartDrinkingFrequency,

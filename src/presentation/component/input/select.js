@@ -1,15 +1,17 @@
 import '../input/input.css';
 import { useEffect, useState } from 'react';
+import { NotMatter } from './not-matter';
 
-export default function Select({ name, labelText, values, dataToForm, defaultValue, inputRef }) {
+export default function Select({ name, labelText, values, dataToForm, defaultValue, displayNotMatter, inputRef }) {
     const [selectedValue, setSelectedValue] = useState(defaultValue);
+    const [isNotMatterChecked, setIsNotMatterChecked] = useState(false);
 
     const otherInput = defaultValue
 
     const handleSelectChange = (event) => {
         const newValue = event.target.value;
         setSelectedValue(newValue);
-        dataToForm(newValue);
+        dataToForm(isNotMatterChecked ? '상관없음' : newValue);
     };
 
     useEffect(() => {
@@ -33,7 +35,14 @@ export default function Select({ name, labelText, values, dataToForm, defaultVal
         <div>
             <div className="input-comp">
                 <div className='h6 m grey500'>{labelText}</div>
-                <div className='input'>
+                <NotMatter
+                    isNotMatterChecked={isNotMatterChecked}
+                    setIsNotMatterChecked={setIsNotMatterChecked}
+                    dataToForm={dataToForm}
+                    displayNotMatter={displayNotMatter}
+                    labelText={labelText}
+                />
+                <div className='input' style={{ display: `${isNotMatterChecked ? 'none' : ''}` }}>
                     <div className='input-container halign gap4 calign'>
                         <select ref={inputRef} value={selectedValue} onChange={handleSelectChange}>
                             {options}

@@ -42,6 +42,7 @@ export default class User {
         counterpartHeight,
         counterpartBodyType,
         counterpartStyle,
+        counterpartResidence,
         counterpartHaveCar,
         counterpartHaveHouse,
         counterpartDrinkingFrequency,
@@ -98,6 +99,7 @@ export default class User {
         this.counterpartHeight = counterpartHeight;
         this.counterpartBodyType = counterpartBodyType;
         this.counterpartStyle = counterpartStyle;
+        this.counterpartResidence = counterpartResidence;
         this.counterpartHaveCar = counterpartHaveCar;
         this.counterpartHaveHouse = counterpartHaveHouse;
         this.counterpartDrinkingFrequency = counterpartDrinkingFrequency;
@@ -157,6 +159,7 @@ export default class User {
             counterpartHeight: this.counterpartHeight,
             counterpartBodyType: this.counterpartBodyType,
             counterpartStyle: this.counterpartStyle,
+            counterpartResidence: this.counterpartResidence,
             counterpartHaveCar: this.counterpartHaveCar,
             counterpartHaveHouse: this.counterpartHaveHouse,
             counterpartDrinkingFrequency: this.counterpartDrinkingFrequency,
