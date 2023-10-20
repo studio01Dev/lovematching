@@ -7,10 +7,12 @@ import db from '../../../firebase/index'
 import storage from '../../../firebase/index'
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
 import TestEnrollUserUseCase from "../../../domain/use_cases/_test_enrollUser_usecase";
+import LoadingDialog from "../../component/loading_dialog/loading_dialog";
 
 export default function Test() {
     const [name, setName] = useState('')
     const [phoneNum, setPhoneNum] = useState('')
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleClick = () => {
         const user = { name, phoneNum }
@@ -196,27 +198,38 @@ export default function Test() {
         // console.log(date.getFullYear())
     }
 
+    const userData = {
+        name: 'MALETEST1',
+        sex: '남성',
+    }
+
     const test = async () => {
         try {
-            const response = await TestEnrollUserUseCase({
-                name: 'testm1',
-                sex: '남성'
-            })
+            setIsLoading(true);
+            const response = await TestEnrollUserUseCase(userData);
             if (response.success) {
-                console.log('success')
+                setIsLoading(false);
+                alert('성공')
             } else {
-                console.log('fuck')
+                setIsLoading(false);
+                alert('다시 시도해주세요!');
             }
         } catch (error) {
+            setIsLoading(false);
             console.log(error)
         }
     }
 
     return (
         <div>
-            <Link to='../form'><button>신청하기</button></Link>
-            <Link to='../input-code'><button>매칭 확인하기</button></Link>
-            <button onClick={test}>테스트 버튼</button>
+            {isLoading && <LoadingDialog />}
+            {!isLoading && (
+                <div>
+                    <Link to='../form'><button>신청하기</button></Link>
+                    <Link to='../input-code'><button>매칭 확인하기</button></Link>
+                    <button onClick={test}>테스트 버튼</button>
+                </div>
+            )}
         </div>
     );
 }

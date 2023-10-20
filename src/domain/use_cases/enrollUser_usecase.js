@@ -6,59 +6,71 @@ import db from '../../firebase/index';
 import MyResponse from '../models/MyResponse';
 
 export default async function EnrollUserUseCase(user) {
+
+  // async function fetchUserDocs(startOfToday) {
+  //   const maxRetries = 5;
+  //   let retries = 0;
+
+  //   while (retries < maxRetries) {
+  //     try {
+  //       const result = await getDocs(collection(db.db, 'users'), where("createdAt", ">=", startOfToday));
+  //       return result;
+  //     } catch (error) {
+  //       console.error(`Error fetching user docs: ${error}. Retrying...`);
+  //       retries++;
+  //     }
+  //   }
+
+  //   throw new Error('네트워크 문제가 발생했어요. 관리자에게 문의주세요.');
+  // }
+
   try {
-    const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
-      uploadImageToStorage(user.faceImageData, 'face', user.name, user.phoneNum, user.yearOfBirth.toString()),
-      uploadImageToStorage(user.bodyImageData, 'body', user.name, user.phoneNum, user.yearOfBirth.toString()),
-      uploadImageToStorage(user.employImageData, 'employ', user.name, user.phoneNum, user.yearOfBirth.toString()),
-    ]);
-    const userList = [];
-    const startOfToday = new Date();
-    startOfToday.setHours(0, 0, 0, 0);
-    const result = await getDocs(collection(db.db, 'users'), where("createdAt", ">=", startOfToday))
-    result.forEach((doc) => {
-      userList.push({
-        ...doc.data(),
-        id: doc.id,
-      });
-    });
+  //   const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
+  //     uploadImageToStorage(user.faceImageData, 'face', user.name, user.phoneNum, user.yearOfBirth.toString()),
+  //     uploadImageToStorage(user.bodyImageData, 'body', user.name, user.phoneNum, user.yearOfBirth.toString()),
+  //     uploadImageToStorage(user.employImageData, 'employ', user.name, user.phoneNum, user.yearOfBirth.toString()),
+  //   ]);
+  //   const userList = [];
+  //   const startOfToday = new Date();
+  //   startOfToday.setHours(0, 0, 0, 0);
+  //   const result = await fetchUserDocs(startOfToday)
+  //   result.forEach((doc) => {
+  //     userList.push({
+  //       ...doc.data(),
+  //       id: doc.id,
+  //     });
+  //   });
 
-    let maxCode
-    if (user.sex === '남성') {
+  //   let maxCode
+  //   if (user.sex === '남성') {
 
-      // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
-      const malesToday = userList.filter(user =>
-        user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-        user.sex === '남성'
-      );
-      maxCode = malesToday.length == 0
-        ? 0
-        : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
-    } else {
+  //     // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
+  //     const malesToday = userList.filter(user =>
+  //       user.createdAt.toDate().setHours(0, 0, 0).getTime() == new Date().setHours(0, 0, 0).getTime() &&
+  //       user.sex === '남성'
+  //     );
+  //     maxCode = malesToday.length === 0
+  //       ? 0
+  //       : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
+  //   } else {
 
-      // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
-      const femalesToday = userList.filter(user =>
-        user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-        user.sex === '여성'
-      )
-      maxCode = femalesToday.length == 0
-        ? 0
-        : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
-    }
+  //     // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
+  //     const femalesToday = userList.filter(user =>
+  //       user.createdAt.toDate().setHours(0, 0, 0).getTime() == new Date().setHours(0, 0, 0).getTime() &&
+  //       user.sex === '여성'
+  //     )
+  //     maxCode = femalesToday.length === 0
+  //       ? 0
+  //       : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
+  //   }
 
-    const date = new Date()
-    const currentYear = date.getFullYear()
+  //   const date = new Date()
+  //   const currentYear = date.getFullYear()
 
-    const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
-    let num;
+  //   const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+  //   const num = String(maxCode + 1).padStart(3, '0');
 
-    if (user.sex === '남성') {
-      num = String(maxCode + 1).padStart(3, '0');
-    } else {
-      num = 999
-    }
-
-    const newCode = `${user.sex === '남성' ? 'M' : 'F'}${today}${num}`;
+  //   const newCode = `${user.sex === '남성' ? 'M' : 'F'}${today}${num}`;
 
     const newUser = new User(
       '',
@@ -113,7 +125,7 @@ export default async function EnrollUserUseCase(user) {
       false,
       false,
       null,
-      newCode,
+      user.code,
     ).toObject();
 
     // Add the user document to Firestore
