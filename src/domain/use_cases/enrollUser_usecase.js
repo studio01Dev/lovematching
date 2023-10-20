@@ -25,11 +25,11 @@ export default async function EnrollUserUseCase(user) {
   // }
 
   try {
-  //   const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
-  //     uploadImageToStorage(user.faceImageData, 'face', user.name, user.phoneNum, user.yearOfBirth.toString()),
-  //     uploadImageToStorage(user.bodyImageData, 'body', user.name, user.phoneNum, user.yearOfBirth.toString()),
-  //     uploadImageToStorage(user.employImageData, 'employ', user.name, user.phoneNum, user.yearOfBirth.toString()),
-  //   ]);
+    const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
+      uploadImageToStorage(user.faceImageData, 'face', user.name, user.phoneNum, user.yearOfBirth.toString()),
+      uploadImageToStorage(user.bodyImageData, 'body', user.name, user.phoneNum, user.yearOfBirth.toString()),
+      uploadImageToStorage(user.employImageData, 'employ', user.name, user.phoneNum, user.yearOfBirth.toString()),
+    ]);
   //   const userList = [];
   //   const startOfToday = new Date();
   //   startOfToday.setHours(0, 0, 0, 0);
