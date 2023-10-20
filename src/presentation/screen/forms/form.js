@@ -81,85 +81,85 @@ export default function Form() {
         5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion', 'counterpartStrength']
     };
 
-    // const [users, setUsers] = useState();
-    // useEffect(() => {
-    //     const fetchUsers = async () => {
-    //         try {
-    //             setIsLoading(true);
-    //             const users = [];
-    //             const startOfToday = new Date();
-    //             startOfToday.setHours(0, 0, 0, 0);
+    const [users, setUsers] = useState();
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                setIsLoading(true);
+                const users = [];
+                const startOfToday = new Date();
+                startOfToday.setHours(0, 0, 0, 0);
 
-    //             // Create a promise that resolves after 1 second (adjust as needed)
-    //             const timeoutPromise = new Promise((resolve) => {
-    //                 setTimeout(() => resolve(null), 1000); // 1 second
-    //             });
+                // Create a promise that resolves after 1 second (adjust as needed)
+                const timeoutPromise = new Promise((resolve) => {
+                    setTimeout(() => resolve(null), 1000); // 1 second
+                });
 
-    //             // Use Promise.race to wait for either getDocs or the timeout to resolve
-    //             const result = await Promise.race([getDocs(collection(db.db, 'users'), where("createdAt", ">=", startOfToday)), timeoutPromise]);
+                // Use Promise.race to wait for either getDocs or the timeout to resolve
+                const result = await Promise.race([getDocs(collection(db.db, 'users'), where("createdAt", ">=", startOfToday)), timeoutPromise]);
 
-    //             if (result === null) {
-    //                 // Timeout occurred
-    //                 console.log('Timeout exceeded. Reloading the page...');
-    //                 window.location.reload();
-    //             } else {
-    //                 // Data was fetched successfully
-    //                 result.forEach((doc) => {
-    //                     users.push({
-    //                         ...doc.data(),
-    //                         id: doc.id,
-    //                     });
-    //                 });
+                if (result === null) {
+                    // Timeout occurred
+                    console.log('Timeout exceeded. Reloading the page...');
+                    window.location.reload();
+                } else {
+                    // Data was fetched successfully
+                    result.forEach((doc) => {
+                        users.push({
+                            ...doc.data(),
+                            id: doc.id,
+                        });
+                    });
 
-    //                 setUsers(users);
-    //                 setIsLoading(false);
-    //             }
-    //         } catch (error) {
-    //             console.error("Error fetching users:", error);
-    //             window.location.reload();
-    //         }
-    //     };
+                    setUsers(users);
+                    setIsLoading(false);
+                }
+            } catch (error) {
+                console.error("Error fetching users:", error);
+                window.location.reload();
+            }
+        };
 
-    //     fetchUsers();
-    // }, []);
+        fetchUsers();
+    }, []);
 
-    // const getCode = () => {
+    const getCode = () => {
 
-    //     // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
-    //     const malesToday = users.filter(user =>
-    //         user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-    //         user.sex === '남성'
-    //     );
-    //     const maleMaxCode = malesToday.length == 0
-    //         ? 0
-    //         : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
+        // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
+        const malesToday = users.filter(user =>
+            user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+            user.sex === '남성'
+        );
+        const maleMaxCode = malesToday.length == 0
+            ? 0
+            : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
 
-    //     // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
-    //     const femalesToday = users.filter(user =>
-    //         user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-    //         user.sex === '여성'
-    //     )
-    //     const femaleMaxCode = femalesToday.length == 0
-    //         ? 0
-    //         : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
+        // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
+        const femalesToday = users.filter(user =>
+            user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+            user.sex === '여성'
+        )
+        const femaleMaxCode = femalesToday.length == 0
+            ? 0
+            : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
 
-    //     const date = new Date()
-    //     const currentYear = date.getFullYear()
+        const date = new Date()
+        const currentYear = date.getFullYear()
 
-    //     const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
-    //     let num;
+        const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+        let num;
 
-    //     if (userData.sex === '남성') {
-    //         num = String(maleMaxCode + 1).padStart(3, '0');
-    //     } else if (userData.sex === '여성') {
-    //         num = String(femaleMaxCode + 1).padStart(3, '0');
-    //     } else {
-    //         num = 999
-    //     }
+        if (userData.sex === '남성') {
+            num = String(maleMaxCode + 1).padStart(3, '0');
+        } else if (userData.sex === '여성') {
+            num = String(femaleMaxCode + 1).padStart(3, '0');
+        } else {
+            num = 999
+        }
 
-    //     const newCode = `${userData.sex === '남성' ? 'M' : 'F'}${today}${num}`;
-    //     setUserData({ ...userData, code: newCode });
-    // }
+        const newCode = `${userData.sex === '남성' ? 'M' : 'F'}${today}${num}`;
+        setUserData({ ...userData, code: newCode });
+    }
 
     const nextForm = async () => {
         const currentRequiredFields = requiredFields[form];
