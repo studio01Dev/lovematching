@@ -28,7 +28,7 @@ export default function Form4({ firstEmptyField, userData, onClick, backClick, f
                 <Upload labelText='재직 증명 사진' dataToForm={data => employImageData(data)} defaultValue={userData.employImageData} />
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='다음으로' onClick={onClick} backClick={backClick} />
+            <Button buttonText='다음으로' subButtonText={'뒤로가기'} onClick={onClick} backClick={backClick} />
         </div>
     );
 }

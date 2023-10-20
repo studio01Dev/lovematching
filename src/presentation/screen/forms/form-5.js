@@ -69,7 +69,7 @@ export default function Form5({ isLoading, firstEmptyField, userData, onClick, b
                         </div>
                     </div>
                     <div style={{ height: '80px' }} />
-                    <Button buttonText='신청 완료하기' onClick={onClick} backClick={backClick} />
+                    <Button buttonText='신청 완료하기' subButtonText={'뒤로가기'} onClick={onClick} backClick={backClick} />
                 </div>
             )}
 

@@ -1,5 +1,5 @@
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, where } from 'firebase/firestore';
 import User from '../models/user';
 import storage from '../../firebase/index';
 import db from '../../firebase/index';
@@ -7,62 +7,59 @@ import MyResponse from '../models/MyResponse';
 
 export default async function EnrollUserUseCase(user) {
   try {
-
     const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
       uploadImageToStorage(user.faceImageData, 'face', user.name, user.phoneNum, user.yearOfBirth.toString()),
       uploadImageToStorage(user.bodyImageData, 'body', user.name, user.phoneNum, user.yearOfBirth.toString()),
       uploadImageToStorage(user.employImageData, 'employ', user.name, user.phoneNum, user.yearOfBirth.toString()),
     ]);
+    const userList = [];
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+    const result = await getDocs(collection(db.db, 'users'), where("createdAt", ">=", startOfToday))
+    result.forEach((doc) => {
+      userList.push({
+        ...doc.data(),
+        id: doc.id,
+      });
+    });
 
-    // // 올해 가입한 고객 목록
-    // const users = [];
-    // const userSnapshot = await getDocs(collection(db.db, "users"));
-    // userSnapshot.forEach((doc) => {
-    //   users.push(
-    //     {
-    //       ...doc.data(),
-    //       id: doc.id
-    //     }
-    //   )
-    // }
-    // )
+    let maxCode
+    if (user.sex === '남성') {
 
-    // // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
-    // const malesToday = users.filter(user =>
-    //   user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-    //   user.sex === '남성'
-    // );
-    // const maleMaxCode = malesToday.length == 0
-    //   ? 0
-    //   : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
+      // 오늘 가입한 남성 유저 배열 생성 후 마지막 코드 가져오기
+      const malesToday = userList.filter(user =>
+        user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+        user.sex === '남성'
+      );
+      maxCode = malesToday.length == 0
+        ? 0
+        : Math.max(...malesToday.map(user => parseInt(user.code.slice(-3))));
+    } else {
 
-    // // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
-    // const femalesToday = users.filter(user =>
-    //   user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
-    //   user.sex === '여성'
-    // )
-    // const femaleMaxCode = femalesToday.length == 0
-    //   ? 0
-    //   : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
+      // 오늘 가입한 여성 유저 배열 생성 후 마지막 코드 가져오기
+      const femalesToday = userList.filter(user =>
+        user.createdAt.toDate().setHours(0, 0, 0, 0) === new Date().setHours(0, 0, 0, 0) &&
+        user.sex === '여성'
+      )
+      maxCode = femalesToday.length == 0
+        ? 0
+        : Math.max(...femalesToday.map(user => parseInt(user.code.slice(-3))));
+    }
 
+    const date = new Date()
+    const currentYear = date.getFullYear()
 
-    // const date = new Date()
-    // const currentYear = date.getFullYear()
+    const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
+    let num;
 
-    // const today = `${currentYear}${(date.getMonth() + 1).toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`;
-    // let num;
+    if (user.sex === '남성') {
+      num = String(maxCode + 1).padStart(3, '0');
+    } else {
+      num = 999
+    }
 
-    // if (user.sex === '남성') {
-    //   num = String(maleMaxCode + 1).padStart(3, '0');
-    // } else if (user.sex === '여성') {
-    //   num = String(femaleMaxCode + 1).padStart(3, '0');
-    // } else {
-    //   num = 999
-    // }
+    const newCode = `${user.sex === '남성' ? 'M' : 'F'}${today}${num}`;
 
-    // const newCode = `${user.sex === '남성' ? 'M' : 'F'}${today}${num}`;
-
-    // Create a new user object with download URLs
     const newUser = new User(
       '',
       user.name,
@@ -116,7 +113,7 @@ export default async function EnrollUserUseCase(user) {
       false,
       false,
       null,
-      user.code,
+      newCode,
     ).toObject();
 
     // Add the user document to Firestore

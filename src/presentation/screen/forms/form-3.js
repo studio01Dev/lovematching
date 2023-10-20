@@ -30,7 +30,7 @@ export default function Form3({ firstEmptyField, userData, onClick, backClick, m
                 <InputText labelText='선호하는 데이트' placeholder='선호하는 데이트를 입력해주세요' dataToForm={data => dateType(data)} defaultValue={userData.dateType} />
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='다음으로' onClick={onClick} backClick={backClick} />
+            <Button buttonText='다음으로' subButtonText={'뒤로가기'} onClick={onClick} backClick={backClick} />
         </div>
     );
 }
