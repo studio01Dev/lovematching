@@ -165,7 +165,7 @@ export default function Form() {
         const currentRequiredFields = requiredFields[form];
         const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length === 0);
         const translateField = missingFields.map(field => fieldTranslations[field]);
-        // getCode();
+        getCode();
         if (form === 5) {
             if (missingFields.length > 0) {
                 alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
