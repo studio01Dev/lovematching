@@ -143,7 +143,7 @@ export default function ApproveRequest({ name }) {
 
 
                     </div>
-                    <Button buttonText='매칭 신청 수락하기' subButtonText={'거절하기'} onClick={acceptMatch} backClick={goBack} />
+                    <Button buttonText='매칭 신청 수락하기' onClick={acceptMatch} backClick={goBack} />
                 </div>
             )}
 
