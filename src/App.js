@@ -23,7 +23,6 @@ import MakeRequest from './presentation/screen/match/makeRequest';
 import Profile from './presentation/screen/match/profile'
 import ApproveRequest from './presentation/screen/match/approveRequest';
 import Form from './presentation/screen/forms/form'
-import BackButton from './presentation/component/input/back-button';
 
 function App() {
   return (
@@ -31,7 +30,6 @@ function App() {
       <Header />
       <div style={{ width: '390px', margin: '0 auto' }}>
         <BrowserRouter>
-          <BackButton />
           <Routes>
             <Route index element={<Test />} />
             <Route path='/form' element={<Form />} />

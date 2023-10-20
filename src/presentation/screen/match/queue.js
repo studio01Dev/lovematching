@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import plane from '../../asset/images/plane.svg'
 import memo from '../../asset/images/memo.svg'
 import people from '../../asset/images/people.svg'
-import { MainButton } from '../../component/input/button';
+import Button from '../../component/input/button';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
@@ -102,7 +102,7 @@ export default function Queue() {
                     </Link>
                 </div>
             </div>
-            <Link to='../input-code'><MainButton buttonText='로그아웃하기' /></Link>
+            <Link to='../'><Button buttonText='홈으로 돌아가기' /></Link>
         </div>
     );
 }
