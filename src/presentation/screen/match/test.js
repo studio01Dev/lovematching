@@ -199,7 +199,7 @@ export default function Test() {
     }
 
     const userData = {
-        name: 'MALETEST1',
+        name: 'MALETEST2',
         sex: '남성',
     }
 

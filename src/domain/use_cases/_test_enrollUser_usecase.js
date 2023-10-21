@@ -1,7 +1,5 @@
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, getDocs, where } from 'firebase/firestore';
 import TestUser from '../models/_test_user';
-import storage from '../../firebase/index';
 import db from '../../firebase/index';
 import MyResponse from '../models/MyResponse';
 
@@ -26,8 +24,13 @@ export default async function TestEnrollUserUseCase(user) {
 
   try {
     const userList = [];
-    const startOfToday = new Date().setHours(0, 0, 0, 0);
-    const result = await fetchUserDocs(startOfToday)
+    const now = new Date();
+    let yesterday = new Date(now);
+    yesterday.setDate(now.getDate() - 1);
+    const startOfToday = yesterday.setHours(0, 0, 0, 0);
+    console.log(startOfToday)
+    const result = await getDocs(collection(db.db, 'users'), where("createdAt", ">=", startOfToday))
+    console.log('result')
     result.forEach((doc) => {
       userList.push({
         ...doc.data(),
