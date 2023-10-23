@@ -200,6 +200,7 @@ export default function Test() {
 
     const userData = {
         name: 'MALETEST2',
+        phoneNum: '01071228287',
         sex: '남성',
     }
 
