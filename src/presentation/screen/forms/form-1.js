@@ -58,7 +58,7 @@ export default function Form1({ userData, view, onClick, firstEmptyField, name, 
                 <InputCheckbox inputRef={inputRef.style} maxValues={2} displayNotMatter={false} labelText='스타일 (최대 2개 선택 가능)' values={['귀여움', '지적임', '듬직함', '평범함', '건강미', '청순함', '세련됨', '선한 인상']} dataToForm={data => style(data)} defaultValue={userData.style} />
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='다음으로' subButtonText={'홈으로 돌아가기'} onClick={onClick} backClick={toHome} />
+            <Button buttonText='다음으로' backText={'뒤로가기'} onClick={onClick} backClick={toHome} />
         </div>
     );
 }

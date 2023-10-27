@@ -10,6 +10,8 @@ import { useState, useEffect } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AcceptMatchUseCase from '../../../domain/use_cases/acceptMatch_usecase';
 import LoadingDialog from '../../component/loading_dialog/loading_dialog';
+import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
+import db from '../../../firebase/index'
 
 
 
@@ -37,8 +39,16 @@ export default function ApproveRequest({ name }) {
         fetchOneUser();
     }, [])
 
-    const goBack = () => {
+    const goBack = async () => {
         navigate(-1)
+        // update declinedUsers field
+        const ref = doc(db.db, "users", uid);
+        await updateDoc(ref, {
+            declinedUsers: arrayUnion(counterId)
+        });
+        await deleteDoc(doc(db.db, "users", uid, "AdminSuggestList", counterId));
+        await deleteDoc(doc(db.db, "users", uid, "ChosenFromAdminSuggestList", counterId));
+        await deleteDoc(doc(db.db, "users", uid, "InCounterChosenFromAdminSuggestList", counterId));
     }
 
     // Notification을 위한 hook
@@ -143,7 +153,7 @@ export default function ApproveRequest({ name }) {
 
 
                     </div>
-                    <Button buttonText='매칭 신청 수락하기' onClick={acceptMatch} backClick={goBack} />
+                    <Button buttonText='매칭 신청 수락하기' backText={'거절하기'} onClick={acceptMatch} backClick={goBack} />
                 </div>
             )}
 

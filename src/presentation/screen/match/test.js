@@ -221,6 +221,29 @@ export default function Test() {
         }
     }
 
+    const updateResidence = async () => {
+        try {
+            console.log('pass 0')
+            const querySnapshot = await getDocs(collection(db.db, "users"))
+            querySnapshot.forEach(
+                async (docs) => {
+                    console.log('pass 1')
+                    const preference = docs.data().counterpartResidence
+                    console.log('pass 2')
+                    if (preference === undefined) {
+                        console.log(docs.data().residence[0])
+                        const ref = doc(db.db, "users", docs.id);
+                        await updateDoc(ref, {
+                            counterpartResidence: docs.data().residence[0]
+                        });
+                    }
+                }
+            )
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div>
             {isLoading && <LoadingDialog />}
@@ -228,7 +251,7 @@ export default function Test() {
                 <div>
                     <Link to='../form'><button>신청하기</button></Link>
                     <Link to='../input-code'><button>매칭 확인하기</button></Link>
-                    <button onClick={test}>테스트 버튼</button>
+                    <button onClick={updateResidence}>테스트 버튼</button>
                 </div>
             )}
         </div>

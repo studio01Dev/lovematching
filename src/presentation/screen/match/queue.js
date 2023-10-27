@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import plane from '../../asset/images/plane.svg'
 import memo from '../../asset/images/memo.svg'
 import people from '../../asset/images/people.svg'
-import Button from '../../component/input/button';
+import Button, { MainButton } from '../../component/input/button';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
 import AcceptMatchUseCase from '../../../domain/use_cases/acceptMatch_usecase';
+import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import db from '../../../firebase/index'
 
 
 export default function Queue() {
@@ -16,53 +18,86 @@ export default function Queue() {
     const [user, setUser] = useState(Object);
     const [adminSuggestListLength, setAdminSuggestListLength] = useState(Number);
     const [inCounterChosenFromAdminSuggestListLength, setInCounterChosenFromAdminSuggestListLength] = useState(Number);
-    useEffect ( ()=> {
+    const [thisUser, setThisUser] = useState(Object);
+
+    useEffect(() => {
+        async function fetchOneUser() {
+            try {
+                const user = []
+                const docRef = doc(db.db, "users", uid)
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    user.push({
+                        ...docSnap.data(),
+                        id: docSnap.id,
+                    })
+                } else {
+                    console.log("No such document!");
+                }
+                setThisUser(user[0])
+            } catch (error) {
+                alert('새로고침하거나, 번호를 다시 입력해주세요.')
+            }
+        }
+        fetchOneUser()
+    }, [])
+
+    useEffect(() => {
         async function fetchOneUser() {
             try {
                 const readUserUseCase = new ReadUserUseCase();
-                var response =  await readUserUseCase.readUser(uid)
+                var response = await readUserUseCase.readUser(uid)
                 // console.log(response)
-                if(response.success === true) {
+                if (response.success === true) {
                     setUser(response.data)
                 } else {
                     alert(response.message)
                 }
-            } catch(error) {
+            } catch (error) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
         async function fetchAdminSuggestListLength() {
             try {
                 const adminSuggestList = new AdminSuggestListUseCase();
-                var response =  await adminSuggestList.readAdminSuggestList(uid)
-                // console.log(response)
-                if(response.success === true) {
-                    setAdminSuggestListLength(response.data.length)
+                var response = await adminSuggestList.readAdminSuggestList(uid)
+                if (response.success === true) {
+                    const newData = response.data.filter(user =>
+                        thisUser.declinedUsers !== undefined
+                            ? !thisUser.declinedUsers.includes(user.id)
+                            : response.data
+                    )
+                    setAdminSuggestListLength(newData.length)
                 } else {
                     alert(response.message)
                 }
-            } catch(error) {
+            } catch (error) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
         async function fetchInCounterChosenFromAdminSuggestListLength() {
             try {
                 const acceptMatchUseCase = new AcceptMatchUseCase();
-                var response =  await acceptMatchUseCase.readInCounterChosenFromAdminSuggestList(uid)
+                var response = await acceptMatchUseCase.readInCounterChosenFromAdminSuggestList(uid)
                 // console.log(response)
-                if(response.success === true) {
-                    setInCounterChosenFromAdminSuggestListLength(response.data.length)
+                if (response.success === true) {
+                    const newData = response.data.filter(user =>
+                        thisUser.declinedUsers !== undefined
+                            ? !thisUser.declinedUsers.includes(user.id)
+                            : response.data
+                    )
+                    setInCounterChosenFromAdminSuggestListLength(newData.length)
                 } else {
                     alert(response.message)
                 }
-            } catch(error) {
-                alert('새로고침하거나, 번호를 다시 입력해주세요.')
+            } catch (error) {
+                // alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
         fetchOneUser();
         fetchAdminSuggestListLength();
         fetchInCounterChosenFromAdminSuggestListLength();
-    }, [])
+    }, [thisUser])
     return (
         <div>
             {/* <div className="arrow-back">
@@ -102,7 +137,7 @@ export default function Queue() {
                     </Link>
                 </div>
             </div>
-            <Link to='../'><Button buttonText='홈으로 돌아가기' /></Link>
+            <Link to='../'><MainButton buttonText='홈으로 돌아가기' /></Link>
         </div>
     );
 }

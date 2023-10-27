@@ -49,27 +49,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-// <Container disableGutters style={{ margin: 0, display: 'flex', flexDirection: 'column', gap: '20px' }}>
-//   <Header />
-//   <div style={{ height: 60 }}></div>
-//   <Container>
-//     <ProgressBar />
-//     <div style={{ height: 60 }}></div>
-//     <InputRadio labelText='성별' name='sex' value1='남성' value2='여성'/>
-//     <InputText labelText='idk' placeholder='입력 ㄱㄱ'/>
-//     <Select labelText='idk' placeholder='입력 ㄱㄱ' />
-//     <InputNumber labelText='idk' placeholder='숫자 입력 ㄱㄱ' />
-//     <InputTel labelText='idk' placeholder='번호 입력 ㄱㄱ' />
-//     <InputCheckbox labelText='성별'/>
-//     <InputCheckboxNotMatter labelText='몰라' value='상관없음'/>
-//     <Textarea labelText='몰라' />
-//     <InputArea labelText='idk' placeholder='입력 ㄱㄱ' />
-//   </Container>
-// </Container>

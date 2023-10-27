@@ -39,7 +39,7 @@ export default function Form2({ firstEmptyField, userData, residence, workPlace,
                 <InputCheckbox displayNotMatter={'block'} labelText='선호하는 상담 방법' values={['카카오톡', '통화', '오프라인 상담']} number='3' dataToForm={data => consultingType(data)} defaultValue={userData.consultingType} />
             </div>
             <div style={{ height: '80px' }} />
-            <Button buttonText='다음으로' subButtonText={'뒤로가기'} onClick={onClick} backClick={backClick} />
+            <Button buttonText='다음으로' backText={'뒤로가기'} onClick={onClick} backClick={backClick} />
         </div>
     );
 }

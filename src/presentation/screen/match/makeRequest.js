@@ -1,8 +1,5 @@
-import people from '../../asset/images/people.svg'
 import arrow from '../../asset/images/back.png'
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import ListItem from '../../component/input/list-item';
-import sampleImage from '../../asset/images/sampleImage.png'
+import { useParams, useNavigate } from 'react-router-dom';
 import InfoCard from '../../component/input/info-card';
 import Button from '../../component/input/button';
 import NotificationSuccess from '../../component/input/notification_success';
@@ -10,6 +7,8 @@ import { useState, useEffect } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
 import LoadingDialog from '../../component/loading_dialog/loading_dialog';
+import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
+import db from '../../../firebase/index'
 
 
 export default function MakeRequest({ name }) {
@@ -17,27 +16,35 @@ export default function MakeRequest({ name }) {
     const navigate = useNavigate()
     const [counterUser, setCounterUser] = useState(Object);
     const [isLoading, setIsLoading] = useState(true);
-    useEffect ( ()=> {
+    useEffect(() => {
         async function fetchOneUser() {
             try {
                 const readUserUseCase = new ReadUserUseCase();
-                var response =  await readUserUseCase.readUser(counterId)
+                var response = await readUserUseCase.readUser(counterId)
                 // console.log(response)
-                if(response.success === true) {
+                if (response.success === true) {
                     setCounterUser(response.data)
                     setIsLoading(false)
                 } else {
                     alert(response.message)
                 }
-            } catch(error) {
+            } catch (error) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
         fetchOneUser();
     }, [])
 
-    const goBack = () => {
+    const goBack = async () => {
         navigate(-1)
+        // update declinedUsers field
+        const ref = doc(db.db, "users", uid);
+        await updateDoc(ref, {
+            declinedUsers: arrayUnion(counterId)
+        });
+        await deleteDoc(doc(db.db, "users", uid, "AdminSuggestList", counterId));
+        await deleteDoc(doc(db.db, "users", uid, "ChosenFromAdminSuggestList", counterId));
+        await deleteDoc(doc(db.db, "users", uid, "InCounterChosenFromAdminSuggestList", counterId));
     }
 
 
@@ -51,18 +58,18 @@ export default function MakeRequest({ name }) {
         try {
             setIsLoading(true)
             const adminSuggestListUseCase = new AdminSuggestListUseCase();
-            var response =  await adminSuggestListUseCase.suggestMatch(uid, counterId)
+            var response = await adminSuggestListUseCase.suggestMatch(uid, counterId)
             // console.log(response)
-            if(response.success === true) {
+            if (response.success === true) {
                 setIsLoading(false)
                 showNotification()
                 navigate(`/view-request/${uid}`, { replace: true })
             } else {
                 alert(response.message)
             }
-        } catch(error) {
+        } catch (error) {
             alert('일시적으로 오류가 생겼습니다. 다시 시도해주세요.')
-        }        
+        }
     }
 
 
@@ -81,7 +88,7 @@ export default function MakeRequest({ name }) {
                     {/* 님의 프로필 부분 */}
                     <div class="valign gap8">
                         <div className='padding h3 b grey900'>{counterUser.name.charAt(0)}**님의 프로필</div>
-                        <NotificationSuccess message='매칭을 신청했어요' visible={alertVisible} setVisible={setAlertVisible}  />
+                        <NotificationSuccess message='매칭을 신청했어요' visible={alertVisible} setVisible={setAlertVisible} />
 
 
 
@@ -120,8 +127,8 @@ export default function MakeRequest({ name }) {
                                     : "거주지 정보 없음"
                                     }
                                 /> */}
-                                <InfoCard dataName='거주지' value={counterUser.residence[0] + " " + counterUser.residence[1]}/>
-                                <InfoCard dataName='근무지' value={counterUser.workPlace[0]+" "+counterUser.workPlace[1]} />
+                                <InfoCard dataName='거주지' value={counterUser.residence[0] + " " + counterUser.residence[1]} />
+                                <InfoCard dataName='근무지' value={counterUser.workPlace[0] + " " + counterUser.workPlace[1]} />
                                 <InfoCard dataName='자차 보유 여부' value={counterUser.haveCar} />
                                 <InfoCard dataName='자가 보유 여부' value={counterUser.haveHouse} />
                                 <InfoCard dataName='음주 횟수' value={counterUser.drinkingFrequency} />
@@ -144,7 +151,7 @@ export default function MakeRequest({ name }) {
 
 
                     </div>
-                    <Button buttonText='매칭 신청하기' onClick={suggestMatch} backClick={goBack}/>
+                    <Button buttonText='매칭 신청하기' backText={'거절하기'} onClick={suggestMatch} backClick={goBack} />
                 </div>
             )}
 

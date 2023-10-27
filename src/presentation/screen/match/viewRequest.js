@@ -5,33 +5,50 @@ import ListItem from '../../component/input/list-item';
 import { useEffect, useState } from 'react';
 // import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
+import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import db from '../../../firebase/index'
 
 export default function ViewRequest({ suggestList }) {
     const { uid } = useParams();
-    // const [user, setUser] = useState(Object);
     const [adminSuggestList, setAdminSuggestList] = useState(Array);
+    const [thisUser, setThisUser] = useState(Object);
+
     useEffect(() => {
-        // async function fetchOneUser() {
-        //     try {
-        //         const readUserUseCase = new ReadUserUseCase();
-        //         var response =  await readUserUseCase.readUser(uid)
-        //         // console.log(response)
-        //         if(response.success === true) {
-        //             setUser(response.data)
-        //         } else {
-        //             alert(response.message)
-        //         }
-        //     } catch(error) {
-        //         alert('새로고침하거나, 번호를 다시 입력해주세요.')
-        //     }
-        // }
+        async function fetchOneUser() {
+            try {
+                const user = []
+                const docRef = doc(db.db, "users", uid)
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    user.push({
+                        ...docSnap.data(),
+                        id: docSnap.id,
+                    })
+                } else {
+                    console.log("No such document!");
+                }
+                setThisUser(user[0])
+            } catch (error) {
+                alert('새로고침하거나, 번호를 다시 입력해주세요.')
+            }
+        }
+        fetchOneUser()
+    }, [])
+
+    useEffect(() => {
         async function fetchAdminSuggestList() {
+            console.log(thisUser.declinedUsers !== undefined)
             try {
                 const adminSuggestList = new AdminSuggestListUseCase();
                 var response = await adminSuggestList.readAdminSuggestList(uid)
                 // console.log(response)
                 if (response.success === true) {
-                    setAdminSuggestList(response.data)
+                    const newData = response.data.filter(user =>
+                        thisUser.declinedUsers !== undefined
+                            ? !thisUser.declinedUsers.includes(user.id)
+                            : response.data
+                    )
+                    setAdminSuggestList(newData)
                 } else {
                     alert(response.message)
                 }
@@ -39,9 +56,8 @@ export default function ViewRequest({ suggestList }) {
                 alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
-        // fetchOneUser();
         fetchAdminSuggestList();
-    }, [])
+    }, [thisUser])
 
     const date = new Date()
     const year = date.getFullYear()
