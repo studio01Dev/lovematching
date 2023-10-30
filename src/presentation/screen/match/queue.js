@@ -98,6 +98,11 @@ export default function Queue() {
         fetchAdminSuggestListLength();
         fetchInCounterChosenFromAdminSuggestListLength();
     }, [thisUser])
+
+    const toHome = () => {
+        window.location.href = 'https://www.lovematching.kr/';
+    }
+
     return (
         <div>
             {/* <div className="arrow-back">
@@ -137,7 +142,7 @@ export default function Queue() {
                     </Link>
                 </div>
             </div>
-            <Link to='../'><MainButton buttonText='홈으로 돌아가기' /></Link>
+            <MainButton buttonText='홈으로 돌아가기' onClick={toHome}/>
         </div>
     );
 }
