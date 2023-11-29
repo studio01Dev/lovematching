@@ -95,8 +95,8 @@ export default function MakeRequest({ name }) {
                         {/* carousel 부분 */}
                         <div class="slider-wrapper padding">
                             <div className='slider halign gap20'>
-                                <img src={counterUser.faceImageUrl} />
-                                <img src={counterUser.bodyImageUrl} />
+                                <img src={counterUser.faceImageUrl} onContextMenu={(e) => e.preventDefault()}  />
+                                <img src={counterUser.bodyImageUrl} onContextMenu={(e) => e.preventDefault()} />
                             </div>
                         </div>
 
