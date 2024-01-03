@@ -95,7 +95,7 @@ export default function ViewRequest({ suggestList }) {
                     <Link style={{ textDecoration: 'none' }} to={`../make-request/${uid}/${item.id}`}>
                         <ListItem
                             name={item.name}
-                            age={parseInt(year) - parseInt(item.yearOfBirth)}
+                            age={parseInt(year) + 1 - parseInt(item.yearOfBirth)}
                             residence={item.residence[0] + " " + item.residence[1]}
                             job={item.job}
                             mbti={item.mbti}

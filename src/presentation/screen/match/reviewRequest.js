@@ -94,7 +94,7 @@ export default function ReviewRequest({ suggestList }) {
                 {inCounterChosenFromAdminSuggestList.map((item, index) => (
                     <Link style={{ textDecoration: 'none' }} to={`../approve-request/${uid}/${item.id}`}>
                         <ListItem name={item.name} age={
-                            parseInt(year) - parseInt(item.yearOfBirth)
+                            parseInt(year) + 1 - parseInt(item.yearOfBirth)
                         } residence={item.residence[0] + " " + item.residence[1]} job={item.job} mbti={item.mbti} />
                     </Link>
                 ))}
