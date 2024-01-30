@@ -1,5 +1,4 @@
-import '../input/input.css'
-import '../../asset/App.css'
+import './progressBar.css'
 import { useState, useEffect } from 'react';
 
 export default function ProgressBar({ progressStatus }) {
@@ -11,35 +10,35 @@ export default function ProgressBar({ progressStatus }) {
 
     useEffect(() => {
         // // console.log(progressStatus)
-        if (progressStatus == 1) {
+        if (progressStatus === 1) {
             setProgressStatus1('yes')
             setProgressStatus2('no')
             setProgressStatus3('no')
             setProgressStatus4('no')
             setProgressStatus5('no')
         }
-        else if (progressStatus == 2) {
+        else if (progressStatus === 2) {
             setProgressStatus1('yes')
             setProgressStatus2('yes')
             setProgressStatus3('no')
             setProgressStatus4('no')
             setProgressStatus5('no')
         }
-        else if (progressStatus == 3) {
+        else if (progressStatus === 3) {
             setProgressStatus1('yes')
             setProgressStatus2('yes')
             setProgressStatus3('yes')
             setProgressStatus4('no')
             setProgressStatus5('no')
         }
-        else if (progressStatus == 4) {
+        else if (progressStatus === 4) {
             setProgressStatus1('yes')
             setProgressStatus2('yes')
             setProgressStatus3('yes')
             setProgressStatus4('yes')
             setProgressStatus5('no')
         }
-        else if (progressStatus == 5) {
+        else if (progressStatus === 5) {
             setProgressStatus1('yes')
             setProgressStatus2('yes')
             setProgressStatus3('yes')

@@ -1,3 +1,4 @@
+import './notification.css'
 import check from '../../asset/images/check.png'
 import { useState, useEffect } from 'react';
 

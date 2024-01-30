@@ -63,7 +63,7 @@ export function InputText({ labelText, placeholder, dataToForm, inputRef, defaul
             <div className='h6 m grey500'>{labelText}</div>
             <div className='input'>
                 <div className='input-container halign gap4 calign'>
-                    <input ref={inputRef} type='text' defaultValue={defaultValue == '기타' ? '' : defaultValue} placeholder={placeholder} onChange={e => dataToForm(e.target.value)} />
+                    <input ref={inputRef} type='text' defaultValue={defaultValue === '기타' ? '' : defaultValue} placeholder={placeholder} onChange={e => dataToForm(e.target.value)} />
                 </div>
             </div>
         </div>

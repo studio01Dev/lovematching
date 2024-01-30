@@ -1,0 +1,40 @@
+/* import */
+@import url("../../asset/colors.css");
+@import url("../../asset/App.css");
+
+.progress-container {
+  width: 390px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  box-sizing: border-box;
+  padding: 20px;
+  position: fixed;
+  top: 60px;
+  background-color: var(--grey-white);
+}
+
+.progress-item-before {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px 1px;
+}
+
+.no-progress {
+  color: var(--grey-400);
+}
+
+.yes-progress {
+  color: var(--brand-500);
+}
+
+.no-progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--grey-300);
+}
+
+.yes-progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--brand-500);
+}

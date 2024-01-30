@@ -1,15 +1,14 @@
-import arrow from '../../asset/images/back.png'
 import { Link } from 'react-router-dom';
 import plane from '../../asset/images/plane.svg'
 import memo from '../../asset/images/memo.svg'
 import people from '../../asset/images/people.svg'
-import Button, { MainButton } from '../../component/input/button';
+import { MainButton } from '../../component/button/button';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
 import AcceptMatchUseCase from '../../../domain/use_cases/acceptMatch_usecase';
-import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import db from '../../../firebase/index'
 
 

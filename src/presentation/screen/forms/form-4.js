@@ -1,5 +1,5 @@
-import Button from "../../component/input/button";
-import Upload from "../../component/input/upload";
+import Button from "../../component/button/button";
+import Upload from "../../component/input/input_upload";
 import { useRef, useEffect } from "react";
 
 export default function Form4({ firstEmptyField, userData, onClick, backClick, faceImageData, bodyImageData, employImageData }) {

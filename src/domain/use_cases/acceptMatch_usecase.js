@@ -49,7 +49,7 @@ export default class AcceptMatchUseCase {
             const docRef2 = doc(db.db, "users", myUid)
             const docSnap1 = await getDoc(docRef2);
             if(docSnap1.exists()) {
-                if(docSnap1.data().sex == '남성') {
+                if(docSnap1.data().sex === '남성') {
                     const docRef3 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"), docSnap1.id)
                     await setDoc(
                         docRef3, docSnap1.data()
@@ -68,7 +68,7 @@ export default class AcceptMatchUseCase {
             const docRef4 = doc(db.db, "users", counterUid)
             const docSnap2 = await getDoc(docRef4);
             if(docSnap2.exists()) {
-                if(docSnap2.data().sex == '남성') {
+                if(docSnap2.data().sex === '남성') {
                     const docRef5 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"), docSnap2.id)
                     await setDoc(
                         docRef5, docSnap2.data()

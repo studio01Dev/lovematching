@@ -2,8 +2,8 @@ import InputText from "../../component/input/input_text";
 import InputTel from "../../component/input/input_tel";
 import InputRadio from "../../component/input/input_radio";
 import InputNumber from "../../component/input/input_number"
-import Select from "../../component/input/select";
-import Button from "../../component/input/button";
+import Select from "../../component/input/input_select";
+import Button from "../../component/button/button";
 import InputIncome from "../../component/input/input_income";
 import InputCheckbox from "../../component/input/input_checkbox";
 import { useRef, useEffect } from "react";

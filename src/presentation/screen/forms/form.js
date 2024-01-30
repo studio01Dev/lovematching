@@ -1,15 +1,13 @@
-import ProgressBar from "../../component/input/progressBar";
+import ProgressBar from "../../component/progressBar/progressBar";
 import Form1 from "./form-1";
 import Form2 from "./form-2";
 import Form3 from "./form-3";
 import Form4 from "./form-4";
 import Form5 from "./form-5";
 import FormDone from "./formDone";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import User from "../../../domain/models/user";
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
-import { getDocs, collection, where } from "firebase/firestore";
-import db from '../../../firebase/index'
 import LoadingDialog from "../../component/loading_dialog/loading_dialog";
 
 export default function Form() {

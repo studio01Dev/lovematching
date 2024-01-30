@@ -1,0 +1,15 @@
+/* import */
+@import url("../../asset/colors.css");
+@import url("../../asset/App.css");
+
+.notification {
+  width: 310px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  color: var(--grey-white);
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

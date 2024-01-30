@@ -1,5 +1,5 @@
-import Select from "../../component/input/select";
-import Button from "../../component/input/button";
+import Select from "../../component/input/input_select";
+import Button from "../../component/button/button";
 import InputText from "../../component/input/input_text";
 import { useRef, useEffect, useState } from "react";
 import { charm } from "../../../domain/models/questionnaires";

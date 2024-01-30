@@ -1,6 +1,6 @@
 import InputRadio from "../../component/input/input_radio";
-import Select from "../../component/input/select";
-import Button from "../../component/input/button";
+import Select from "../../component/input/input_select";
+import Button from "../../component/button/button";
 import InputArea from "../../component/input/input-area";
 import InputCheckbox from "../../component/input/input_checkbox";
 import { useRef, useEffect } from "react";

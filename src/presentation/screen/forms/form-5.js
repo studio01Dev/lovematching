@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-expressions */
-import Button from "../../component/input/button";
+import Button from "../../component/button/button";
 import InputCheckbox from "../../component/input/input_checkbox";
 import InputRadio from "../../component/input/input_radio";
-import Select from '../../component/input/select'
+import Select from '../../component/input/input_select'
 import LoadingDialog from '../../component/loading_dialog/loading_dialog'
 import { React, useState, useRef, useEffect } from "react";
 import { charm } from "../../../domain/models/questionnaires";

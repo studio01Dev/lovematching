@@ -1,11 +1,10 @@
 import people from '../../asset/images/people.svg'
-import arrow from '../../asset/images/back.png'
 import { Link, useParams } from 'react-router-dom';
-import ListItem from '../../component/input/list-item';
+import ListItem from '../../component/listItem/list-item';
 import { useEffect, useState } from 'react';
 // import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
-import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import db from '../../../firebase/index'
 
 export default function ViewRequest({ suggestList }) {

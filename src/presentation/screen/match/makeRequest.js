@@ -1,8 +1,8 @@
 import arrow from '../../asset/images/back.png'
 import { useParams, useNavigate } from 'react-router-dom';
-import InfoCard from '../../component/input/info-card';
-import Button from '../../component/input/button';
-import NotificationSuccess from '../../component/input/notification_success';
+import InfoCard from '../../component/infoCard/info-card';
+import Button from '../../component/button/button';
+import NotificationSuccess from '../../component/notification/notification_success';
 import { useState, useEffect } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
@@ -49,7 +49,7 @@ export default function MakeRequest({ name }) {
 
 
     // Notification을 위한 hook
-    const [alertVisible, setAlertVisible] = useState(false); // alertVisible == true일 때, notification이 생성됩니다.
+    const [alertVisible, setAlertVisible] = useState(false); // alertVisible === true일 때, notification이 생성됩니다.
     const showNotification = () => {
         setAlertVisible(true); // Show the alert when button is clicked
     };
@@ -144,7 +144,7 @@ export default function MakeRequest({ name }) {
                             <div className='profile'>
                                 <InfoCard dataName='MBTI' value={counterUser.mbti} />
                                 <InfoCard dataName='장점' value={counterUser.strength} />
-                                <InfoCard dataName='취미' value={counterUser.hobby} />
+                                <InfoCard dataName='취미' value={counterUser.interest} />
                                 <InfoCard dataName='선호하는 데이트' value={counterUser.dateType} />
                             </div>
                         </div>

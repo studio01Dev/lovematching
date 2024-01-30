@@ -1,4 +1,3 @@
-import Button from "../../component/input/button";
 import Doodle from "../../asset/images/LovingDoodle.svg"
 import info from "../../asset/images/info.svg"
 

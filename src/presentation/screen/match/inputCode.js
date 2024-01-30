@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button, { MainButton } from "../../component/input/button";
+import Button, { MainButton } from "../../component/button/button";
 import InputText from "../../component/input/input_text";
 import { Link, useNavigate } from "react-router-dom";
 import response from '../../../domain/models/MyResponse';

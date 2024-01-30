@@ -1,4 +1,4 @@
-import sampleImage from '../../asset/images/sampleImage.png'
+import './listItem.css'
 
 export default function ListItem({name, age, mbti, residence, job, source}) {
     return (

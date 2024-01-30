@@ -1,0 +1,30 @@
+/* import */
+@import url("../../asset/colors.css");
+@import url("../../asset/App.css");
+
+.item-container {
+  display: flex;
+  width: 350px;
+  flex-direction: row;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: 1px solid var(--grey-200);
+}
+
+.detail-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 12px 12px 20px;
+}
+
+.detail-image {
+  width: 100px;
+  height: 100px;
+}
+
+.detail-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

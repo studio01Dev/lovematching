@@ -161,72 +161,6 @@ textarea {
   height: 120px;
 }
 
-/* progress bar */
-.progress-container {
-  width: 390px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  box-sizing: border-box;
-  padding: 20px;
-  position: fixed;
-  top: 60px;
-  background-color: var(--grey-white);
-}
-
-.progress-item-before {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0px 1px;
-}
-
-.no-progress {
-  color: var(--grey-400);
-}
-
-.yes-progress {
-  color: var(--brand-500);
-}
-
-.no-progress-bar {
-  width: 100%;
-  height: 4px;
-  background-color: var(--grey-300);
-}
-
-.yes-progress-bar {
-  width: 100%;
-  height: 4px;
-  background-color: var(--brand-500);
-}
-
-/* button */
-.button-container {
-  width: 350px;
-  position: fixed;
-  bottom: 0;
-  background-color: var(--grey-white);
-  padding-bottom: 40px;
-  padding-top: 12px;
-}
-
-.main-button {
-  width: 169px;
-  padding: 16px 10px;
-  color: var(--grey-white);
-  background-color: var(--brand-500);
-  border-radius: 8px;
-  border: none;
-}
-
-.sub-button {
-  width: 169px;
-  padding: 16px 10px;
-  color: var(--grey-700);
-  background-color: var(--grey-200);
-  border-radius: 8px;
-  border: none;
-}
-
 /* upload */
 input::-webkit-file-upload-button {
   display: none;
@@ -240,34 +174,6 @@ input::-webkit-file-upload-button {
   border-radius: 4px;
   box-sizing: border-box;
   background-color: var(--brand-50);
-}
-
-/* list item */
-.item-container {
-  display: flex;
-  width: 350px;
-  flex-direction: row;
-  border-radius: 4px;
-  box-sizing: border-box;
-  border: 1px solid var(--grey-200);
-}
-
-.detail-container {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px 12px 12px 20px;
-}
-
-.detail-image {
-  width: 100px;
-  height: 100px;
-}
-
-.detail-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
 }
 
 /* back-buttons */
@@ -321,18 +227,3 @@ input::-webkit-file-upload-button {
   grid-template-columns: 1fr 1fr;
   row-gap: 20px;
 }
-
-/* notification */
-.notification {
-  width: 310px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  color: var(--grey-white);
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 4px;
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* transition: 'top 0.5s ease-in-out', */

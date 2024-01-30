@@ -1,0 +1,42 @@
+/* import */
+@import url("../../asset/colors.css");
+@import url("../../asset/App.css");
+
+.button-container {
+  width: 350px;
+  position: fixed;
+  bottom: 0;
+  background-color: var(--grey-white);
+  padding-bottom: 40px;
+  padding-top: 12px;
+}
+
+.main-button {
+  width: 169px;
+  padding: 16px 10px;
+  color: var(--grey-white);
+  background-color: var(--brand-500);
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s;
+}
+
+.main-button:active {
+  background-color: var(--brand-100);
+  transition: all 0.3s;
+}
+
+.sub-button {
+  width: 169px;
+  padding: 16px 10px;
+  color: var(--grey-700);
+  background-color: var(--grey-200);
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s;
+}
+
+.sub-button:active {
+  background-color: var(--grey-600);
+  transition: all 0.3s;
+}

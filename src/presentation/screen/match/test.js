@@ -150,7 +150,7 @@ export default function Test() {
 
                     // Use updated value of "order".
                     let inputCode =
-                        `${sex == "남성" ? ("M" + year + month + day + to3Digits(maleOrder)) :
+                        `${sex === "남성" ? ("M" + year + month + day + to3Digits(maleOrder)) :
                             ("F" + year + month + day + to3Digits(femaleOrder))}`;
 
                     // console.log(inputCode)
@@ -178,7 +178,7 @@ export default function Test() {
         querySnapshot.forEach(
             async (docs) => {
                 const ref = doc(db.db, 'users', docs.id);
-                if (typeof docs.data().createdAt == 'number') { // 여기서 number(밀리초) -> 타임스탬프
+                if (typeof docs.data().createdAt === 'number') { // 여기서 number(밀리초) -> 타임스탬프
                     const ts = new Timestamp(docs.data().createdAt / 1000, 100000000)
                     // console.log(ts)
                     await updateDoc(ref, { createdAt: ts });

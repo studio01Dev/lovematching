@@ -1,4 +1,4 @@
-import '../input/input.css';
+import './infoCard.css';
 
 export default function InfoCard({dataName, value}) {
     return(

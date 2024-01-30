@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs, where } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import TestUser from '../models/_test_user';
 import db from '../../firebase/index';
 import MyResponse from '../models/MyResponse';
