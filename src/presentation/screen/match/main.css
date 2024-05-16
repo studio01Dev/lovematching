@@ -1,0 +1,17 @@
+@import url("../../asset/colors.css");
+@import url("../../asset/App.css");
+
+.selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--grey-200);
+    border-radius: 16px;
+    font-family: Pretendard;
+    color: var(--grey-800);
+    height: 100%;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 500;
+}
