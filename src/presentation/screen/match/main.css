@@ -1,17 +1,41 @@
 @import url("../../asset/colors.css");
 @import url("../../asset/App.css");
 
+.selection a {
+    text-decoration: none;
+}
+
 .selection {
     display: flex;
+    padding: 20px;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    border: 1px solid var(--grey-200);
-    border-radius: 16px;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid #D9DAF2;
+    height: 180px;
+    background: #EFEFF9;
+    text-decoration: none !important;
+}
+
+.main-text {
+    color: #5F63C7;
     font-family: Pretendard;
-    color: var(--grey-800);
-    height: 100%;
-    margin: 20px;
-    text-decoration: none;
     font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    text-decoration: none !important;
+}
+
+.sub-text {
+    color: #9A9DDC;
+    font-family: Pretendard;
+    font-size: 17px;
+    font-style: normal;
     font-weight: 500;
+    line-height: 24px;
+    text-decoration: none !important;
 }
