@@ -128,12 +128,14 @@ export default async function EnrollUserUseCase(user) {
 
     if (existingUser) {
       const existingData = existingUser.data;
+      const now = new Date();
+      const firstSignUpAt = existingData.firstSignUpAt ?? existingData.createdAt;
 
       const updatedUser = buildUserObject(normalizedUser, imageUrls, {
         isMatched: existingData.isMatched ?? false,
-        createdAt: existingData.createdAt,
+        createdAt: now,
         paymentStatus: existingData.paymentStatus ?? false,
-        firstSignUpStatus: existingData.firstSignUpStatus ?? false,
+        firstSignUpStatus: true,
         blackConsumerStatus: existingData.blackConsumerStatus ?? false,
         consultingEndTime: existingData.consultingEndTime ?? null,
         code: existingData.code,
@@ -141,7 +143,8 @@ export default async function EnrollUserUseCase(user) {
 
       const updateData = {
         ...updatedUser,
-        updatedAt: new Date(),
+        firstSignUpAt,
+        updatedAt: now,
       };
 
       if (existingData.declinedUsers !== undefined) {

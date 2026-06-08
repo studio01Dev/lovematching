@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../input/input.css';
 
 export default function InputNumber({ labelText, placeholder, maxDigit, dataToForm, defaultValue, inputRef }) {
-  const [number, setNumber] = useState()
+  const [number, setNumber] = useState(defaultValue ?? '');
   const handleInputChange = (e) => {
     let numericValue = e.target.value;
     if (numericValue.length > maxDigit) {

@@ -5,12 +5,15 @@ import Form3 from "./form-3";
 import Form4 from "./form-4";
 import Form5 from "./form-5";
 import FormDone from "./formDone";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import User from "../../../domain/models/user";
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
 import LoadingDialog from "../../component/loading_dialog/loading_dialog";
+import { useFormTest } from "../../context/FormTestContext";
 
 export default function Form() {
+    const formTest = useFormTest();
+    const remountKey = formTest?.remountKey ?? 0;
     const [formDataPage1, setFormDataPage1] = useState({});
     const [formDataPage2, setFormDataPage2] = useState({});
     const [formDataPage3, setFormDataPage3] = useState({});
@@ -22,6 +25,25 @@ export default function Form() {
 
     const newConsumer = new User();
     const [userData, setUserData] = useState(newConsumer);
+    const formRef = useRef(form);
+    const userDataRef = useRef(userData);
+
+    formRef.current = form;
+    userDataRef.current = userData;
+
+    useEffect(() => {
+        if (!formTest?.registerFormApi) {
+            return undefined;
+        }
+
+        formTest.registerFormApi({
+            getForm: () => formRef.current,
+            getUserData: () => userDataRef.current,
+            setUserData,
+        });
+
+        return () => formTest.registerFormApi(null);
+    }, [formTest]);
 
     const fieldTranslations = {
         name: '성함',
@@ -171,7 +193,7 @@ export default function Form() {
                 {!isLoading && (<div>
                     <ProgressBar progressStatus={1} />
                     <div style={{ height: '80px' }} />
-                    <Form1 onClick={nextForm} backClick={''} setFormData={setFormDataPage1} userData={userData}
+                    <Form1 key={remountKey} onClick={nextForm} backClick={''} setFormData={setFormDataPage1} userData={userData}
                         name={data => setUserData({ ...userData, name: data })}
                         phoneNum={data => setUserData({ ...userData, phoneNum: data })}
                         sex={data => setUserData({ ...userData, sex: data })}
@@ -192,7 +214,7 @@ export default function Form() {
         case 2:
             return <div><ProgressBar progressStatus={2} />
                 <div style={{ height: '80px' }} />
-                <Form2 onClick={nextForm} backClick={prevForm} setFormData={setFormDataPage2} userData={userData}
+                <Form2 key={remountKey} onClick={nextForm} backClick={prevForm} setFormData={setFormDataPage2} userData={userData}
                     residence={data => setUserData({ ...userData, residence: data })}
                     workPlace={data => setUserData({ ...userData, workPlace: data })}
                     haveCar={data => setUserData({ ...userData, haveCar: data })}
@@ -207,7 +229,7 @@ export default function Form() {
         case 3:
             return <div><ProgressBar progressStatus={3} />
                 <div style={{ height: '80px' }} />
-                <Form3 onClick={nextForm} backClick={prevForm} setFormData={setFormDataPage3} userData={userData}
+                <Form3 key={remountKey} onClick={nextForm} backClick={prevForm} setFormData={setFormDataPage3} userData={userData}
                     mbti={data => setUserData({ ...userData, mbti: data })}
                     strength={data => setUserData({ ...userData, strength: data })}
                     interest={data => setUserData({ ...userData, interest: data })}
@@ -217,7 +239,7 @@ export default function Form() {
         case 4:
             return <div><ProgressBar progressStatus={4} />
                 <div style={{ height: '80px' }} />
-                <Form4 onClick={nextForm} backClick={prevForm} setFormData={setFormDataPage4} userData={userData}
+                <Form4 key={remountKey} onClick={nextForm} backClick={prevForm} setFormData={setFormDataPage4} userData={userData}
                     faceImageData={data => setUserData({ ...userData, faceImageData: data })}
                     bodyImageData={data => setUserData({ ...userData, bodyImageData: data })}
                     employImageData={data => setUserData({ ...userData, employImageData: data })}
@@ -226,7 +248,7 @@ export default function Form() {
         case 5:
             return <div><ProgressBar progressStatus={5} />
                 <div style={{ height: '80px' }} />
-                <Form5 isLoading={isLoading} onClick={nextForm} userData={userData} backClick={prevForm} setFormData={setFormDataPage5}
+                <Form5 key={remountKey} isLoading={isLoading} onClick={nextForm} userData={userData} backClick={prevForm} setFormData={setFormDataPage5}
                     counterpartAge={data => setUserData({ ...userData, counterpartAge: data })}
                     counterpartAcademic={data => setUserData({ ...userData, counterpartAcademic: data })}
                     counterpartJob={data => setUserData({ ...userData, counterpartJob: data })}

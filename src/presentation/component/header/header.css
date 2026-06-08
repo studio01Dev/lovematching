@@ -17,5 +17,15 @@ header {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 390px;
+}
+
+.header-test-button {
+  background: none;
+  border: 1px solid var(--brand-500);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  white-space: nowrap;
 }
