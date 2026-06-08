@@ -118,6 +118,7 @@ export default function Input(props) {
                                 placeholder={props.placeholder}
                                 value={formattedValue}
                                 onInput={handleInput}
+                                onWheel={(e) => e.currentTarget.blur()}
                                 defaultValue={props.defaultValue}
                                 ref={props.inputRef}
                             />

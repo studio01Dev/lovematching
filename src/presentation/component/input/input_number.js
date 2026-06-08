@@ -23,6 +23,7 @@ export default function InputNumber({ labelText, placeholder, maxDigit, dataToFo
             placeholder={placeholder}
             value={number}
             onInput={handleInputChange}
+            onWheel={(e) => e.currentTarget.blur()}
             defaultValue={defaultValue}
             ref={inputRef}
           />
