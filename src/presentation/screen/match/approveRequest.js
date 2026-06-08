@@ -1,6 +1,6 @@
 import people from '../../asset/images/people.svg'
 import arrow from '../../asset/images/back.png'
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useRouter } from 'next/navigation';
 import InfoCard from '../../component/infoCard/info-card';
 import Button from '../../component/button/button';
 import NotificationSuccess from '../../component/notification/notification_success';
@@ -15,7 +15,7 @@ import db from '../../../firebase/index'
 
 export default function ApproveRequest({ name }) {
     const { uid, counterId } = useParams();
-    const navigate = useNavigate()
+    const router = useRouter();
     const [counterUser, setCounterUser] = useState(Object);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function ApproveRequest({ name }) {
     }, [])
 
     const goBack = async () => {
-        navigate(-1)
+        router.back();
         // update declinedUsers field
         const ref = doc(db.db, "users", uid);
         await updateDoc(ref, {
@@ -64,7 +64,7 @@ export default function ApproveRequest({ name }) {
             if (response.success === true) {
                 setIsLoading(false)
                 showNotification()
-                navigate(`/review-request/${uid}`, { replace: true })
+                router.replace(`/review-request/${uid}`);
             } else {
                 setIsLoading(false)
                 alert('다시 시도해주세요')

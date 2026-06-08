@@ -1,5 +1,6 @@
 import people from '../../asset/images/people.svg'
-import { Link, useParams } from 'react-router-dom';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import ListItem from '../../component/listItem/list-item';
 import { useEffect, useState } from 'react';
 // import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
@@ -91,7 +92,7 @@ export default function ViewRequest({ suggestList }) {
             <div class="valign gap20 padding">
                 {/* index:  int 0~ */}
                 {adminSuggestList.map((item, index) => (
-                    <Link style={{ textDecoration: 'none' }} to={`../make-request/${uid}/${item.id}`}>
+                    <Link style={{ textDecoration: 'none' }} href={`/make-request/${uid}/${item.id}`} key={item.id}>
                         <ListItem
                             name={item.name}
                             age={parseInt(year) + 1 - parseInt(item.yearOfBirth)}

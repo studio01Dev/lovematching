@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Button, { MainButton } from "../../component/button/button";
 import InputText from "../../component/input/input_text";
-import { Link, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import response from '../../../domain/models/MyResponse';
 import InputCodeUseCase from '../../../domain/use_cases/inputCode_usecase';
 
 export default function InputCode() {
     // InputText에서 입력값을 저장할 상태 변수
     const [code, setCode] = useState('');
-    const navigate = useNavigate(); // useNavigate 훅을 사용하여 네비게이션 함수 가져오기
+    const router = useRouter();
 
     // InputText의 값을 변경할 때 호출되는 함수
     const handleCodeChange = (value) => {
@@ -28,7 +28,7 @@ export default function InputCode() {
                         alert(response.message)
                     } else {
                         const uid = response.data
-                        navigate(`../queue/${uid}`); // 특정 조건을 만족할 때 페이지 이동   
+                        router.push(`/queue/${uid}`);
                     }
                     
                 }

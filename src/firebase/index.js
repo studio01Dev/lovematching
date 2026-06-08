@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "love-matching-ecb3c.firebaseapp.com",
   projectId: "love-matching-ecb3c",
   storageBucket: "love-matching-ecb3c.appspot.com",

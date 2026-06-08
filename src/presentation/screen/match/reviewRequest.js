@@ -1,6 +1,7 @@
 import people from '../../asset/images/people.svg'
 import ListItem from '../../component/listItem/list-item';
-import { Link, useParams } from 'react-router-dom';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import AcceptMatchUseCase from '../../../domain/use_cases/acceptMatch_usecase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -91,7 +92,7 @@ export default function ReviewRequest({ suggestList }) {
             <div class="valign gap20 padding">
                 {/* index:  int 0~ */}
                 {inCounterChosenFromAdminSuggestList.map((item, index) => (
-                    <Link style={{ textDecoration: 'none' }} to={`../approve-request/${uid}/${item.id}`}>
+                    <Link style={{ textDecoration: 'none' }} href={`/approve-request/${uid}/${item.id}`} key={item.id}>
                         <ListItem name={item.name} age={
                             parseInt(year) + 1 - parseInt(item.yearOfBirth)
                         } residence={item.residence[0] + " " + item.residence[1]} job={item.job} mbti={item.mbti} />

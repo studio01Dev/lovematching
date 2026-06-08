@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import plane from '../../asset/images/plane.svg'
 import memo from '../../asset/images/memo.svg'
 import people from '../../asset/images/people.svg'
 import { MainButton } from '../../component/button/button';
-import { useParams } from "react-router-dom";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
@@ -112,7 +112,7 @@ export default function Queue() {
 
 
                 <div class="padding valign gap20">
-                    <Link to={`../view-request/${uid}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/view-request/${uid}`} style={{ textDecoration: 'none' }}>
                         <div className='request-box valign gap8'>
                             <div className="halign sbalign calign">
                                 <img src={plane} style={{ width: '40px' }} />
@@ -126,7 +126,7 @@ export default function Queue() {
                         </div>
                     </Link>
 
-                    <Link to={`../review-request/${uid}`} style={{ textDecoration: 'none' }}>
+                    <Link href={`/review-request/${uid}`} style={{ textDecoration: 'none' }}>
                         <div className='request-box valign gap8'>
                             <div className="halign sbalign calign">
                                 <img src={memo} style={{ width: '40px' }} />

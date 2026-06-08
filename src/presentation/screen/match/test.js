@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import "./main.css"
 
 export default function Test() {
@@ -20,7 +20,7 @@ export default function Test() {
     }
     return (
         <div style={{ height: "40vh", padding: 20, display: "flex", flexDirection: "column", gap: 12 }}>
-            <Link to='../form'>
+            <Link href='/form'>
                 <div className="selection">
                     <Papers />
                     <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -30,7 +30,7 @@ export default function Test() {
                     </div>
                 </div>
             </Link>
-            <Link to='../input-code'>
+            <Link href='/input-code'>
                 <div className="selection">
                     <Notes />
                     <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
