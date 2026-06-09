@@ -143,9 +143,19 @@ export default function Form() {
     //     fetchUsers();
     // }, []);
 
+    const isFieldMissing = (field, value) => {
+        if (!value || value.length === 0) {
+            return true;
+        }
+        if (field === 'residence' || field === 'workPlace') {
+            return !value[0] || !value[1];
+        }
+        return false;
+    };
+
     const nextForm = async () => {
         const currentRequiredFields = requiredFields[form];
-        const missingFields = currentRequiredFields.filter(field => !userData[field] || userData[field].length === 0);
+        const missingFields = currentRequiredFields.filter(field => isFieldMissing(field, userData[field]));
         const translateField = missingFields.map(field => fieldTranslations[field]);
         if (form === 5) {
             if (missingFields.length > 0) {
