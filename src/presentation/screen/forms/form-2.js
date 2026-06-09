@@ -4,6 +4,7 @@ import Button from "../../component/button/button";
 import InputAreaCheckbox from "../../component/input/input_area_checkbox";
 import InputCheckbox from "../../component/input/input_checkbox";
 import { useRef, useEffect } from "react";
+import { drinkingFrequency as drinkingFrequencyOptions } from "../../../domain/models/questionnaires";
 
 export default function Form2({ firstEmptyField, userData, residence, workPlace, onClick, backClick, haveCar, haveHouse, drinkingFrequency, tattoo, smoking, religion, consultingType }) {
 
@@ -32,7 +33,7 @@ export default function Form2({ firstEmptyField, userData, residence, workPlace,
                 <InputAreaCheckbox namePrefix="workPlace" labelText1='근무지 (도)' labelText2='근무지 (시·군·구)' dataToForm={data => workPlace(data)} defaultValue={userData.workPlace} inputRef={inputRef.workPlace} />
                 <InputRadio displayNotMatter='none' name='haveCar' labelText='자차 보유 여부' id1='carYes' id2='carNo' value1='있음' value2='없음' dataToForm={data => haveCar(data)} defaultValue={userData.haveCar} />
                 <InputRadio displayNotMatter='none' name='haveHouse' labelText='자가 보유 여부' id1='houseYes' id2='houseNo' value1='있음' value2='없음' dataToForm={data => haveHouse(data)} defaultValue={userData.haveHouse} />
-                <Select displayNotMatter={'none'} labelText='음주 횟수' values={['주 4회 이상', '주 2~3회', '월 2~4회', '월 1회 이하', '마시지 않음']} dataToForm={data => drinkingFrequency(data)} defaultValue={userData.drinkingFrequency} />
+                <Select displayNotMatter={'none'} labelText='음주 횟수' values={drinkingFrequencyOptions} dataToForm={data => drinkingFrequency(data)} defaultValue={userData.drinkingFrequency} />
                 <InputRadio displayNotMatter='none' name='tattoo' labelText='문신 여부' id1='tattooYes' id2='tattooNo' value1='있음' value2='없음' dataToForm={data => tattoo(data)} defaultValue={userData.tattoo} />
                 <InputRadio displayNotMatter='none' name='smoking' labelText='흡연 여부' id1='smokingYes' id2='smokingNo' value1='흡연' value2='비흡연' dataToForm={data => smoking(data)} defaultValue={userData.smoking} />
                 <Select displayNotMatter={'none'} labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타']} dataToForm={data => religion(data)}  defaultValue={userData.religion}/>

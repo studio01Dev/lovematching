@@ -5,7 +5,7 @@ import InputRadio from "../../component/input/input_radio";
 import Select from '../../component/input/input_select'
 import LoadingDialog from '../../component/loading_dialog/loading_dialog'
 import { React, useState, useRef, useEffect } from "react";
-import { charm } from "../../../domain/models/questionnaires";
+import { charm, counterpartDrinkingFrequency as counterpartDrinkingFrequencyOptions } from "../../../domain/models/questionnaires";
 import { district } from "../../../domain/models/area";
 
 
@@ -61,7 +61,7 @@ export default function Form5({ isLoading, firstEmptyField, userData, onClick, b
                         <div class="valign gap32 margin">
                             <InputRadio inputRef={inputRef.counterpartHaveCar} name='counterpartHaveCar' id1='counterpartCarYes' id2='counterpartCarNo' labelText='자차 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveCar(data)} defaultValue={userData.counterpartHaveCar} />
                             <InputRadio inputRef={inputRef.counterpartHaveHouse} name='counterpartHaveHouse' id1='counterpartHouseYes' id2='counterpartHouseNo' labelText='자가 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveHouse(data)} defaultValue={userData.counterpartHaveHouse} />
-                            <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartDrinkingFrequency} labelText='음주 횟수' values={['주 4회 이상', '주 2~3회', '월 2~4회', '월 1회 이하', '마시지 않음']} dataToForm={data => counterpartDrinkingFrequency(data)} defaultValue={userData.counterpartDrinkingFrequency} />
+                            <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartDrinkingFrequency} labelText='음주 횟수' values={counterpartDrinkingFrequencyOptions} dataToForm={data => counterpartDrinkingFrequency(data)} defaultValue={userData.counterpartDrinkingFrequency} />
                             <InputRadio inputRef={inputRef.counterpartSmoking} name='counterpartSmoking' id1='counterpartSmokingYes' id2='counterpartSmokingNo' labelText='흡연 여부' value1='흡연' value2='비흡연' dataToForm={data => counterpartSmoking(data)} defaultValue={userData.counterpartSmoking} />
                             <InputRadio inputRef={inputRef.counterpartTattoo} name='counterpartTattoo' id1='counterpartTattooYes' id2='counterpartTattooNo' labelText='문신 여부' value1='있음' value2='없음' dataToForm={data => counterpartTattoo(data)} defaultValue={userData.counterpartTattoo} />
                             <InputCheckbox inputRef={inputRef.counterpartReligion} displayNotMatter={'block'} labelText='종교' values={['무교', '기독교', '천주교', '불교', '기타']} dataToForm={data => counterpartReligion(data)} defaultValue={userData.counterpartReligion} />
