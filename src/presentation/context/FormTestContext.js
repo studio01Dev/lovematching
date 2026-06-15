@@ -8,9 +8,15 @@ const FormTestContext = createContext(null);
 export function FormTestProvider({ children }) {
   const formApiRef = useRef(null);
   const [remountKey, setRemountKey] = useState(0);
+  const [devUserData, setDevUserData] = useState(null);
 
   const registerFormApi = useCallback((api) => {
     formApiRef.current = api;
+    setDevUserData(api?.getUserData?.() ?? null);
+  }, []);
+
+  const syncUserData = useCallback((userData) => {
+    setDevUserData(userData);
   }, []);
 
   const fillCurrentPage = useCallback(async () => {
@@ -29,16 +35,19 @@ export function FormTestProvider({ children }) {
       };
     }
 
-    api.setUserData({
+    const nextUserData = {
       ...api.getUserData(),
       ...pageData,
-    });
+    };
+
+    api.setUserData(nextUserData);
+    setDevUserData(nextUserData);
     setRemountKey((key) => key + 1);
   }, []);
 
   const value = useMemo(
-    () => ({ registerFormApi, fillCurrentPage, remountKey }),
-    [registerFormApi, fillCurrentPage, remountKey]
+    () => ({ registerFormApi, syncUserData, fillCurrentPage, remountKey, devUserData }),
+    [registerFormApi, syncUserData, fillCurrentPage, remountKey, devUserData]
   );
 
   return (

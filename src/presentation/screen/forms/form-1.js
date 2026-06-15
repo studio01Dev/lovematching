@@ -8,8 +8,13 @@ import InputIncome from "../../component/input/input_income";
 import InputCheckbox from "../../component/input/input_checkbox";
 import { useRef, useEffect } from "react";
 
+const monthOptions = Array.from({ length: 12 }, (_, index) => String(index + 1));
+const dayOptions = Array.from({ length: 31 }, (_, index) => String(index + 1));
+const hourOptions = Array.from({ length: 24 }, (_, index) => String(index));
+const minuteOptions = Array.from({ length: 60 }, (_, index) => String(index));
 
-export default function Form1({ userData, view, onClick, firstEmptyField, name, phoneNum, sex, yearOfBirth, income, academicCareer, company, job, jobDetail, howWork, height, bodyType, style }) {
+
+export default function Form1({ userData, view, onClick, firstEmptyField, name, phoneNum, sex, yearOfBirth, birthMonth, birthDay, birthHour, birthMinute, birthCalendarType, income, academicCareer, company, job, jobDetail, howWork, height, bodyType, style }) {
     const toHome = () => {
         window.location.href = 'https://www.lovematching.kr/';
     }
@@ -18,6 +23,11 @@ export default function Form1({ userData, view, onClick, firstEmptyField, name, 
         name: useRef(),
         phoneNum: useRef(),
         yearOfBirth: useRef(),
+        birthMonth: useRef(),
+        birthDay: useRef(),
+        birthHour: useRef(),
+        birthMinute: useRef(),
+        birthCalendarType: useRef(),
         income: useRef(),
         academicCareer: useRef(),
         company: useRef(),
@@ -27,7 +37,7 @@ export default function Form1({ userData, view, onClick, firstEmptyField, name, 
         height: useRef(),
         bodyType: useRef(),
         style: useRef(),
-      };
+    };
 
     useEffect(() => {
         if (inputRef[firstEmptyField] && inputRef[firstEmptyField].current) {
@@ -47,6 +57,18 @@ export default function Form1({ userData, view, onClick, firstEmptyField, name, 
                 <InputTel inputRef={inputRef.phoneNum} labelText='연락처' placeholder='연락처를 입력해주세요' dataToForm={data => phoneNum(data)} defaultValue={userData.phoneNum} />
                 <InputRadio inputRef={inputRef.sex} displayNotMatter='none' labelText='성별' name='sex' id1='male' id2='female' value1='남성' value2='여성' dataToForm={data => sex(data)} defaultValue={userData.sex} />
                 <InputNumber inputRef={inputRef.yearOfBirth} maxDigit={4} labelText='출생연도 (예. 1990 / 숫자 외 입력 불가)' placeholder='출생연도를 입력해주세요.' dataToForm={data => yearOfBirth(data)} defaultValue={userData.yearOfBirth} />
+                <div className="birth-date-row">
+                    <Select displayNotMatter={'none'} inputRef={inputRef.birthMonth} labelText='월' values={monthOptions} dataToForm={data => birthMonth(data)} defaultValue={userData.birthMonth} />
+                    <Select displayNotMatter={'none'} inputRef={inputRef.birthDay} labelText='일' values={dayOptions} dataToForm={data => birthDay(data)} defaultValue={userData.birthDay} />
+                </div>
+                <div className="birth-time-section">
+                    <div className="birth-time-notice h6 m brand500">사주소개팅 상품을 구매하신 분만 양력·음력과 시·분을 입력해 주세요.</div>
+                    <InputRadio allowDeselect inputRef={inputRef.birthCalendarType} displayNotMatter='none' labelText='양력·음력 (선택)' name='birthCalendarType' id1='solarCalendar' id2='lunarCalendar' value1='양력' value2='음력' dataToForm={data => birthCalendarType(data || undefined)} defaultValue={userData.birthCalendarType} />
+                    <div className="birth-date-row">
+                        <Select displayNotMatter={'none'} inputRef={inputRef.birthHour} labelText='시' values={hourOptions} dataToForm={data => birthHour(data || undefined)} defaultValue={userData.birthHour ?? ''} />
+                        <Select displayNotMatter={'none'} inputRef={inputRef.birthMinute} labelText='분' values={minuteOptions} dataToForm={data => birthMinute(data || undefined)} defaultValue={userData.birthMinute ?? ''} />
+                    </div>
+                </div>
                 <InputIncome inputRef={inputRef.income} labelText='연소득 (단위: 만 원, 세전 연봉 / 숫자 외 입력 불가)' placeholder='연소득을 입력해주세요.' dataToForm={data => income(data)} defaultValue={userData.income} />
                 <Select displayNotMatter={'none'} inputRef={inputRef.academicCareer} labelText='최종 학력' values={['고졸 이하', '전문대', '4년제대학', '해외대학', '석사', '박사']} dataToForm={data => academicCareer(data)} defaultValue={userData.academicCareer} />
                 <Select displayNotMatter={'none'} inputRef={inputRef.job} labelText='직장 유형' values={['전문직', '보건/의료직(전문직 외)', '대기업', '중견기업', '중소기업/스타트업', '공무원', '자영업', '공기업', '연구소', '프리랜서', '외국계']} dataToForm={data => job(data)} defaultValue={userData.job} />

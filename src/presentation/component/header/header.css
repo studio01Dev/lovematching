@@ -29,3 +29,23 @@ header {
   cursor: pointer;
   white-space: nowrap;
 }
+
+.header-dev-tools {
+  flex-shrink: 0;
+}
+
+.header-saju-hint {
+  white-space: nowrap;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.header-saju-hint.is-saju {
+  color: var(--brand-500);
+  background-color: var(--brand-50);
+}
+
+.header-saju-hint.is-not-saju {
+  color: var(--grey-500);
+  background-color: var(--grey-100);
+}

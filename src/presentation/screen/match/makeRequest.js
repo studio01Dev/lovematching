@@ -9,6 +9,7 @@ import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_
 import LoadingDialog from '../../component/loading_dialog/loading_dialog';
 import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
 import db from '../../../firebase/index'
+import { formatBirthDate } from '../../../domain/models/birthDate';
 
 
 export default function MakeRequest({ name }) {
@@ -106,7 +107,7 @@ export default function MakeRequest({ name }) {
                             <div className='profile'>
                                 <InfoCard dataName='연락처' value='미공개' />
                                 <InfoCard dataName='성별' value={counterUser.sex} />
-                                <InfoCard dataName='출생년도' value={counterUser.yearOfBirth} />
+                                <InfoCard dataName='출생년월일' value={formatBirthDate(counterUser)} />
                                 <InfoCard dataName='최종 학력' value={counterUser.academicCareer} />
                                 <InfoCard dataName='직업' value={counterUser.job} />
                                 <InfoCard dataName='연소득 (단위: 만 원)' value={counterUser.income} />

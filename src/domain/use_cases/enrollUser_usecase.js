@@ -4,13 +4,33 @@ import User from '../models/user';
 import storage from '../../firebase/index';
 import db from '../../firebase/index';
 import MyResponse from '../models/MyResponse';
+import { isSajuCustomer } from '../models/birthDate';
 
 function normalizeUserInput(user) {
-  return {
+  const normalized = {
     ...user,
     name: user.name.trim(),
     phoneNum: String(user.phoneNum).replace(/[^0-9]/g, ''),
   };
+  const saju = isSajuCustomer(normalized);
+
+  return {
+    ...normalized,
+    saju,
+    ...(saju
+      ? {}
+      : {
+          birthHour: null,
+          birthMinute: null,
+          birthCalendarType: null,
+        }),
+  };
+}
+
+function prepareFirestoreData(data) {
+  return Object.fromEntries(
+    Object.entries(data).filter(([, value]) => value !== undefined)
+  );
 }
 
 async function findExistingUser(name, phoneNum) {
@@ -53,6 +73,12 @@ function buildUserObject(user, imageUrls, serviceFields) {
     user.phoneNum,
     user.sex,
     user.yearOfBirth,
+    user.birthMonth,
+    user.birthDay,
+    user.birthHour,
+    user.birthMinute,
+    user.birthCalendarType,
+    user.saju,
     user.income,
     user.academicCareer,
     user.company,
@@ -153,7 +179,7 @@ export default async function EnrollUserUseCase(user) {
 
       delete updateData.id;
 
-      await updateDoc(existingUser.docRef, updateData);
+      await updateDoc(existingUser.docRef, prepareFirestoreData(updateData));
 
       const response = new MyResponse(
         true,
@@ -176,7 +202,7 @@ export default async function EnrollUserUseCase(user) {
     delete newUser.id;
 
     const docRef = collection(db.db, 'users');
-    await addDoc(docRef, newUser);
+    await addDoc(docRef, prepareFirestoreData(newUser));
 
     const response = new MyResponse(true, newUser, '성공적으로 신청되었어요!');
     return response;

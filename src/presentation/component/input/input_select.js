@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { NotMatter } from './not-matter';
 
 export default function Select({ name, labelText, values, dataToForm, defaultValue, displayNotMatter, inputRef }) {
-    const [selectedValue, setSelectedValue] = useState(defaultValue);
+    const [selectedValue, setSelectedValue] = useState(defaultValue ?? '');
     const [isNotMatterChecked, setIsNotMatterChecked] = useState(false);
 
     const otherInput = defaultValue

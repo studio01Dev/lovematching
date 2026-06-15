@@ -7,6 +7,12 @@ export default class User {
         phoneNum,
         sex,
         yearOfBirth,
+        birthMonth,
+        birthDay,
+        birthHour,
+        birthMinute,
+        birthCalendarType,
+        saju,
         income,
         academicCareer,
         company,
@@ -65,6 +71,12 @@ export default class User {
         this.phoneNum = phoneNum;
         this.sex = sex;
         this.yearOfBirth = yearOfBirth;
+        this.birthMonth = birthMonth;
+        this.birthDay = birthDay;
+        this.birthHour = birthHour;
+        this.birthMinute = birthMinute;
+        this.birthCalendarType = birthCalendarType;
+        this.saju = saju;
         this.income = income;
         this.academicCareer = academicCareer;
         this.company = company;
@@ -124,6 +136,12 @@ export default class User {
             phoneNum: this.phoneNum,
             sex: this.sex,
             yearOfBirth: this.yearOfBirth,
+            birthMonth: this.birthMonth,
+            birthDay: this.birthDay,
+            birthHour: this.birthHour,
+            birthMinute: this.birthMinute,
+            birthCalendarType: this.birthCalendarType,
+            saju: this.saju,
             income: this.income,
             academicCareer: this.academicCareer,
             company: this.company,

@@ -67,6 +67,57 @@ select {
   color: var(--grey-700);
 }
 
+/* birth date row */
+.birth-date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 390px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.birth-date-row > div {
+  width: 100%;
+  min-width: 0;
+}
+
+.birth-date-row .input-comp {
+  width: 100%;
+  padding: 0;
+}
+
+.birth-date-row .input {
+  width: 100%;
+}
+
+.birth-time-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 390px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.birth-time-notice {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.birth-time-section .birth-date-row {
+  width: 100%;
+  padding: 0;
+}
+
+.birth-time-section .input-comp {
+  width: 100%;
+  padding: 0;
+}
+
 /* area select */
 .area-container {
   display: grid;

@@ -10,6 +10,7 @@ import User from "../../../domain/models/user";
 import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
 import LoadingDialog from "../../component/loading_dialog/loading_dialog";
 import { useFormTest } from "../../context/FormTestContext";
+import { isValidBirthDate } from "../../../domain/models/birthDate";
 
 export default function Form() {
     const formTest = useFormTest();
@@ -45,11 +46,17 @@ export default function Form() {
         return () => formTest.registerFormApi(null);
     }, [formTest]);
 
+    useEffect(() => {
+        formTest?.syncUserData?.(userData);
+    }, [formTest, userData]);
+
     const fieldTranslations = {
         name: '성함',
         phoneNum: '연락처',
         sex: '성별',
         yearOfBirth: '출생연도',
+        birthMonth: '월',
+        birthDay: '일',
         academicCareer: '최종 학력',
         job: '직장 유형',
         income: '연소득',
@@ -94,7 +101,7 @@ export default function Form() {
     };
 
     const requiredFields = {
-        1: ['name', 'phoneNum', 'yearOfBirth', 'income', 'academicCareer', 'company', 'job', 'jobDetail', 'howWork', 'height', 'bodyType', 'style'],
+        1: ['name', 'phoneNum', 'yearOfBirth', 'birthMonth', 'birthDay', 'income', 'academicCareer', 'company', 'job', 'jobDetail', 'howWork', 'height', 'bodyType', 'style'],
         2: ['residence', 'workPlace', 'haveCar', 'haveHouse', 'drinkingFrequency', 'tattoo', 'smoking', 'religion', 'consultingType'],
         3: ['mbti', 'strength', 'interest', 'dateType'],
         4: ['faceImageData', 'bodyImageData', 'employImageData'],
@@ -157,6 +164,12 @@ export default function Form() {
         const currentRequiredFields = requiredFields[form];
         const missingFields = currentRequiredFields.filter(field => isFieldMissing(field, userData[field]));
         const translateField = missingFields.map(field => fieldTranslations[field]);
+
+        if (form === 1 && missingFields.length === 0 && !isValidBirthDate(userData.yearOfBirth, userData.birthMonth, userData.birthDay)) {
+            alert('올바른 생년월일을 입력해주세요.');
+            return;
+        }
+
         if (form === 5) {
             if (missingFields.length > 0) {
                 alert(`${translateField.join(', ')} 항목을 입력해주세요!`);
@@ -208,6 +221,11 @@ export default function Form() {
                         phoneNum={data => setUserData({ ...userData, phoneNum: data })}
                         sex={data => setUserData({ ...userData, sex: data })}
                         yearOfBirth={data => setUserData({ ...userData, yearOfBirth: data })}
+                        birthMonth={data => setUserData({ ...userData, birthMonth: data })}
+                        birthDay={data => setUserData({ ...userData, birthDay: data })}
+                        birthHour={data => setUserData({ ...userData, birthHour: data || undefined })}
+                        birthMinute={data => setUserData({ ...userData, birthMinute: data || undefined })}
+                        birthCalendarType={data => setUserData({ ...userData, birthCalendarType: data || undefined })}
                         income={data => setUserData({ ...userData, income: data })}
                         academicCareer={data => setUserData({ ...userData, academicCareer: data })}
                         company={data => setUserData({ ...userData, company: data })}
