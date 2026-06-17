@@ -46,7 +46,7 @@ export const TEST_FORM_FIXTURES = {
     counterpartHeight: ['161~165'],
     counterpartBodyType: ['보통'],
     counterpartStyle: ['지적임', '세련됨'],
-    counterpartResidence: '서울특별시',
+    counterpartResidences: ['서울특별시', '경기도'],
     counterpartHaveCar: '있음',
     counterpartHaveHouse: '없음',
     counterpartDrinkingFrequency: ['월 1회 이하'],

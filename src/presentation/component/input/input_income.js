@@ -37,7 +37,6 @@ export default function InputIncome({ labelText, placeholder, dataToForm, defaul
                         placeholder={placeholder}
                         onInput={handleInputChange}
                         value={formattedNumber}
-                        defaultValue={formattedNumber}
                     />
                 </div>
             </div>

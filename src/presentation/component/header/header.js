@@ -20,7 +20,7 @@ export default function Header() {
       <header>
         <div className="header">
           <div className="halign sb gap4">
-            <img src={logo} style={{ width: '24px', height: '24px' }} alt="" />
+            <img src={typeof logo === 'string' ? logo : logo.src} style={{ width: '24px', height: '24px' }} alt="" />
             <div className="h5 sb">LoveMatching</div>
           </div>
           {showTestTools && (

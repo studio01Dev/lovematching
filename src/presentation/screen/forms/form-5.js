@@ -2,14 +2,16 @@
 import Button from "../../component/button/button";
 import InputCheckbox from "../../component/input/input_checkbox";
 import InputRadio from "../../component/input/input_radio";
-import Select from '../../component/input/input_select'
 import LoadingDialog from '../../component/loading_dialog/loading_dialog'
-import { React, useState, useRef, useEffect } from "react";
+import { React, useRef, useEffect, useState } from "react";
 import { charm, counterpartDrinkingFrequency as counterpartDrinkingFrequencyOptions } from "../../../domain/models/questionnaires";
 import { district } from "../../../domain/models/area";
 
 
-export default function Form5({ isLoading, firstEmptyField, userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStrength, counterpartStyle, counterpartTattoo, counterpartResidence}) {
+export default function Form5({ isLoading, firstEmptyField, userData, onClick, backClick, counterpartAcademic, counterpartAge, counterpartBodyType, counterpartDrinkingFrequency, counterpartHaveCar, counterpartHaveHouse, counterpartHeight, counterpartHowWork, counterpartIncome, counterpartJob, counterpartReligion, counterpartSmoking, counterpartStrength, counterpartStyle, counterpartTattoo, counterpartResidences}) {
+
+    const counterpartResidencesDefault = userData.counterpartResidences
+        ?? (userData.counterpartResidence ? [userData.counterpartResidence] : undefined);
 
     const inputRef = {
         counterpartAge: useRef(),
@@ -27,7 +29,7 @@ export default function Form5({ isLoading, firstEmptyField, userData, onClick, b
         counterpartSmoking: useRef(),
         counterpartTattoo: useRef(),
         counterpartReligion: useRef(),
-        counterpartResidence: useRef()
+        counterpartResidences: useRef()
     };
 
     useEffect(() => {
@@ -42,9 +44,9 @@ export default function Form5({ isLoading, firstEmptyField, userData, onClick, b
             {!isLoading && (
                 <div>
                     <div className="h3 b padding">원하는 이성을 알려주세요</div>
-                    <div class="valign gap12 margin40">
+                    <div className="valign gap12 margin40">
                         <div className="h4 b grey700 side-padding">기본 정보</div>
-                        <div class="valign gap32">
+                        <div className="valign gap32">
                             <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartAge} labelText='나이' values={['20~25', '26~30', '31~35', '36~40']} dataToForm={data => counterpartAge(data)} defaultValue={userData.counterpartAge} />
                             <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartAcademic} labelText='학력' values={['고졸 이하', '전문대', '4년제대학', '해외 대학', '석사', '박사']} dataToForm={data => counterpartAcademic(data)} defaultValue={userData.counterpartAcademic} />
                             <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartJob} labelText='직종' values={['전문직', '보건/의료직(전문직 외)', '대기업', '중견기업', '중소기업/스타트업', '공무원', '자영업', '공기업', '연구소', '프리랜서', '외국계']} dataToForm={data => counterpartJob(data)} defaultValue={userData.counterpartJob} />
@@ -53,12 +55,12 @@ export default function Form5({ isLoading, firstEmptyField, userData, onClick, b
                             <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartHeight} labelText='키' values={['145~150', '151~155', '156~160', '161~165', '166~170', '171~175', '176~180', '181~185', '186~190']} dataToForm={data => counterpartHeight(data)} defaultValue={userData.counterpartHeight} />
                             <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartBodyType} labelText='체형' values={['마름', '날씬', '보통', '통통', '근육질']} dataToForm={data => counterpartBodyType(data)} defaultValue={userData.counterpartBodyType} />
                             <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartStyle} labelText='스타일' values={['귀여움', '지적임', '듬직함', '평범함', '건강미', '청순함', '세련됨', '선한 인상']} dataToForm={data => counterpartStyle(data)} defaultValue={userData.counterpartStyle} />
-                            <Select displayNotMatter={'block'} inputRef={inputRef.counterpartResidence} labelText='거주지' values={district} dataToForm={data => counterpartResidence(data)} defaultValue={userData.counterpartResidence} />
+                            <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartResidences} labelText='거주지' values={district} dataToForm={data => counterpartResidences(data)} defaultValue={counterpartResidencesDefault} />
                         </div>
                     </div>
-                    <div class="valign gap12">
+                    <div className="valign gap12">
                         <div className="h4 b grey700 side-padding">라이프스타일</div>
-                        <div class="valign gap32 margin">
+                        <div className="valign gap32 margin">
                             <InputRadio inputRef={inputRef.counterpartHaveCar} name='counterpartHaveCar' id1='counterpartCarYes' id2='counterpartCarNo' labelText='자차 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveCar(data)} defaultValue={userData.counterpartHaveCar} />
                             <InputRadio inputRef={inputRef.counterpartHaveHouse} name='counterpartHaveHouse' id1='counterpartHouseYes' id2='counterpartHouseNo' labelText='자가 보유 여부' value1='있음' value2='없음' dataToForm={data => counterpartHaveHouse(data)} defaultValue={userData.counterpartHaveHouse} />
                             <InputCheckbox displayNotMatter={'block'} inputRef={inputRef.counterpartDrinkingFrequency} labelText='음주 횟수' values={counterpartDrinkingFrequencyOptions} dataToForm={data => counterpartDrinkingFrequency(data)} defaultValue={userData.counterpartDrinkingFrequency} />

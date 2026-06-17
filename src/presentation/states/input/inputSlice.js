@@ -48,7 +48,7 @@ export const emptyInquiry = {
         counterpartHeight: null,
         counterpartBodyType: null,
         counterpartStyle: null,
-        counterpartResidence: null,
+        counterpartResidences: null,
         counterpartHaveCar: null,
         counterpartHaveHouse: null,
         counterpartDrinkingFrequency: null,

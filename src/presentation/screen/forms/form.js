@@ -96,6 +96,7 @@ export default function Form() {
         counterpartSmoking: '상대방 흡연 여부',
         counterpartTattoo: '상대방 문신 여부',
         counterpartReligion: '상대방 종교',
+        counterpartResidences: '상대방 거주지',
         counterpartStrength: '원하시는 상대방',
         consultingType: '선호하는 상담 방법',
     };
@@ -292,7 +293,7 @@ export default function Form() {
                     counterpartSmoking={data => setUserData({ ...userData, counterpartSmoking: data })}
                     counterpartTattoo={data => setUserData({ ...userData, counterpartTattoo: data })}
                     counterpartReligion={data => setUserData({ ...userData, counterpartReligion: data })}
-                    counterpartResidence={data => setUserData({ ...userData, counterpartResidence: data })}
+                    counterpartResidences={data => setUserData({ ...userData, counterpartResidences: data })}
                     firstEmptyField={firstEmptyField}
                 /></div>;
         case 6:

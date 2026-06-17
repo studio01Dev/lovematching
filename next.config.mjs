@@ -7,11 +7,11 @@ const nextConfig = {
     );
 
     if (imageRule) {
-      imageRule.exclude = /\.(png|jpg|jpeg|gif|webp|ico)$/i;
+      imageRule.exclude = /\.(png|jpg|jpeg|gif|webp|ico|svg)$/i;
     }
 
     config.module.rules.push({
-      test: /\.(png|jpg|jpeg|gif|webp|ico)$/i,
+      test: /\.(png|jpg|jpeg|gif|webp|ico|svg)$/i,
       type: 'asset/resource',
     });
 

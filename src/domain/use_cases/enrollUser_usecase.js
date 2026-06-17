@@ -112,6 +112,7 @@ function buildUserObject(user, imageUrls, serviceFields) {
     user.counterpartBodyType,
     user.counterpartStyle,
     user.counterpartResidence,
+    user.counterpartResidences,
     user.counterpartHaveCar,
     user.counterpartHaveHouse,
     user.counterpartDrinkingFrequency,
