@@ -1,6 +1,42 @@
 import MyResponse from "../models/MyResponse"
-import { getDocs, collection, getDoc, setDoc, deleteDoc, doc, addDoc } from 'firebase/firestore';
+import { getDocs, collection, getDoc, setDoc, deleteDoc, doc, addDoc, updateDoc, arrayUnion, serverTimestamp } from 'firebase/firestore';
 import db from '../../firebase/index';
+
+async function markRecommendHistoryRejectedByCounterpart(applicantUid, counterpartUid) {
+    const historySnapshot = await getDocs(collection(db.db, 'users', applicantUid, 'RecommendHistory'));
+    const matchingEntries = [];
+
+    historySnapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        if (data.counterpartUserId === counterpartUid && data.status === 'accepted') {
+            matchingEntries.push({ id: docSnap.id, recommendedAt: data.recommendedAt });
+        }
+    });
+
+    if (matchingEntries.length === 0) {
+        return;
+    }
+
+    matchingEntries.sort((a, b) => {
+        const aTime = a.recommendedAt?.toMillis?.() ?? 0;
+        const bTime = b.recommendedAt?.toMillis?.() ?? 0;
+        return bTime - aTime;
+    });
+
+    await updateDoc(doc(db.db, 'users', applicantUid, 'RecommendHistory', matchingEntries[0].id), {
+        status: 'rejected_by_counterpart',
+        statusUpdatedAt: serverTimestamp(),
+    });
+}
+
+async function createDeclineHistory(rejectorUid, applicantUid, applicantSnapshot) {
+    await addDoc(collection(db.db, 'users', rejectorUid, 'DeclineHistory'), {
+        counterpartUserId: applicantUid,
+        counterpartName: applicantSnapshot?.name ?? '',
+        declineType: 'rejected_incoming',
+        declinedAt: serverTimestamp(),
+    });
+}
 
 export default class AcceptMatchUseCase {
 
@@ -90,5 +126,31 @@ export default class AcceptMatchUseCase {
             return response
         }
         
+    }
+
+    async declineIncomingMatch(myUid, applicantUid) {
+        try {
+            const incomingRef = doc(db.db, 'users', myUid, 'InCounterChosenFromAdminSuggestList', applicantUid);
+            const incomingSnap = await getDoc(incomingRef);
+            const applicantSnapshot = incomingSnap.exists() ? incomingSnap.data() : null;
+
+            await updateDoc(doc(db.db, 'users', myUid), {
+                declinedUsers: arrayUnion(applicantUid),
+            });
+            await deleteDoc(doc(db.db, 'users', myUid, 'AdminSuggestList', applicantUid));
+            await deleteDoc(doc(db.db, 'users', myUid, 'ChosenFromAdminSuggestList', applicantUid));
+            await deleteDoc(incomingRef);
+
+            await deleteDoc(doc(db.db, 'users', applicantUid, 'ChosenFromAdminSuggestList', myUid));
+
+            await markRecommendHistoryRejectedByCounterpart(applicantUid, myUid);
+            await createDeclineHistory(myUid, applicantUid, applicantSnapshot);
+
+            var response = new MyResponse(true, true, '요청이 성공적으로 처리되었습니다.');
+            return response;
+        } catch (error) {
+            var response = new MyResponse(false, false, '네트워크 오류입니다. 다시 시도하거나, 관리자에게 문의해주세요.');
+            return response;
+        }
     }
 }
