@@ -7,8 +7,6 @@ import { useState, useEffect } from 'react';
 import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
 import LoadingDialog from '../../component/loading_dialog/loading_dialog';
-import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
-import db from '../../../firebase/index'
 import { formatBirthDate } from '../../../domain/models/birthDate';
 
 
@@ -38,14 +36,8 @@ export default function MakeRequest({ name }) {
 
     const goBack = async () => {
         router.back();
-        // update declinedUsers field
-        const ref = doc(db.db, "users", uid);
-        await updateDoc(ref, {
-            declinedUsers: arrayUnion(counterId)
-        });
-        await deleteDoc(doc(db.db, "users", uid, "AdminSuggestList", counterId));
-        await deleteDoc(doc(db.db, "users", uid, "ChosenFromAdminSuggestList", counterId));
-        await deleteDoc(doc(db.db, "users", uid, "InCounterChosenFromAdminSuggestList", counterId));
+        const adminSuggestListUseCase = new AdminSuggestListUseCase();
+        await adminSuggestListUseCase.declineSuggest(uid, counterId);
     }
 
 

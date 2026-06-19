@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import plane from '../../asset/images/plane.svg'
 import memo from '../../asset/images/memo.svg'
+import brandCheck from '../../asset/images/brand-check.svg'
 import people from '../../asset/images/people.svg'
 import { MainButton } from '../../component/button/button';
 import { useParams } from "next/navigation";
@@ -17,6 +18,7 @@ export default function Queue() {
     const [user, setUser] = useState(Object);
     const [adminSuggestListLength, setAdminSuggestListLength] = useState(Number);
     const [inCounterChosenFromAdminSuggestListLength, setInCounterChosenFromAdminSuggestListLength] = useState(Number);
+    const [chosenListLength, setChosenListLength] = useState(Number);
     const [thisUser, setThisUser] = useState(Object);
 
     useEffect(() => {
@@ -93,9 +95,23 @@ export default function Queue() {
                 // alert('새로고침하거나, 번호를 다시 입력해주세요.')
             }
         }
+        async function fetchChosenListLength() {
+            try {
+                const adminSuggestListUseCase = new AdminSuggestListUseCase();
+                var response = await adminSuggestListUseCase.readChosenFromAdminSuggestList(uid)
+                if (response.success === true) {
+                    setChosenListLength(response.data.length)
+                } else {
+                    alert(response.message)
+                }
+            } catch (error) {
+                alert('새로고침하거나, 번호를 다시 입력해주세요.')
+            }
+        }
         fetchOneUser();
         fetchAdminSuggestListLength();
         fetchInCounterChosenFromAdminSuggestListLength();
+        fetchChosenListLength();
     }, [thisUser])
 
     const toHome = () => {
@@ -126,12 +142,26 @@ export default function Queue() {
                         </div>
                     </Link>
 
+                    <Link href={`/sent-request/${uid}`} style={{ textDecoration: 'none' }}>
+                        <div className='request-box valign gap8'>
+                            <div className="halign sbalign calign">
+                                <img src={brandCheck} style={{ width: '40px' }} alt="" />
+                                <div className='halign calign gap2'>
+                                    <img src={people} style={{ width: '20px' }} alt="" />
+                                    <div className='h6 sb brand500'>{chosenListLength}</div>
+                                </div>
+                            </div>
+                            <div className='h4 sb grey800'>내가 수락한 매칭</div>
+                            <div className='h5 r grey600'>매칭 신청을 완료한 {chosenListLength}명의 프로필을<br />확인할 수 있어요.</div>
+                        </div>
+                    </Link>
+
                     <Link href={`/review-request/${uid}`} style={{ textDecoration: 'none' }}>
                         <div className='request-box valign gap8'>
                             <div className="halign sbalign calign">
-                                <img src={memo} style={{ width: '40px' }} />
+                                <img src={memo} style={{ width: '40px' }} alt="" />
                                 <div className='halign calign gap2'>
-                                    <img src={people} style={{ width: '20px' }} />
+                                    <img src={people} style={{ width: '20px' }} alt="" />
                                     <div className='h6 sb brand500'>{inCounterChosenFromAdminSuggestListLength}</div>
                                 </div>
                             </div>

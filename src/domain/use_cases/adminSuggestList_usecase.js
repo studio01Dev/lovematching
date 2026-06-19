@@ -1,6 +1,25 @@
 import MyResponse from "../models/MyResponse"
-import { getDocs, collection, setDoc, getDoc, doc, deleteDoc } from 'firebase/firestore';
+import { getDocs, collection, setDoc, getDoc, doc, deleteDoc, updateDoc, arrayUnion, serverTimestamp } from 'firebase/firestore';
 import db from '../../firebase/index';
+
+async function updateRecommendHistoryIfExists(myUid, counterpartUid, status) {
+    const adminSuggestRef = doc(db.db, 'users', myUid, 'AdminSuggestList', counterpartUid);
+    const adminSuggestSnap = await getDoc(adminSuggestRef);
+
+    if (!adminSuggestSnap.exists()) {
+        return;
+    }
+
+    const recommendHistoryId = adminSuggestSnap.data()?.recommendHistoryId;
+    if (!recommendHistoryId) {
+        return;
+    }
+
+    await updateDoc(doc(db.db, 'users', myUid, 'RecommendHistory', recommendHistoryId), {
+        status,
+        statusUpdatedAt: serverTimestamp(),
+    });
+}
 
 export default class AdminSuggestListUseCase {
 
@@ -26,8 +45,32 @@ export default class AdminSuggestListUseCase {
         }
     }
 
+    async readChosenFromAdminSuggestList(uid) {
+        try {
+            const userList = []
+            const querySnapshot = await getDocs(collection(db.db, "users", uid, "ChosenFromAdminSuggestList"))
+            querySnapshot.forEach(
+                (docSnap) => {
+                    userList.push(
+                        {
+                            ...docSnap.data(),
+                            id: docSnap.id
+                        }
+                    )
+                }
+            )
+            var response = new MyResponse(true, userList, "요청이 성공적으로 처리되었습니다.");
+            return response;
+        } catch (error) {
+            var response = new MyResponse(false, false, "네트워크 오류입니다. 다시 시도하거나, 관리자에게 문의해주세요.")
+            return response
+        }
+    }
+
     async suggestMatch(myUid, counterUid) {
         try {
+            await updateRecommendHistoryIfExists(myUid, counterUid, 'accepted');
+
             // 1. delete counter in my AdminSuggestList
             await deleteDoc(doc(db.db, "users", myUid, "AdminSuggestList", counterUid));
             // 2. delete me in counter InCounterAdminSuggestList
@@ -57,6 +100,24 @@ export default class AdminSuggestListUseCase {
             var response = new MyResponse(true, true, "요청이 성공적으로 처리되었습니다.");
             return response;
         } catch(error) {
+            var response = new MyResponse(false, false, "네트워크 오류입니다. 다시 시도하거나, 관리자에게 문의해주세요.")
+            return response
+        }
+    }
+
+    async declineSuggest(myUid, counterUid) {
+        try {
+            await updateDoc(doc(db.db, "users", myUid), {
+                declinedUsers: arrayUnion(counterUid),
+            });
+            await updateRecommendHistoryIfExists(myUid, counterUid, 'declined');
+            await deleteDoc(doc(db.db, "users", myUid, "AdminSuggestList", counterUid));
+            await deleteDoc(doc(db.db, "users", myUid, "ChosenFromAdminSuggestList", counterUid));
+            await deleteDoc(doc(db.db, "users", myUid, "InCounterChosenFromAdminSuggestList", counterUid));
+
+            var response = new MyResponse(true, true, "요청이 성공적으로 처리되었습니다.");
+            return response;
+        } catch (error) {
             var response = new MyResponse(false, false, "네트워크 오류입니다. 다시 시도하거나, 관리자에게 문의해주세요.")
             return response
         }
