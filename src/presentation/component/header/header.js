@@ -1,29 +1,28 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import logo from '../../asset/images/logo.svg';
-import { useFormTest } from '../../context/FormTestContext';
-import { isSajuCustomer } from '@/domain/models/birthDate';
+// import { usePathname } from 'next/navigation';
+// import logo from '../../asset/images/logo.svg';
+// import { useFormTest } from '../../context/FormTestContext';
+// import { isSajuCustomer } from '@/domain/models/birthDate';
 import '../header/header.css';
 
 export default function Header() {
-  const pathname = usePathname();
-  const formTest = useFormTest();
-  const showTestTools =
-    process.env.NODE_ENV === 'development' &&
-    pathname === '/form' &&
-    formTest;
-  const isSaju = formTest?.devUserData ? isSajuCustomer(formTest.devUserData) : false;
+  // const pathname = usePathname();
+  // const formTest = useFormTest();
+  // const showTestTools =
+  //   process.env.NODE_ENV === 'development' &&
+  //   pathname === '/form' &&
+  //   formTest;
+  // const isSaju = formTest?.devUserData ? isSajuCustomer(formTest.devUserData) : false;
 
   return (
     <div>
       <header>
         <div className="header">
           <div className="halign sb gap4">
-            <img src={typeof logo === 'string' ? logo : logo.src} style={{ width: '24px', height: '24px' }} alt="" />
             <div className="h5 sb">LoveMatching</div>
           </div>
-          {showTestTools && (
+          {/* {showTestTools && (
             <div className="header-dev-tools halign gap4 calign">
               <span className={`header-saju-hint h6 sb ${isSaju ? 'is-saju' : 'is-not-saju'}`}>
                 사주 {isSaju ? 'O' : 'X'}
@@ -36,7 +35,7 @@ export default function Header() {
                 테스트 값 넣기
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </header>
       <div style={{ height: 60 }}></div>
