@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { createTestImageFiles, getTestDataForPage } from '@/domain/fixtures/testFormFixtures';
+import { createTestImageFiles, createTestImageFile, getTestDataForPage } from '@/domain/fixtures/testFormFixtures';
 
 const FormTestContext = createContext(null);
 
@@ -27,6 +27,11 @@ export function FormTestProvider({ children }) {
 
     const form = api.getForm();
     let pageData = getTestDataForPage(form);
+
+    if (form === 2 && pageData.haveHouse === '있음') {
+      const houseProofImageData = await createTestImageFile('house-proof-test.jpg', '#9B8FD7');
+      pageData = { ...pageData, houseProofImageData };
+    }
 
     if (form === 4) {
       pageData = {

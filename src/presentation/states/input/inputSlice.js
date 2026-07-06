@@ -39,6 +39,7 @@ export const emptyInquiry = {
         faceImageUrl: null,
         bodyImageUrl: null,
         employImageUrl: null,
+        houseProofImageUrl: null,
         // form-4: counterpart
         counterpartAge: null,
         counterpartAcademic: null,

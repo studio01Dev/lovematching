@@ -103,6 +103,7 @@ function buildUserObject(user, imageUrls, serviceFields) {
     imageUrls.faceImageUrl,
     imageUrls.bodyImageUrl,
     imageUrls.employImageUrl,
+    imageUrls.houseProofImageUrl,
     user.counterpartAge,
     user.counterpartAcademic,
     user.counterpartJob,
@@ -145,13 +146,16 @@ export default async function EnrollUserUseCase(user) {
     const normalizedUser = normalizeUserInput(user);
     const existingUser = await findExistingUser(normalizedUser.name, normalizedUser.phoneNum);
 
-    const [faceImageUrl, bodyImageUrl, employImageUrl] = await Promise.all([
+    const [faceImageUrl, bodyImageUrl, employImageUrl, houseProofImageUrl] = await Promise.all([
       uploadImageToStorage(normalizedUser.faceImageData, 'face', normalizedUser.name, normalizedUser.phoneNum, normalizedUser.yearOfBirth.toString()),
       uploadImageToStorage(normalizedUser.bodyImageData, 'body', normalizedUser.name, normalizedUser.phoneNum, normalizedUser.yearOfBirth.toString()),
       uploadImageToStorage(normalizedUser.employImageData, 'employ', normalizedUser.name, normalizedUser.phoneNum, normalizedUser.yearOfBirth.toString()),
+      normalizedUser.haveHouse === '있음'
+        ? uploadImageToStorage(normalizedUser.houseProofImageData, 'houseProof', normalizedUser.name, normalizedUser.phoneNum, normalizedUser.yearOfBirth.toString())
+        : Promise.resolve(null),
     ]);
 
-    const imageUrls = { faceImageUrl, bodyImageUrl, employImageUrl };
+    const imageUrls = { faceImageUrl, bodyImageUrl, employImageUrl, houseProofImageUrl };
 
     if (existingUser) {
       const existingData = existingUser.data;

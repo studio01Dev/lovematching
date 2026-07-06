@@ -20,7 +20,12 @@ export default function Header() {
     <div>
       <header>
         <div className="header">
-          <div className="halign sb gap4">
+          <div className="halign sb gap4 calign">
+            <img
+              src="/logo-lovematching-head.png"
+              alt="LoveMatching"
+              className="header-logo"
+            />
             <div className="h5 sb">LoveMatching</div>
           </div>
           {showTestTools && (

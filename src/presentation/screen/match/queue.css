@@ -1,0 +1,45 @@
+.queue-count-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+  animation: queue-count-pulse 1.4s ease-in-out infinite;
+}
+
+.queue-count-dots span {
+  display: inline-block;
+  animation: queue-count-bounce 1.2s ease-in-out infinite;
+}
+
+.queue-count-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.queue-count-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes queue-count-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes queue-count-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  40% {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+}

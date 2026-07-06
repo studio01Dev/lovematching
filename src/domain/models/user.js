@@ -39,6 +39,7 @@ export default class User {
         faceImageUrl,
         bodyImageUrl,
         employImageUrl,
+        houseProofImageUrl,
         // form-4: counterpart
         counterpartAge,
         counterpartAcademic,
@@ -104,6 +105,7 @@ export default class User {
         this.faceImageUrl = faceImageUrl;
         this.bodyImageUrl = bodyImageUrl;
         this.employImageUrl = employImageUrl;
+        this.houseProofImageUrl = houseProofImageUrl;
         this.counterpartAge = counterpartAge;
         this.counterpartAcademic = counterpartAcademic;
         this.counterpartJob = counterpartJob;
@@ -170,6 +172,7 @@ export default class User {
             faceImageUrl: this.faceImageUrl,
             bodyImageUrl: this.bodyImageUrl,
             employImageUrl: this.employImageUrl,
+            houseProofImageUrl: this.houseProofImageUrl,
             //
             counterpartAge: this.counterpartAge,
             counterpartAcademic: this.counterpartAcademic,

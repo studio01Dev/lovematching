@@ -28,7 +28,7 @@ export const TEST_FORM_FIXTURES = {
     tattoo: '없음',
     smoking: '비흡연',
     religion: '무교',
-    consultingType: ['카카오톡'],
+    // consultingType: ['카카오톡'],
   },
   3: {
     mbti: 'ENFP',
@@ -61,7 +61,7 @@ export function getTestDataForPage(page) {
   return { ...(TEST_FORM_FIXTURES[page] || {}) };
 }
 
-function createTestImageFile(filename, color = '#5F63C7') {
+export function createTestImageFile(filename, color = '#5F63C7') {
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
     canvas.width = 200;

@@ -57,10 +57,10 @@ export default function Input(props) {
                 setImage(file);
                 dataToForm(file);
                 if (image !== undefined) {
-                    setText('이미지 업로드됨')
+                    setText('업로드됨')
                     setUploaded(true)
                 } else {
-                    setText('이미지 업로드되지 않음')
+                    setText('아직 업로드되지 않음')
                     setUploaded(false)
                 };
 

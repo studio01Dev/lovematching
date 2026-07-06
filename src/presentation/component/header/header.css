@@ -21,6 +21,13 @@ header {
   width: 390px;
 }
 
+.header-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 .header-test-button {
   background: none;
   border: 1px solid var(--brand-500);

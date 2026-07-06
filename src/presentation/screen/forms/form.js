@@ -70,6 +70,7 @@ export default function Form() {
         workPlace: '근무지',
         haveCar: '자차 보유 여부',
         haveHouse: '자가 보유 여부',
+        houseProofImageData: '자가 보유 증빙 서류',
         drinkingFrequency: '음주 횟수',
         smoking: '흡연 여부',
         tattoo: '문신 여부',
@@ -80,7 +81,7 @@ export default function Form() {
         dateType: '선호하는 데이트',
         faceImageData: '얼굴 정면 사진',
         bodyImageData: '전신 사진',
-        employImageData: '재직 증명 사진',
+        employImageData: '재직증명서 사진',
         counterpartAge: '상대방 나이',
         counterpartAcademic: '상대방 최종학력',
         counterpartJob: '상대방 직업',
@@ -98,12 +99,12 @@ export default function Form() {
         counterpartReligion: '상대방 종교',
         counterpartResidences: '상대방 거주지',
         counterpartStrength: '원하시는 상대방',
-        consultingType: '선호하는 상담 방법',
+        // consultingType: '선호하는 상담 방법',
     };
 
     const requiredFields = {
         1: ['name', 'phoneNum', 'yearOfBirth', 'birthMonth', 'birthDay', 'income', 'academicCareer', 'company', 'job', 'jobDetail', 'howWork', 'height', 'bodyType', 'style'],
-        2: ['residence', 'workPlace', 'haveCar', 'haveHouse', 'drinkingFrequency', 'tattoo', 'smoking', 'religion', 'consultingType'],
+        2: ['residence', 'workPlace', 'haveCar', 'haveHouse', 'drinkingFrequency', 'tattoo', 'smoking', 'religion'],
         3: ['mbti', 'strength', 'interest', 'dateType'],
         4: ['faceImageData', 'bodyImageData', 'employImageData'],
         5: ['counterpartAge', 'counterpartAcademic', 'counterpartJob', 'counterpartIncome', 'counterpartHowWork', 'counterpartHeight', 'counterpartBodyType', 'counterpartStyle', 'counterpartHaveCar', 'counterpartHaveHouse', 'counterpartDrinkingFrequency', 'counterpartSmoking', 'counterpartTattoo', 'counterpartReligion', 'counterpartStrength']
@@ -161,9 +162,18 @@ export default function Form() {
         return false;
     };
 
+    const getMissingFields = (page) => {
+        const missingFields = requiredFields[page].filter((field) => isFieldMissing(field, userData[field]));
+
+        if (page === 2 && userData.haveHouse === '있음' && isFieldMissing('houseProofImageData', userData.houseProofImageData)) {
+            missingFields.push('houseProofImageData');
+        }
+
+        return missingFields;
+    };
+
     const nextForm = async () => {
-        const currentRequiredFields = requiredFields[form];
-        const missingFields = currentRequiredFields.filter(field => isFieldMissing(field, userData[field]));
+        const missingFields = getMissingFields(form);
         const translateField = missingFields.map(field => fieldTranslations[field]);
 
         if (form === 1 && missingFields.length === 0 && !isValidBirthDate(userData.yearOfBirth, userData.birthMonth, userData.birthDay)) {
@@ -247,12 +257,17 @@ export default function Form() {
                     residence={data => setUserData({ ...userData, residence: data })}
                     workPlace={data => setUserData({ ...userData, workPlace: data })}
                     haveCar={data => setUserData({ ...userData, haveCar: data })}
-                    haveHouse={data => setUserData({ ...userData, haveHouse: data })}
+                    haveHouse={data => setUserData({
+                        ...userData,
+                        haveHouse: data,
+                        ...(data === '없음' ? { houseProofImageData: undefined } : {}),
+                    })}
+                    houseProofImageData={data => setUserData({ ...userData, houseProofImageData: data })}
                     drinkingFrequency={data => setUserData({ ...userData, drinkingFrequency: data })}
                     tattoo={data => setUserData({ ...userData, tattoo: data })}
                     smoking={data => setUserData({ ...userData, smoking: data })}
                     religion={data => setUserData({ ...userData, religion: data })}
-                    consultingType={data => setUserData({ ...userData, consultingType: data })}
+                    // consultingType={data => setUserData({ ...userData, consultingType: data })}
                     firstEmptyField={firstEmptyField}
                 /></div>;
         case 3:
