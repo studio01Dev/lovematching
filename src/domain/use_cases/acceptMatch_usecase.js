@@ -30,9 +30,17 @@ async function markRecommendHistoryRejectedByCounterpart(applicantUid, counterpa
 }
 
 async function createDeclineHistory(rejectorUid, applicantUid, applicantSnapshot) {
+    let userData = applicantSnapshot;
+
+    if (!userData) {
+        const userSnap = await getDoc(doc(db.db, 'users', applicantUid));
+        userData = userSnap.exists() ? userSnap.data() : {};
+    }
+
     await addDoc(collection(db.db, 'users', rejectorUid, 'DeclineHistory'), {
+        ...userData,
+        id: applicantUid,
         counterpartUserId: applicantUid,
-        counterpartName: applicantSnapshot?.name ?? '',
         declineType: 'rejected_incoming',
         declinedAt: serverTimestamp(),
     });
