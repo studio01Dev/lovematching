@@ -1,15 +1,17 @@
 import Select from "../../component/input/input_select";
 import Button from "../../component/button/button";
 import InputText from "../../component/input/input_text";
+import InputTextArea from "../../component/input/input_textarea";
 import { useRef, useEffect, useState } from "react";
 import { charm } from "../../../domain/models/questionnaires";
 import '../../component/input/input.css'
 
-export default function Form3({ firstEmptyField, userData, onClick, backClick, mbti, strength, interest, dateType }) {
+export default function Form3({ firstEmptyField, userData, onClick, backClick, mbti, strength, strengthText, interest, dateType }) {
 
     const inputRef = {
         mbti: useRef(),
         strength: useRef(),
+        strengthText: useRef(),
         interest: useRef(),
         dateType: useRef(),
     };
@@ -26,6 +28,12 @@ export default function Form3({ firstEmptyField, userData, onClick, backClick, m
             <div class="valign gap32 margin">
                 <Select displayNotMatter={'none'} labelText='MBTI' values={['ISTJ', 'ISFJ', 'INFJ', 'INTJ', 'ISTP', 'ISFP', 'INFP', 'INTP', 'ESTP', 'ESFP', 'ENFP', 'ENTP', 'ESTJ', 'ESFJ', 'ENFJ', 'ENTJ']} dataToForm={data => mbti(data)} defaultValue={userData.mbti} />
                 <InputCheckbox labelText='나는 어떤 사람인가요? (최대 3개 선택 가능)' values={charm} dataToForm={data => strength(data)} maxValues={3} defaultValue={userData.strength} />
+                <InputTextArea
+                    labelText='추가로 남기고 싶은 내용 (선택)'
+                    placeholder='예) 활발하고 대화가 많은 편이에요 / 배려를 잘해요'
+                    dataToForm={data => strengthText(data)}
+                    inputRef={inputRef.strengthText}
+                />
                 <InputText labelText='취미/관심사' placeholder='취미나 관심사를 입력해주세요' dataToForm={data => interest(data)} defaultValue={userData.interest} />
                 <InputText labelText='선호하는 데이트' placeholder='선호하는 데이트를 입력해주세요' dataToForm={data => dateType(data)} defaultValue={userData.dateType} />
             </div>

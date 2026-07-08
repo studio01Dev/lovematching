@@ -98,6 +98,7 @@ function buildUserObject(user, imageUrls, serviceFields) {
     user.religion,
     user.mbti,
     user.strength,
+    user.strengthText,
     user.interest,
     user.dateType,
     imageUrls.faceImageUrl,
