@@ -276,6 +276,7 @@ export default function Form() {
                 <Form3 key={remountKey} onClick={nextForm} backClick={prevForm} setFormData={setFormDataPage3} userData={userData}
                     mbti={data => setUserData({ ...userData, mbti: data })}
                     strength={data => setUserData({ ...userData, strength: data })}
+                    strengthText={data => setUserData({ ...userData, strengthText: data })}
                     interest={data => setUserData({ ...userData, interest: data })}
                     dateType={data => setUserData({ ...userData, dateType: data })}
                     firstEmptyField={firstEmptyField}

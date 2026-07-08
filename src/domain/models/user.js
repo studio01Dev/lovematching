@@ -34,6 +34,7 @@ export default class User {
         // form-3: personality, photo
         mbti,
         strength,
+        strengthText,
         interest,
         dateType,
         faceImageUrl,
@@ -100,6 +101,7 @@ export default class User {
         //
         this.mbti = mbti;
         this.strength = strength;
+        this.strengthText = strengthText;
         this.interest = interest;
         this.dateType = dateType;
         this.faceImageUrl = faceImageUrl;
@@ -167,6 +169,7 @@ export default class User {
             //
             mbti: this.mbti,
             strength: this.strength,
+            strengthText: this.strengthText,
             interest: this.interest,
             dateType: this.dateType,
             faceImageUrl: this.faceImageUrl,
