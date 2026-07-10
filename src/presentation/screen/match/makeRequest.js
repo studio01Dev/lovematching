@@ -137,6 +137,7 @@ export default function MakeRequest({ name }) {
                             <div className='profile'>
                                 <InfoCard dataName='MBTI' value={counterUser.mbti} />
                                 <InfoCard dataName='장점' value={counterUser.strength} />
+                                <InfoCard dataName='장점(직접입력)' value={counterUser.strengthText} />
                                 <InfoCard dataName='취미' value={counterUser.interest} />
                                 <InfoCard dataName='선호하는 데이트' value={counterUser.dateType} />
                             </div>
