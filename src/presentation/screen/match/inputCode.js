@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import Button, { MainButton } from "../../component/button/button";
+import { MainButton } from "../../component/button/button";
 import InputText from "../../component/input/input_text";
 import { useRouter } from "next/navigation";
-import response from '../../../domain/models/MyResponse';
-import InputCodeUseCase from '../../../domain/use_cases/inputCode_usecase';
 
 export default function InputCode() {
     // InputText에서 입력값을 저장할 상태 변수
@@ -18,6 +16,8 @@ export default function InputCode() {
     // 버튼 클릭 시 조건 검사 후 페이지 이동
     const handleButtonClick = async () => {
         try {
+            // Workers SSR에서 firebase 모듈 평가로 500 나는 것을 피하기 위해 클릭 시에만 로드
+            const { default: InputCodeUseCase } = await import('../../../domain/use_cases/inputCode_usecase');
             const inputCodeUseCase = new InputCodeUseCase();
             var response = await inputCodeUseCase.validateUser(code);
             if (response.success === true) {
