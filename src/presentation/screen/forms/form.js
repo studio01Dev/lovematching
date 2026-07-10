@@ -7,7 +7,6 @@ import Form5 from "./form-5";
 import FormDone from "./formDone";
 import { useState, useEffect, useRef } from "react";
 import User from "../../../domain/models/user";
-import EnrollUserUseCase from "../../../domain/use_cases/enrollUser_usecase";
 import LoadingDialog from "../../component/loading_dialog/loading_dialog";
 import { useFormTest } from "../../context/FormTestContext";
 import { isValidBirthDate } from "../../../domain/models/birthDate";
@@ -188,6 +187,7 @@ export default function Form() {
             } else {
                 try {
                     setIsLoading(true);
+                    const { default: EnrollUserUseCase } = await import("../../../domain/use_cases/enrollUser_usecase");
                     const response = await EnrollUserUseCase(userData);
                     if (response.success) {
                         setForm(form + 1);

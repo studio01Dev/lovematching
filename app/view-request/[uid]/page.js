@@ -1,3 +1,11 @@
 'use client';
 
-export { default } from '@/presentation/screen/match/viewRequest';
+import dynamic from 'next/dynamic';
+
+const ViewRequest = dynamic(() => import('@/presentation/screen/match/viewRequest'), {
+  ssr: false,
+});
+
+export default function ViewRequestPage() {
+  return <ViewRequest />;
+}
