@@ -49,7 +49,6 @@ export default function InputCode() {
                 {/* <div className="side-padding">
                     <button className="text-back h6 sb grey700">이전으로 돌아가기</button>
                 </div> */}
-                {code && <p>입력한 코드: {code}</p>} {/* 코드가 입력되었을 때만 표시 */}
             </div>
             <MainButton buttonText='러브매칭 이용하기' onClick={handleButtonClick} />
             {/* <Link to='../queue'><Button buttonText='러브매칭 이용하기'/></Link> */}
