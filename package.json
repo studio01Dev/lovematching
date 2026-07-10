@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:first-matching": "node scripts/migrate-first-matching.js",
+    "migrate:first-matching:write": "node scripts/migrate-first-matching.js --write"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "eslint-config-next": "^15.3.3"
+    "eslint-config-next": "^15.3.3",
+    "firebase-admin": "^14.1.0"
   }
 }

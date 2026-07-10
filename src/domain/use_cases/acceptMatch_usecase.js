@@ -79,53 +79,59 @@ export default class AcceptMatchUseCase {
             // 2. delete me in counter ChosenFromAdminSuggestList
             await deleteDoc(doc(db.db, "users", counterUid, "ChosenFromAdminSuggestList", myUid));
 
-            // 3. create Pair in FirstMatching
-
-            // create basic doc
-            var firstMatchingDocId
+            // 3. create Pair in FirstMatching (기존 전역 컬렉션 유지)
+            const matchedAt = new Date();
             const docRef1 = await addDoc(collection(db.db, "FirstMatching"), 
-                {createdAt: new Date()}
+                {createdAt: matchedAt}
             );
-            firstMatchingDocId = docRef1.id
-            // console.log("Document written with ID: ", firstMatchingDocId);
+            const firstMatchingDocId = docRef1.id
 
-            // create me in FirstMatching
-            const docRef2 = doc(db.db, "users", myUid)
-            const docSnap1 = await getDoc(docRef2);
-            if(docSnap1.exists()) {
-                if(docSnap1.data().sex === '남성') {
-                    const docRef3 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"), docSnap1.id)
-                    await setDoc(
-                        docRef3, docSnap1.data()
-                    )
-                } else {
-                    const docRef3 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "FemaleUser"), docSnap1.id)
-                    await setDoc(
-                        docRef3, docSnap1.data()
-                    )
-                }
-            } else {
-                // console.log("No such document!");
+            const mySnap = await getDoc(doc(db.db, "users", myUid));
+            const counterSnap = await getDoc(doc(db.db, "users", counterUid));
+
+            if (mySnap.exists()) {
+                const myData = mySnap.data();
+                const myTargetCollection = myData.sex === '남성' ? 'MaleUser' : 'FemaleUser';
+                await setDoc(
+                    doc(db.db, "FirstMatching", firstMatchingDocId, myTargetCollection, mySnap.id),
+                    myData
+                );
             }
 
-            // create counter in FirstMatching
-            const docRef4 = doc(db.db, "users", counterUid)
-            const docSnap2 = await getDoc(docRef4);
-            if(docSnap2.exists()) {
-                if(docSnap2.data().sex === '남성') {
-                    const docRef5 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "MaleUser"), docSnap2.id)
-                    await setDoc(
-                        docRef5, docSnap2.data()
-                    )
-                } else {
-                    const docRef5 = doc(collection(db.db, "FirstMatching", firstMatchingDocId, "FemaleUser"), docSnap2.id)
-                    await setDoc(
-                        docRef5, docSnap2.data()
-                    )
-                }
-            } else {
-                // console.log("No such document!");
+            if (counterSnap.exists()) {
+                const counterData = counterSnap.data();
+                const counterTargetCollection = counterData.sex === '남성' ? 'MaleUser' : 'FemaleUser';
+                await setDoc(
+                    doc(db.db, "FirstMatching", firstMatchingDocId, counterTargetCollection, counterSnap.id),
+                    counterData
+                );
             }
+
+            // 4. users 하위 FirstMatching에도 양방향 저장 (신규 방식)
+            if (mySnap.exists() && counterSnap.exists()) {
+                const myData = { ...mySnap.data(), id: mySnap.id };
+                const counterData = { ...counterSnap.data(), id: counterSnap.id };
+
+                await Promise.all([
+                    setDoc(
+                        doc(db.db, "users", myUid, "FirstMatching", counterUid),
+                        {
+                            ...counterData,
+                            matchedAt,
+                            matchId: firstMatchingDocId,
+                        }
+                    ),
+                    setDoc(
+                        doc(db.db, "users", counterUid, "FirstMatching", myUid),
+                        {
+                            ...myData,
+                            matchedAt,
+                            matchId: firstMatchingDocId,
+                        }
+                    ),
+                ]);
+            }
+
             var response = new MyResponse(true, true, "요청이 성공적으로 처리되었습니다.");
             return response;
         } catch (error) {
