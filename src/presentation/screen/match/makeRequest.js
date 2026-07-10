@@ -1,4 +1,3 @@
-import arrow from '../../asset/images/back.png'
 import { useParams, useRouter } from 'next/navigation';
 import InfoCard from '../../component/infoCard/info-card';
 import Button from '../../component/button/button';
@@ -40,6 +39,9 @@ export default function MakeRequest({ name }) {
         await adminSuggestListUseCase.declineSuggest(uid, counterId);
     }
 
+    const goToList = () => {
+        router.push(`/view-request/${uid}`);
+    };
 
     // Notification을 위한 hook
     const [alertVisible, setAlertVisible] = useState(false); // alertVisible === true일 때, notification이 생성됩니다.
@@ -75,18 +77,25 @@ export default function MakeRequest({ name }) {
             {/* 실제 데이터 렌더링 */}
             {!isLoading && (
                 <div>
-                    {/* <div className="arrow-back">
-                        <Link style={{ textDecoration: 'none' }} to='../make-request'><img src={arrow} style={{ width: '8px', height: '16px' }} /></Link>
-                    </div> */}
+                    <div className="side-padding" style={{ paddingTop: 8, paddingBottom: 8 }}>
+                        <button
+                            type="button"
+                            className="h6 sb grey700"
+                            onClick={goToList}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                        >
+                            ← 뒤로가기
+                        </button>
+                    </div>
                     {/* 님의 프로필 부분 */}
-                    <div class="valign gap8">
+                    <div className="valign gap8">
                         <div className='padding h3 b grey900'>{counterUser.name.charAt(0)}**님의 프로필</div>
                         <NotificationSuccess message='매칭을 신청했어요' visible={alertVisible} setVisible={setAlertVisible} />
 
 
 
                         {/* carousel 부분 */}
-                        <div class="slider-wrapper padding">
+                        <div className="slider-wrapper padding">
                             <div className='slider halign gap20'>
                                 <img src={counterUser.faceImageUrl} onContextMenu={(e) => e.preventDefault()}  />
                                 <img src={counterUser.bodyImageUrl} onContextMenu={(e) => e.preventDefault()} />

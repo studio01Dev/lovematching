@@ -1,8 +1,12 @@
 export function isSajuCustomer({ birthCalendarType, birthHour, birthMinute }) {
   const hasCalendarType = birthCalendarType === '양력' || birthCalendarType === '음력';
-  const hasHour = birthHour !== undefined && birthHour !== null && birthHour !== '';
-  const hasMinute = birthMinute !== undefined && birthMinute !== null && birthMinute !== '';
+  const hasHour = isPresentBirthTimeValue(birthHour);
+  const hasMinute = isPresentBirthTimeValue(birthMinute);
   return hasCalendarType || hasHour || hasMinute;
+}
+
+function isPresentBirthTimeValue(value) {
+  return value !== undefined && value !== null && value !== '' && value !== 'null';
 }
 
 export function formatBirthDate({ yearOfBirth, birthMonth, birthDay, birthHour, birthMinute, birthCalendarType }) {
@@ -19,7 +23,7 @@ export function formatBirthDate({ yearOfBirth, birthMonth, birthDay, birthHour, 
     }
   }
 
-  if (birthHour !== undefined && birthHour !== '' && birthMinute !== undefined && birthMinute !== '') {
+  if (isPresentBirthTimeValue(birthHour) && isPresentBirthTimeValue(birthMinute)) {
     formatted += ` ${birthHour}시 ${birthMinute}분`;
   }
 

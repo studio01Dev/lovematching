@@ -1,12 +1,14 @@
 import people from '../../asset/images/people.svg';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import ListItem from '../../component/listItem/list-item';
 import { useEffect, useState } from 'react';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
+import { MainButton } from '../../component/button/button';
 
 export default function SentRequest() {
     const { uid } = useParams();
+    const router = useRouter();
     const [chosenList, setChosenList] = useState([]);
 
     useEffect(() => {
@@ -28,6 +30,10 @@ export default function SentRequest() {
 
     const date = new Date();
     const year = date.getFullYear();
+
+    const goToQueue = () => {
+        router.push(`/queue/${uid}`);
+    };
 
     return (
         <div>
@@ -73,6 +79,9 @@ export default function SentRequest() {
                     ))}
                 </div>
             )}
+
+            <div style={{ height: '80px' }} />
+            <MainButton buttonText="뒤로가기" onClick={goToQueue} />
         </div>
     );
 }

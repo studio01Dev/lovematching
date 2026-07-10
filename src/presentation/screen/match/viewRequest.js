@@ -1,15 +1,17 @@
 import people from '../../asset/images/people.svg'
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import ListItem from '../../component/listItem/list-item';
 import { useEffect, useState } from 'react';
 // import ReadUserUseCase from '../../../domain/use_cases/readUser_useCase';
 import AdminSuggestListUseCase from '../../../domain/use_cases/adminSuggestList_usecase';
+import { MainButton } from '../../component/button/button';
 import { doc, getDoc } from 'firebase/firestore';
 import db from '../../../firebase/index'
 
 export default function ViewRequest({ suggestList }) {
     const { uid } = useParams();
+    const router = useRouter();
     const [adminSuggestList, setAdminSuggestList] = useState(Array);
     const [thisUser, setThisUser] = useState(Object);
 
@@ -62,21 +64,19 @@ export default function ViewRequest({ suggestList }) {
     const date = new Date()
     const year = date.getFullYear()
 
+    const goToQueue = () => {
+        router.push(`/queue/${uid}`);
+    };
+
     return (
         <div>
-
-            {/* <div className="arrow-back">
-                <Link style={{ textDecoration: 'none' }} to='../queue'><img src={arrow} style={{ width: '8px', height: '16px' }} /></Link>
-            </div> */}
-
-
             {/* 내가 매칭 신청하기 부분 */}
-            <div class="valign padding gap8">
+            <div className="valign padding gap8">
 
                 <div className='halign sbalign'>
                     <div className='h3 b grey900'>내가 매칭 신청하기</div>
-                    <div class="halign calign gap2">
-                        <img src={people} style={{ width: '20px' }} />
+                    <div className="halign calign gap2">
+                        <img src={people} style={{ width: '20px' }} alt="" />
                         <div className='h6 sb brand500'>{adminSuggestList.length}</div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@ export default function ViewRequest({ suggestList }) {
             </div>
 
 
-            <div class="valign gap20 padding">
+            <div className="valign gap20 padding">
                 {/* index:  int 0~ */}
                 {adminSuggestList.map((item, index) => (
                     <Link style={{ textDecoration: 'none' }} href={`/make-request/${uid}/${item.id}`} key={item.id}>
@@ -104,6 +104,8 @@ export default function ViewRequest({ suggestList }) {
                 ))}
             </div>
 
+            <div style={{ height: '80px' }} />
+            <MainButton buttonText="뒤로가기" onClick={goToQueue} />
         </div>
     );
 }

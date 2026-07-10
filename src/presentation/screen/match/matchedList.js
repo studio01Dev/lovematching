@@ -1,14 +1,16 @@
 import people from '../../asset/images/people.svg';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import ListItem from '../../component/listItem/list-item';
 import { useEffect, useState } from 'react';
 import FirstMatchingUseCase from '../../../domain/use_cases/firstMatching_usecase';
+import { MainButton } from '../../component/button/button';
 import { QueueCountBadge } from './queueCount';
 import './queue.css';
 
 export default function MatchedList() {
     const { uid } = useParams();
+    const router = useRouter();
     const [matchedList, setMatchedList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -34,6 +36,10 @@ export default function MatchedList() {
 
     const date = new Date();
     const year = date.getFullYear();
+
+    const goToQueue = () => {
+        router.push(`/queue/${uid}`);
+    };
 
     return (
         <div>
@@ -92,6 +98,9 @@ export default function MatchedList() {
                     ))}
                 </div>
             )}
+
+            <div style={{ height: '80px' }} />
+            <MainButton buttonText="뒤로가기" onClick={goToQueue} />
         </div>
     );
 }

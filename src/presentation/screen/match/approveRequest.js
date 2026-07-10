@@ -1,5 +1,3 @@
-import people from '../../asset/images/people.svg'
-import arrow from '../../asset/images/back.png'
 import { useParams, useRouter } from 'next/navigation';
 import InfoCard from '../../component/infoCard/info-card';
 import Button from '../../component/button/button';
@@ -42,6 +40,10 @@ export default function ApproveRequest({ name }) {
         await acceptMatchUseCase.declineIncomingMatch(uid, counterId);
     }
 
+    const goToList = () => {
+        router.push(`/review-request/${uid}`);
+    };
+
     // Notification을 위한 hook
     const [alertVisible, setAlertVisible] = useState(false); // alertVisible === true일 때, notification이 생성됩니다.
     const showNotification = () => {
@@ -77,11 +79,18 @@ export default function ApproveRequest({ name }) {
 
             {!isLoading && (
                 <div>
-                    {/* <div className="arrow-back">
-                        <Link style={{ textDecoration: 'none' }} to='../review-request'><img src={arrow} style={{ width: '8px', height: '16px' }} /></Link>
-                    </div> */}
+                    <div className="side-padding" style={{ paddingTop: 8, paddingBottom: 8 }}>
+                        <button
+                            type="button"
+                            className="h6 sb grey700"
+                            onClick={goToList}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                        >
+                            ← 뒤로가기
+                        </button>
+                    </div>
                     {/* 님의 프로필 부분 */}
-                    <div class="valign gap8">
+                    <div className="valign gap8">
                         <div className='padding h3 b grey900'>{counterUser.name.charAt(0)+'**'}님의 프로필</div>
 
 
