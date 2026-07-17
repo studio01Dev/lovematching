@@ -12,7 +12,7 @@ export const emptyInquiry = {
         birthHour: null,
         birthMinute: null,
         birthCalendarType: null,
-        saju: false,
+        saju: 'normal',
         income: null,
         academicCareer: null,
         company: null,

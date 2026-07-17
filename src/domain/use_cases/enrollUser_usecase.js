@@ -5,6 +5,7 @@ import storage from '../../firebase/index';
 import db from '../../firebase/index';
 import MyResponse from '../models/MyResponse';
 import { isSajuCustomer } from '../models/birthDate';
+import { SAJU_CUSTOMER_TYPE } from '../models/sajuCustomerType';
 
 function normalizeUserInput(user) {
   const normalized = {
@@ -12,12 +13,13 @@ function normalizeUserInput(user) {
     name: user.name.trim(),
     phoneNum: String(user.phoneNum).replace(/[^0-9]/g, ''),
   };
-  const saju = isSajuCustomer(normalized);
+  const hasSajuInput = isSajuCustomer(normalized);
+  const saju = hasSajuInput ? SAJU_CUSTOMER_TYPE.SAJU : SAJU_CUSTOMER_TYPE.NORMAL;
 
   return {
     ...normalized,
     saju,
-    ...(saju
+    ...(hasSajuInput
       ? {}
       : {
           birthHour: null,
