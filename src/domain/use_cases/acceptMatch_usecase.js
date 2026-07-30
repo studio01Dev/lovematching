@@ -54,9 +54,11 @@ export default class AcceptMatchUseCase {
             const querySnapshot = await getDocs(collection(db.db, "users", uid, "InCounterChosenFromAdminSuggestList"))
             querySnapshot.forEach(
                 (doc) => {
+                    const data = doc.data();
+                    if (data && data.isHidden === true) return;
                     userList.push(
                         {
-                            ...doc.data(),
+                            ...data,
                             id: doc.id
                         }
                     )
